@@ -10,8 +10,8 @@ A smart composting system that monitors and manages compost.
 3. E/18/227 Mudalige D.H. [e18227@eng.pdn.ac.lk]
 
 ### Project supervisors: 
-Dr. Isuru Nawinna [isurunawinne@eng.pdn.ac.lk]
-Dr. Mahanama Wickramasighe [mahanamaw@eng.pdn.ac.lk]
+1. Dr. Isuru Nawinna [isurunawinne@eng.pdn.ac.lk]
+2. Dr. Mahanama Wickramasighe [mahanamaw@eng.pdn.ac.lk]
 
 ### Links:
 1. [Github Repository](https://github.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System)
