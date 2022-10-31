@@ -1,57 +1,21 @@
-___
-# DELETE THIS INSTRUCTIONS AND ADD AN INTRODUCTION ABOUT YOUR PROJECT
-___
+## Smart Compost Management System
+This repository is used for the implementation of our project.
 
-# eYY-3yp-project-template
+### Introduction:
+A smart composting system that monitors and manages compost.
 
-This is a sample repository you can use for your Embedded Systems project. Once you followed these instructions, remove the text and add a brief introduction to here.
+### Team members:
+1. E/18/077 Dharmarathna N.S. [e18077@eng.pdn.ac.lk]
+2. E/18/224 Mihiranga G.D.R. [e18224@eng.pdn.ac.lk]
+3. E/18/227 Mudalige D.H. [e18227@eng.pdn.ac.lk]
 
-### Enable GitHub Pages
+### Project supervisors: 
+Dr. Isuru Nawinna [isurunawinne@eng.pdn.ac.lk]
+Dr. Mahanama Wickramasighe [mahanamaw@eng.pdn.ac.lk]
 
-You can put the things to be shown in GitHub pages into the _docs/_ folder. Both html and md file formats are supported. You need to go to settings and enable GitHub pages and select _main_ branch and _docs_ folder from the dropdowns, as shown in the below image.
-
-![image](https://user-images.githubusercontent.com/11540782/98789936-028d3600-2429-11eb-84be-aaba665fdc75.png)
-
-### Special Configurations
-
-These projects will be automatically added into [https://projects.ce.pdn.ac.lk](). If you like to show more details about your project on this site, you can fill the parameters in the file, _/docs/index.json_
-
-```
-{
-  "title": "This is the title of the project",
-  "team": [
-    {
-      "name": "Team Member Name 1",
-      "email": "email@eng.pdn.ac.lk",
-      "eNumber": "E/yy/xxx"
-    },
-    {
-      "name": "Team Member Name 2",
-      "email": "email@eng.pdn.ac.lk",
-      "eNumber": "E/yy/xxx"
-    },
-    {
-      "name": "Team Member Name 3",
-      "email": "email@eng.pdn.ac.lk",
-      "eNumber": "E/yy/xxx"
-    }
-  ],
-  "supervisors": [
-    {
-      "name": "Dr. Supervisor 1",
-      "email": "email@eng.pdn.ac.lk"
-    },
-    {
-      "name": "Supervisor 2",
-      "email": "email@eng.pdn.ac.lk"
-    }
-  ],
-  "tags": ["Web", "Embedded Systems"]
-}
-```
-
-Once you filled this _index.json_ file, please verify the syntax is correct. (You can use [this](https://jsonlint.com/) tool).
-
-### Page Theme
-
-A custom theme integrated with this GitHub Page, which is based on [github.com/cepdnaclk/eYY-project-theme](https://github.com/cepdnaclk/eYY-project-theme). If you like to remove this default theme, you can remove the file, _docs/\_config.yml_ and use HTML based website.
+### Links:
+1. [Github Repository](https://github.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System)
+2. [Github Pages](https://cepdnaclk.github.io/e18-3yp-Smart-Compost-Management-System/)
+3. [Github Wiki](https://github.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/wiki)
+4. [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
+5. [Department of Computer Engineering Github Pages](https://github.com/cepdnaclk)
