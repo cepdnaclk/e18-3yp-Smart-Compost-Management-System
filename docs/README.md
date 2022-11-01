@@ -26,12 +26,13 @@ title: Smart Compost Management System
 
 #### Table of Contents
 1. [Introduction](#introduction)
-2. [Solution Architecture](#solution-architecture )
-3. [Hardware & Software Designs](#hardware-and-software-designs)
-4. [Testing](#testing)
-5. [Detailed budget](#detailed-budget)
-6. [Conclusion](#conclusion)
-7. [Links](#links)
+2. [Problem Definition](#problem-definition)
+3. [Solution Architecture](#solution-architecture )
+4. [Hardware & Software Designs](#hardware-and-software-designs)
+5. [Testing](#testing)
+6. [Detailed budget](#detailed-budget)
+7. [Conclusion](#conclusion)
+8. [Links](#links)
 
 ## Introduction
 
@@ -41,8 +42,60 @@ Usually when making compost in household we dump kitchen scraps & leaves into a 
 
 Currently it’s hard to find a proper solution for this problem in the local market. Our solution for this matter is aerobic composting. This method uses oxygen to feed the microorganisms that break down the compost. From this method usable compost can be created within a month if the essential requirements were given. And this method won’t create methane. We can measure the temperature, moisture, methane gas output of the compost mixture and these readings can be displayed through a web and mobile interface. Our system will recognize whether the compost mixture has been made or not by using the sensors and it will let us know when the compost is ready. According to the measured readings we can add water and control the air vents of our compost bin automatically.
 
+## Problem Definition
+
+Landfills are a huge problem in the modern world<br>
+Release of methane gas which cause for global warming and spread of diseases are few main problems of landfills<br>
+There is a huge percentage of food scraps and yard waste in landfills<br>
+What if we make compost out of these materials?<br>
+Unfortunately, most do not compost in the household. Why?<br>
+General process, which is called anaerobic composting, can take years<br>
+Anaerobic composting causes a higher output of methane gas, attracts rodents, and emits hydrogen sulfide and cadaverine<br>
+
+## Introduction to Solution
+Aerobic composting: A Better Way to Compost(Involves aerating the compost, Adding materials to maintain heat/pH, Watering the compost as needed)<br>
+Methane gas is not created<br>
+Usable compost can be created in as little as four weeks<br>
+Can be implemented in small space(Household level solution)<br>
 
 ## Solution Architecture
+
+### Generation of Data
+Compost temperature --> Methane gas output<br>
+Temperature sensor  --> Methane gas sensor<br>
+Compost moisture    --> Water level<br>
+Moisture sensor     --> Water level float sensor<br>
+
+
+  
+ 
+ 
+  
+  
+
+
+  
+  
+ 
+
+
+  
+ 
+ 
+  
+ 
+
+
+  
+  
+  
+
+
+  
+ 
+
+
+
 
 High level diagram + description
 
