@@ -10,7 +10,7 @@ title: Smart Compost Management System
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
 # Smart Compost Management System
-![interface](./images/interface.png)
+![interface](./images/interface.jpg)
 ---
 
 ## Team
