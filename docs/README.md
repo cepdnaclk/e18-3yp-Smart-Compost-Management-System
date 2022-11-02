@@ -30,7 +30,7 @@ title: Smart Compost Management System
 3. [Solution Architecture](#solution-architecture )
 4. [Hardware & Software Designs](#hardware-and-software-designs)
 5. [Testing](#testing)
-6. [Detailed budget](#detailed-budget)
+6. [Estimated budget](#estimated-budget)
 7. [Conclusion](#conclusion)
 8. [Links](#links)
 
@@ -107,13 +107,15 @@ Detailed designs with many sub-sections
 
 Testing done on hardware and software, detailed + summarized results
 
-## Detailed budget
+## Estimated budget
 
-All items and costs
+<!-- All items and costs
 
 | Item          | Quantity  | Unit Cost  | Total  |
 | ------------- |:---------:|:----------:|-------:|
-| Sample item   | 5         | 10 LKR     | 50 LKR |
+| Sample item   | 5         | 10 LKR     | 50 LKR | -->
+
+![Estimated budget](./images/estimated_budget.png)
 
 ## Conclusion
 
