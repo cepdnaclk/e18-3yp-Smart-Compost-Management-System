@@ -34,6 +34,7 @@ title: Smart Compost Management System
 7. [Conclusion](#conclusion)
 8. [Links](#links)
 
+---
 ## Introduction
 
 The smart compost management system is capable of monitoring and managing compost mixtures by adding air and water and other essentials when needed. 
@@ -42,6 +43,7 @@ Usually when making compost in household we dump kitchen scraps & leaves into a 
 
 Currently it’s hard to find a proper solution for this problem in the local market. Our solution for this matter is aerobic composting. This method uses oxygen to feed the microorganisms that break down the compost. From this method usable compost can be created within a month if the essential requirements were given. And this method won’t create methane. We can measure the temperature, moisture, methane gas output of the compost mixture and these readings can be displayed through a web and mobile interface. Our system will recognize whether the compost mixture has been made or not by using the sensors and it will let us know when the compost is ready. According to the measured readings we can add water and control the air vents of our compost bin automatically.
 
+---
 ## Problem Definition
 
 Landfills are a huge problem in the modern world<br>
@@ -52,14 +54,26 @@ Unfortunately, most do not compost in the household. Why?<br>
 General process, which is called anaerobic composting, can take years<br>
 Anaerobic composting causes a higher output of methane gas, attracts rodents, and emits hydrogen sulfide and cadaverine<br>
 
+---
 ## Introduction to Solution
 Aerobic composting: A Better Way to Compost(Involves aerating the compost, Adding materials to maintain heat/pH, Watering the compost as needed)<br>
 Methane gas is not created<br>
 Usable compost can be created in as little as four weeks<br>
 Can be implemented in small space(Household level solution)<br>
 
+---
 ## Solution Architecture
+---
 
+### Technology Stack
+- Web application: Jekyll (HTML, CSS, JavaScript and Bootstrap)
+- Data structure: JSON
+- Data processing: Python Scripts
+- Databases: Firebase, SQLite
+- Web and Mobile interface designing: Figma
+- Version control and documentation: GitHub
+
+---
 ### Generation of Data
 Compost temperature --> Methane gas output<br>
 Temperature sensor  --> Methane gas sensor<br>
@@ -99,14 +113,17 @@ Moisture sensor     --> Water level float sensor<br>
 
 High level diagram + description
 
+---
 ## Hardware and Software Designs
 
 Detailed designs with many sub-sections
 
+---
 ## Testing
 
 Testing done on hardware and software, detailed + summarized results
 
+---
 ## Estimated budget
 
 <!-- All items and costs
@@ -117,10 +134,12 @@ Testing done on hardware and software, detailed + summarized results
 
 ![Estimated budget](./images/estimated_budget.png)
 
+---
 ## Conclusion
 
 What was achieved, future developments, commercialization plans
 
+---
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System)
