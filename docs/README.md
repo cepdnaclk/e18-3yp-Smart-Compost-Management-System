@@ -88,9 +88,9 @@ Moisture sensor     --> Water level float sensor<br>
 ![hs](./images/hs.png)
 
 ---
-## Testing
+## Demonstration Plan
 
-Testing done on hardware and software, detailed + summarized results
+![prototype](./images/prototype.png)
 
 ---
 ## Estimated budget
@@ -102,11 +102,6 @@ Testing done on hardware and software, detailed + summarized results
 | Sample item   | 5         | 10 LKR     | 50 LKR | -->
 
 ![Estimated budget](./images/estimated_budget.png)
-
----
-## Conclusion
-
-What was achieved, future developments, commercialization plans
 
 ---
 ## Links
