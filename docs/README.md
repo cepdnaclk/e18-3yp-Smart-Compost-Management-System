@@ -64,6 +64,8 @@ Can be implemented in small space(Household level solution)<br>
 ---
 ## Solution Architecture
 ---
+![interface](./images/solution.png)
+
 
 ### Technology Stack
 - Web application: Jekyll (HTML, CSS, JavaScript and Bootstrap)
