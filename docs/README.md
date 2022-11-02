@@ -82,43 +82,10 @@ Temperature sensor  --> Methane gas sensor<br>
 Compost moisture    --> Water level<br>
 Moisture sensor     --> Water level float sensor<br>
 
-
-  
- 
- 
-  
-  
-
-
-  
-  
- 
-
-
-  
- 
- 
-  
- 
-
-
-  
-  
-  
-
-
-  
- 
-
-
-
-
-High level diagram + description
-
 ---
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+![hs](./images/hs.png)
 
 ---
 ## Testing
