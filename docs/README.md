@@ -45,7 +45,7 @@ Currently it’s hard to find a proper solution for this problem in the local ma
 
 ---
 ## Problem Definition
-
+![dump](./images/dump.jpg)
 Landfills are a huge problem in the modern world<br>
 Release of methane gas which cause for global warming and spread of diseases are few main problems of landfills<br>
 There is a huge percentage of food scraps and yard waste in landfills<br>
