@@ -1,4 +1,4 @@
-const express = require("express"); // helps to manage servers and routes
+const express = require("express"); //  to manage servers and routes
 require("./db/mongoose.js");
 const Bin_Data = require("./models/binData.js");
 const Bin = require("./models/bins.js");
@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Enpoint for adding data for a bin
+// End point for adding data for a bin
 app.post("/api/bindata", function(req, res){
     const binData = new Bin_Data(req.body);
 
@@ -19,7 +19,7 @@ app.post("/api/bindata", function(req, res){
     });
 });
 
-// Enpoint for reading all the bins data
+// End point for reading all the bins data
 app.get("/api/bindata", function(req,res){
     Bin_Data.find({}).then(function(binsData){
         res.send(binsData);
@@ -28,7 +28,7 @@ app.get("/api/bindata", function(req,res){
     })
 })
 
-// Enpoint for reading a data of a specific bin
+// End point for reading a data of a specific bin
 app.get("/api/bindata/:id", function(req,res){
     Bin_Data.findById(req.params.id).then(function(binsData){
         if(!binsData){
@@ -41,7 +41,7 @@ app.get("/api/bindata/:id", function(req,res){
     });
 });
 
-// Enpoint for updating a data of a bin
+// End point for updating a data of a bin
 app.patch("/api/bindata/:id", function(req,res){
     const id = req.params.id;
     const allowedFields = ["binNumber", "day", "quarter", "temperature", "humidity", "compostStatus"];
@@ -65,7 +65,7 @@ app.patch("/api/bindata/:id", function(req,res){
     });
 })
 
-// Enpoint for creating a bin in the system
+// End point for creating a bin in the system
 app.post("/api/bins", function(req, res){
     const bin = new Bin(req.body);
 
@@ -77,7 +77,7 @@ app.post("/api/bins", function(req, res){
 
 });
 
-// Enpoint for reading all the bins
+// End point for reading all the bins
 app.get("/api/bins", function(req,res){
     Bin.find({}).then(function(bins){
         res.send(bins);
@@ -86,7 +86,7 @@ app.get("/api/bins", function(req,res){
     })
 })
 
-// Enpoint for reading a specific bin
+// End point for reading a specific bin
 app.get("/api/bins/:id", function(req,res){
     Bin.findById(req.params.id).then(function(bin){
         if(!bin){
