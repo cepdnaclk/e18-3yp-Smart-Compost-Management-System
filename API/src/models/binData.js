@@ -12,7 +12,7 @@ const Bin_Data = mongoose.model("Bin_Data", {
         required: true,
         trim: true
     },
-    Quarter: {
+    quarter: {
         type: Number,
         required: true,
         min: 1,

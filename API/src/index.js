@@ -1,6 +1,6 @@
 const express = require("express");
 require("./db/mongoose.js");
-const Bin_Data = require("./models/bindata.js");
+const Bin_Data = require("./models/binData.js");
 const Bin = require("./models/bins.js");
 
 
@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Enpoint for adding data of a bin
+// Enpoint for adding data for a bin
 app.post("/api/bindata", function(req, res){
     const binData = new Bin_Data(req.body);
 
@@ -43,7 +43,7 @@ app.get("/api/bindata/:id", function(req,res){
 });
 
 // Enpoint for updating a data of a bin
-app.patch("/api/binsdata/:id", function(req,res){
+app.patch("/api/bindata/:id", function(req,res){
     const id = req.params.id;
     const allowedFields = ["bin id", "day", "quarter", "temperature", "humidity", "compost status"];
     const updateFields = Object.keys(req.body);
