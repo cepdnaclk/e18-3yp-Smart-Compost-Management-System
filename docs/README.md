@@ -46,11 +46,6 @@ Currently it’s hard to find a proper solution for this problem in the local ma
 
 ---
 ## Problem Definition
-Landfills are a huge problem in the modern world<br>
-Release of methane gas which cause for global warming and spread of diseases are few main problems of landfills<br>
-There is a huge percentage of food scraps and yard waste in landfills<br>
-What if we make compost out of these materials?<br>
-Unfortunately, most do not compost in the household. Why?<br>
 General process, which is called anaerobic composting, can take years<br>
 Anaerobic composting causes a higher output of methane gas, attracts rodents, and emits hydrogen sulfide and cadaverine<br>
 
