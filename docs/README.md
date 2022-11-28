@@ -64,7 +64,17 @@ Can be implemented in small space(Household level solution)<br>
 ---
 ## Our Product
 ---
-![interface](./images/solution.png)
+![interface](./images/simple_design.png)
+
+---
+## Big Picture
+---
+![interface](./images/big_picture.jpg)
+
+## Embedded Circuit
+---
+![interface](./images/embedded_circuit.png)
+
 
 
 ---
@@ -72,6 +82,9 @@ Can be implemented in small space(Household level solution)<br>
 ---
 ![interface](./images/solution.png)
 
+## Control Flow
+---
+![interface](./images/control_flow.png)
 
 ### Technology Stack
 - Web application: Jekyll (HTML, CSS, JavaScript and Bootstrap)
