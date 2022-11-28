@@ -1,8 +1,7 @@
-const express = require("express");
+const express = require("express"); // helps to manage servers and routes
 require("./db/mongoose.js");
 const Bin_Data = require("./models/binData.js");
 const Bin = require("./models/bins.js");
-
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -29,7 +28,7 @@ app.get("/api/bindata", function(req,res){
     })
 })
 
-// Enpoint for reading a data of a bin
+// Enpoint for reading a data of a specific bin
 app.get("/api/bindata/:id", function(req,res){
     Bin_Data.findById(req.params.id).then(function(binsData){
         if(!binsData){
@@ -66,7 +65,7 @@ app.patch("/api/bindata/:id", function(req,res){
     });
 })
 
-// Enpoint for creating a bin
+// Enpoint for creating a bin in the system
 app.post("/api/bins", function(req, res){
     const bin = new Bin(req.body);
 
