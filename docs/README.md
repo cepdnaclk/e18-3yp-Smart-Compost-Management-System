@@ -10,7 +10,8 @@ title: Smart Compost Management System
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
 # Smart Compost Management System
-![interface](./images/interface.jpg)
+![interface](./images/interface1.jpg)
+![interface](./images/interface2.jpg)
 ---
 
 ## Team
@@ -59,6 +60,12 @@ Aerobic composting: A Better Way to Compost(Involves aerating the compost, Addin
 Methane gas is not created<br>
 Usable compost can be created in as little as four weeks<br>
 Can be implemented in small space(Household level solution)<br>
+
+---
+## Our Product
+---
+![interface](./images/solution.png)
+
 
 ---
 ## Solution Architecture
