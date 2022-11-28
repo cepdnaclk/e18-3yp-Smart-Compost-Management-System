@@ -7,7 +7,7 @@ const Bin = mongoose.model("Bin", {
         type: Number,
         required: true
     },
-    BinLocation: {
+    binLocation: {
         type: String,
         required: true,
         trim: true,

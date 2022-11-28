@@ -45,7 +45,7 @@ app.get("/api/bindata/:id", function(req,res){
 // Enpoint for updating a data of a bin
 app.patch("/api/bindata/:id", function(req,res){
     const id = req.params.id;
-    const allowedFields = ["bin id", "day", "quarter", "temperature", "humidity", "compost status"];
+    const allowedFields = ["binNumber", "day", "quarter", "temperature", "humidity", "compostStatus"];
     const updateFields = Object.keys(req.body);
 
     const isValid = updateFields.every(function(field){
