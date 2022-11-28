@@ -109,7 +109,7 @@ Moisture sensor     --> Water level float sensor<br>
 ---
 ## Demonstration Plan
 
-![prototype](./images/prototype.png)
+![prototype](./images/prototype_design.png)
 
 ---
 ## Estimated budget
