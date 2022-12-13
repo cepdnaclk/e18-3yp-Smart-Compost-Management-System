@@ -15,7 +15,7 @@ app.post("/api/bindata", async function(req, res){
     try{
         await binData.save();
         res.send(binData);
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
 
@@ -26,7 +26,7 @@ app.get("/api/bindata", async function(req,res){
     try{
         const data = await Bin_Data.find({});
         res.send(data);
-    }catch(e){
+    }catch(error){
         res.send(error);
     }
 })
@@ -40,7 +40,7 @@ app.get("/api/bindata/:id", async function(req,res){
             return res.status(404).send({error: "Bin not found"});
         } 
         res.send(bin);
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
     
@@ -68,10 +68,25 @@ app.patch("/api/bindata/:id", async function(req,res){
         } 
         res.send(bin);
 
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
 })
+
+// Endpoint for deleting a data of a bin
+app.delete("/api/bindata/:id", async function(req,res){
+    try{
+        const data = await Bin_Data.findByIdAndDelete(req.params.id);
+
+        if(!data){
+            return res.status(404).send({error: "Data not found"});
+        } 
+        res.send(data);
+    } catch(error){
+        res.send(error);
+    }
+
+});
 
 // End point for creating a bin in the system
 app.post("/api/bins", async function(req, res){
@@ -80,7 +95,7 @@ app.post("/api/bins", async function(req, res){
     try{
         await bin.save();
         res.send(bin);
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
 
@@ -92,7 +107,7 @@ app.get("/api/bins", async function(req,res){
     try{
         const bins = await Bin.find({});
         res.send(bins);
-    }catch(e){
+    }catch(error){
         res.send(error);
     }
 })
@@ -107,12 +122,12 @@ app.get("/api/bins/:id", async function(req,res){
             return res.status(404).send({error: "Bin not found"});
         } 
         res.send(bin);
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
 });
 
-// End point for updating a data of a bin
+// End point for updating a bin
 app.patch("/api/bins/:id", async function(req,res){
     const id = req.params.id;
     const allowedFields = ["binNumber", "compostStatus"];
@@ -134,10 +149,27 @@ app.patch("/api/bins/:id", async function(req,res){
         } 
         res.send(bin);
 
-    } catch(e){
+    } catch(error){
         res.send(error);
     }
 })
+
+// Endpoint for deleting a  bin
+app.delete("/api/bins/:id", async function(req,res){
+    try{
+
+        const bin = await Bin.findByIdAndDelete(req.params.id);
+
+        if(!bin){
+            return res.status(404).send({error: "Bin not found"});
+        } 
+        res.send(bin);
+
+    } catch(error){
+        res.send(error);
+    }
+
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
