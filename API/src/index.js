@@ -112,6 +112,33 @@ app.get("/api/bins/:id", async function(req,res){
     }
 });
 
+// End point for updating a data of a bin
+app.patch("/api/bins/:id", async function(req,res){
+    const id = req.params.id;
+    const allowedFields = ["binNumber", "compostStatus"];
+    const updateFields = Object.keys(req.body);
+
+    const isValid = updateFields.every(function(field){
+        return allowedFields.includes(field); // no matter how many trues you have if you have one false then it will return false
+    });
+
+    if(!isValid){
+        return res.status(400).send({error: "Invalid Update"});
+    }
+
+    try{
+        const bin = await Bin.findByIdAndUpdate(id, req.body, {new: true});
+
+        if(!bin){
+            return res.status(404).send({error: "Bin not found"});
+        } 
+        res.send(bin);
+
+    } catch(e){
+        res.send(error);
+    }
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
