@@ -10,7 +10,8 @@ title: Smart Compost Management System
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
 # Smart Compost Management System
-![interface](./images/interface.jpg)
+![interface](./images/interface1.jpg)
+![interface](./images/interface2.jpg)
 ---
 
 ## Team
@@ -45,11 +46,6 @@ Currently it’s hard to find a proper solution for this problem in the local ma
 
 ---
 ## Problem Definition
-Landfills are a huge problem in the modern world<br>
-Release of methane gas which cause for global warming and spread of diseases are few main problems of landfills<br>
-There is a huge percentage of food scraps and yard waste in landfills<br>
-What if we make compost out of these materials?<br>
-Unfortunately, most do not compost in the household. Why?<br>
 General process, which is called anaerobic composting, can take years<br>
 Anaerobic composting causes a higher output of methane gas, attracts rodents, and emits hydrogen sulfide and cadaverine<br>
 
@@ -61,10 +57,29 @@ Usable compost can be created in as little as four weeks<br>
 Can be implemented in small space(Household level solution)<br>
 
 ---
+## Our Product
+---
+![interface](./images/simple_design.png)
+
+---
+## Big Picture
+---
+![interface](./images/big_picture.jpg)
+
+## Embedded Circuit
+---
+![interface](./images/embedded_circuit.png)
+
+
+
+---
 ## Solution Architecture
 ---
 ![interface](./images/solution.png)
 
+## Control Flow
+---
+![interface](./images/control_flow.png)
 
 ### Technology Stack
 - Web application: Jekyll (HTML, CSS, JavaScript and Bootstrap)
@@ -89,7 +104,7 @@ Moisture sensor     --> Water level float sensor<br>
 ---
 ## Demonstration Plan
 
-![prototype](./images/prototype.png)
+![prototype](./images/prototype_design.png)
 
 ---
 ## Estimated budget
