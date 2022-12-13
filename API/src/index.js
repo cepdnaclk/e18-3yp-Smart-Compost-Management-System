@@ -9,14 +9,16 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // End point for adding data for a bin
-app.post("/api/bindata", function(req, res){
+app.post("/api/bindata", async function(req, res){
     const binData = new Bin_Data(req.body);
 
-    binData.save().then(function(){
-        res.status(201).send(binData);
-    }).catch(function(error){
-        res.status(400).send(error);
-    });
+    try{
+        await binData.save();
+        res.send(binData);
+    } catch(e){
+        res.send(error);
+    }
+    
 });
 
 // End point for reading all the bins data
