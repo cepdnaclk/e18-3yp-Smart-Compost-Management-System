@@ -1,5 +1,5 @@
 const express = require("express");
-const Bin_Data = require("../models/bins.js");
+const Bin = require("../models/bins.js");
 
 const router = express.Router();
 

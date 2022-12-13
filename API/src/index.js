@@ -1,9 +1,6 @@
 const express = require("express"); //  to manage servers and routes
 require("./db/mongoose.js");
 
-const Bin_Data = require("./models/binData.js");
-const Bin = require("./models/bins.js");
-
 const BinDataRouter = require("./routers/BinData-router.js");
 const BinRouter = require("./routers/Bin-router.js");
 
