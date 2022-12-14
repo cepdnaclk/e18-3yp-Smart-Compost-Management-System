@@ -109,12 +109,6 @@ Moisture sensor     --> Water level float sensor<br>
 ---
 ## Estimated budget
 
-<!-- All items and costs
-
-| Item          | Quantity  | Unit Cost  | Total  |
-| ------------- |:---------:|:----------:|-------:|
-| Sample item   | 5         | 10 LKR     | 50 LKR | -->
-
 ![Estimated budget](./images/estimated_budget.png)
 ---
 
