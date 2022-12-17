@@ -4,6 +4,12 @@ title: Smart Compost Management System
 #   name: NuwanJ
 #   email: nuwanjaliyagoda@gmail.com
 
+university_url: "https://eng.pdn.ac.lk/"
+department_url: "http://www.ce.pdn.ac.lk/"
+other_references: "https://faq.ce.pdn.ac.lk/"
+github_organization: "cepdnaclk"
+repository: "e18-3yp-Smart-Compost-Management-System" 
+
 # description: > # this means to ignore newlines until "show_excerpts:"
 #   Write an awesome description for your new site here. You can edit this
 #   line in _config.yml. It will appear in your document head meta (for
