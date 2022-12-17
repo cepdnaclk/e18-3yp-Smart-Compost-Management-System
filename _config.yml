@@ -4,6 +4,74 @@ title: Smart Compost Management System
 #   name: NuwanJ
 #   email: nuwanjaliyagoda@gmail.com
 
+# Team names, titles and social links
+people:
+- name: N.S. Dharmarathne
+  pic: default
+  # pic: e18077
+  position: Team Member
+  social:
+    - title: github
+      url: #
+    - title: facebook
+      url: #
+    - title: linkedin
+      url: #
+
+- name: G.D.R. Mihiranga
+  pic: default
+  # pic: e18224
+  position: Team Member
+  social:
+    - title: github
+      url: #
+    - title: facebook
+      url: #
+    - title: stack-overflow
+      url: #
+
+- name: D.H. Mudalige
+  pic: default
+  # pic: e18227
+  position: Team Member
+  social:
+    - title: github
+      url: #
+    - title: linkedin
+      url: #
+    - title: stack-overflow
+      url: #
+
+# Team names, titles and social links
+supervisors:
+- name: Dr. Isuru Nawinne
+  pic: "isuru-nawinne.png"
+  position: Senior Lecturer
+  social:
+    - title: email
+      url: "isurunawinne@eng.pdn.ac.lk"
+
+- name: Dr. Mahanama Wickramasinghe
+  pic: "mahanama-wickramasinghe.jpg"
+  position: Senior Lecturer
+  social:
+    - title: email
+      url: "mahanamaw@eng.pdn.ac.lk"
+
+# # Social networks (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
+# social:
+#   - title: twitter
+#     url: http://twitter.com/jekyllrb
+#   - title: facebook
+#     url:
+#   - title: stack-overflow
+#     url: http://stackoverflow.com/questions/tagged/jekyll
+#   - title: bitbucket 
+#     url: http://bitbucket.org/jekyll
+#   - title: github
+#     url: http://github.com/jekyll
+
+
 university_url: "https://eng.pdn.ac.lk/"
 department_url: "http://www.ce.pdn.ac.lk/"
 other_references: "https://faq.ce.pdn.ac.lk/"
