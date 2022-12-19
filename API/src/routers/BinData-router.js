@@ -52,6 +52,25 @@ router.get("/api/bindata/:binNumber", async function(req,res){
     
 });
 
+// End point for reading all the data of a specific bin
+router.get("/api/bindata/all/:binNumber", async function(req,res){
+    try{
+        
+        const bin = await Bin_Data.find({
+            binNumber: req.params.binNumber
+        }); 
+        
+
+        if(!bin){
+            return res.status(404).send({error: "Bin not found"});
+        } 
+        res.send(bin);
+    } catch(error){
+        res.send(error);
+    }
+    
+});
+
 // End point for updating a data of a bin
 router.patch("/api/bindata/:id", async function(req,res){
     const id = req.params.id;
