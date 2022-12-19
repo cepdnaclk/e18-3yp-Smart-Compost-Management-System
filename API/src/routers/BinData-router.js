@@ -7,6 +7,9 @@ router.get("/bindata", function(req, res){
     res.render("bindata");
 })
 
+router.get("/bindata/bin1", function(req, res){
+    res.render("bin1");
+})
 // End point for adding data for a bin
 router.post("/api/bindata", async function(req, res){
     const binData = new Bin_Data(req.body);
