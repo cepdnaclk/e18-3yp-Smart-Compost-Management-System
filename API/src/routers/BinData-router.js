@@ -26,14 +26,21 @@ router.get("/api/bindata", async function(req,res){
         const data = await Bin_Data.find({});
         res.send(data);
     }catch(error){
-        res.send(error);
+        res.send(error); 
     }
 })
 
-// End point for reading a data of a specific bin
-router.get("/api/bindata/:id", async function(req,res){
+// End point for reading the latest data of a specific bin
+router.get("/api/bindata/:binNumber", async function(req,res){
     try{
-        const bin = await Bin_Data.findById(req.params.id);
+        
+        const bin = await Bin_Data.findOne({
+            binNumber: req.params.binNumber
+        }).sort({
+            date: -1,
+            quarter: -1
+        }); 
+        
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});
