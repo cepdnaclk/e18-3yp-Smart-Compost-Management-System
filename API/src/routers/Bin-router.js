@@ -28,10 +28,12 @@ router.get("/api/bins", async function(req,res){
 })
 
 // End point for reading a specific bin
-router.get("/api/bins/:id", async function(req,res){
+router.get("/api/bins/:binNumber", async function(req,res){
 
     try{
-        const bin = await Bin.findById(req.params.id);
+        const bin = await Bin.find({
+            binNumber: req.params.binNumber 
+        });
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});
@@ -43,9 +45,9 @@ router.get("/api/bins/:id", async function(req,res){
 });
 
 // End point for updating a bin
-router.patch("/api/bins/:id", async function(req,res){
-    const id = req.params.id;
-    const allowedFields = ["binNumber", "compostStatus"];
+router.patch("/api/bins/:binNumber", async function(req,res){
+    
+    const allowedFields = ["binLocation","compostStatus"];
     const updateFields = Object.keys(req.body);
 
     const isValid = updateFields.every(function(field){
@@ -57,7 +59,9 @@ router.patch("/api/bins/:id", async function(req,res){
     }
 
     try{
-        const bin = await Bin.findByIdAndUpdate(id, req.body, {new: true});
+        const bin = await Bin.findOneAndUpdate({
+            binNumber : req.params.binNumber},
+            req.body, {new: true});
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});
@@ -70,10 +74,12 @@ router.patch("/api/bins/:id", async function(req,res){
 })
 
 // Endpoint for deleting a  bin
-router.delete("/api/bins/:id", async function(req,res){
+router.delete("/api/bins/:binNumber", async function(req,res){
     try{
 
-        const bin = await Bin.findByIdAndDelete(req.params.id);
+        const bin = await Bin.findOneAndDelete({
+            binNumber : req.params.binNumber
+        });
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});

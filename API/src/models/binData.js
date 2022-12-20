@@ -10,33 +10,40 @@ const Bin_Data = mongoose.model("Bin_Data", {
     day: {
         type: Number,
         required: true,
-        trim: true
+        trim: true,
+        default: 0
     },
     quarter: {
         type: Number,
         required: true,
-        min: 1,
-        max: 4
+        min: 0,
+        max: 4,
+        default: 0
     },
     temperature: {
         type: Number,
         required: true,
         trim: true,
+        default: 0
     },
     humidity: {
         type: Number,
         required: true,
         trim: true,
+        default: 0
     },
     compostStatus: {
         type: String,
         required: true,
         trim: true,
+        default: "No"
     },
     methaneOutput: {
-        type: String,
+        type: Number,
         required: true,
         trim: true,
+        default: 0
+
     }
 });
 
