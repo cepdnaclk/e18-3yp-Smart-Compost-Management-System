@@ -1,47 +1,106 @@
 const getBins = async function(){
     const url = "/api/bins";
-    const response = await fetch(url);
-    const bins = await response.json();
 
-    var binsHTML = "";
-    bins.forEach((bin) => {
-        binsHTML += `<div class="col">
-            <div class="card h-100 bg-dark border-2 text-center border-success">
-                <div class="card-header border-dark text-white"><h5>BIN ${bin.binNumber} COMPOST</h5></div>
-                <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
-                <div class="card-body text-white">
-                    <table class="table table-sm table-dark">
-                    <tbody>
-                        <tr>
-                        <td colspan="2">Will be ready in 5 days</td>
-                        </tr>				  
-                        <tr>
-                        <td scope="row">Temperature</td>
-                        <td scope="row">91 °F</td>
-                        </tr>
-                        <tr>
-                        <td scope="row">Humidity</td>
-                        <td scope="row">50 %</td>
-                        </tr>
-                        <tr>
-                        <td scope="row">Methane</td>
-                        <td scope="row">18 ppm</td>
-                        </tr>
-                    </tbody>
-                    </table>			
-                </div>
-                
-                <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" href="bindata/bin1/">More Details</a></div>
-                <div class="card-footer border-dark">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-        </div>`
-    });
+    try{
+        const response = await fetch(url);
+        const bins = await response.json();
 
+        if (bins.length <1){
+            return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
+        }
+
+        var binsHTML = "";
+        bins.forEach((bin) => {
+            binsHTML += generateBinCard(bin);
+        });
+
+        document.querySelector("#card-wrapper").innerHTML = binsHTML;
+        
+
+    }  catch(error){
+        console.log(error);
+    }
     
+}
 
-    $("#card-wrapper").html(binsHTML);
+const createBin = async function(){
+    const url = "/api/bins";
+
+    const bin ={
+        binNumber : document.querySelector("#binNumber").value,
+        binLocation : document.querySelector("#binLocation").value,
+        compostStatus : document.querySelector("#compostStatus").value
+    }
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(bin)
+    })
+
+    const newBin = await response.json();
+
+    if(!newBin){
+        return console.log("Unable to add Bin.");
+    }
+
+    const binCard = generateBinCard(newBin);
+
+    const binList = document.querySelector("#card-wrapper");
+    binList.innerHTML += binCard ;
+
+    // console.log(newBin);
+
 }
 
 getBins();
+
+
+const createForm = $("#create-bin-form");
+
+createForm.on("submit", function(e){
+    e.preventDefault();
+
+    createBin();
+
+})
+
+
+const generateBinCard = function(bin){
+    return `
+    <div class="col">
+        <div class="card h-100 bg-dark border-2 text-center border-success">
+            <div class="card-header border-dark text-white"><h5>BIN ${bin.binNumber} COMPOST</h5></div>
+            <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
+            <div class="card-body text-white">
+                <table class="table table-sm table-dark">
+                <tbody>
+                    <tr>
+                    <td colspan="2">Will be ready in 5 days</td>
+                    </tr>				  
+                    <tr>
+                    <td scope="row">Temperature</td>
+                    <td scope="row">91 °F</td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Humidity</td>
+                    <td scope="row">50 %</td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Methane</td>
+                    <td scope="row">18 ppm</td>
+                    </tr>
+                </tbody>
+                </table>			
+            </div>
+            
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" href="bindata/bin1/">More Details</a></div>
+            <div class="card-footer border-dark">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+        </div>
+    </div>
+    `
+}
