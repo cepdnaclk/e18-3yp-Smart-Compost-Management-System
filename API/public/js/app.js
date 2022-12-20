@@ -32,38 +32,80 @@ const createBin = async function(){
         compostStatus : document.querySelector("#compostStatus").value
     }
 
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type" : "application/json"
-        },
-        body : JSON.stringify(bin)
-    })
+    try{
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(bin)
+        })
+    
+        const newBin = await response.json();
+    
+        if(!newBin){
+            return console.log("Unable to add Bin.");
+        }
+    
+        const binCard = generateBinCard(newBin);
+    
+        const binList = document.querySelector("#card-wrapper");
+        binList.innerHTML += binCard ;
+    
+        hideModal("BinCreateModal");
+        showSuccess("Bin successfully added!");
+        
 
-    const newBin = await response.json();
-
-    if(!newBin){
-        return console.log("Unable to add Bin.");
+    } catch(e){
+        console.log(e);
+        showError("Something went wrong");
     }
-
-    const binCard = generateBinCard(newBin);
-
-    const binList = document.querySelector("#card-wrapper");
-    binList.innerHTML += binCard ;
-
-    // console.log(newBin);
-
 }
 
 getBins();
 
+// -------------------------------- UTILITY FUNCTIONS -------------------------
+
+const showModal = (id, data) => {
+    $('#' + id).modal();
+}
+
+const hideModal = (id, data) => {
+    $('#' + id).modal("hide");
+}
+
+const showSuccess = (message, options) => {
+    toastr.success(message);
+}
+
+const showError = (message, options) => {
+    toastr.error(message);
+}
+
 
 const createForm = $("#create-bin-form");
+
+createForm.validate({
+    rules:{
+        binNumber: {
+            required: true
+        },
+        binLocation: {
+            required: true
+        },
+        compostStatus:{
+            required: true
+        }
+    }
+})
 
 createForm.on("submit", function(e){
     e.preventDefault();
 
-    createBin();
+    if(createForm.valid()){
+        createBin();
+        createForm[0].reset();
+    }
 
 })
 

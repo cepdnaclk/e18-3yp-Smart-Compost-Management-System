@@ -7,6 +7,7 @@
     <title>Smart Compost Management System | A system which is capable of monitoring and managing quality of compost mixtures.</title>
     <link rel="icon" href="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/favicon.ico" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="http://localhost:3000/css/styles.css">
 </head>
 
@@ -56,12 +57,12 @@
 
                     <div>
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BinCreateModal">
                         ADD a BIN
                       </button>
 
                       <!-- Modal -->
-                      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="BinCreateModal" tabindex="-1" role="dialog" aria-labelledby="BinCreateModallLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -75,17 +76,17 @@
                               <form id="create-bin-form">
                                 <div class="form-group">
                                   <label for="exampleFormControlInput1">Bin Number</label>
-                                  <input type="number"  class="form-control" id="binNumber">
+                                  <input type="number"  class="form-control" id="binNumber" name="binNumber">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="exampleFormControlSelect1">Bin Location</label>
-                                  <input type="text" class="form-control" id="binLocation">
+                                  <input type="text" class="form-control" id="binLocation" name="binLocation">
                                 </div>
 
                                 <div class="form-group">
                                   <label for="exampleFormControlSelect1">Compost Status</label>
-                                  <input type="text" class="form-control" id="compostStatus">
+                                  <input type="text" class="form-control" id="compostStatus" name="compostStatus">
                                 </div>
 
                                 <div class="modal-footer mt-2">
@@ -112,9 +113,11 @@
         </footer>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/js/app.js"></script>
 </body>
 </html>
