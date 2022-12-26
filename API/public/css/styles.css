@@ -22,10 +22,15 @@ footer p:last-child {
 }
 
 .crud-buttons{
-	border: 1px solid darkorchid;
+	border: 1px solid rgb(5, 94, 7);
 	display: flex;
 	justify-content: space-between;
 	padding: 10px;
 	align-items: center;
 	
+}
+
+.btn{
+	background-color: green;
+	border-color: #212121;
 }
