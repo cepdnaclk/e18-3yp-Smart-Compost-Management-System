@@ -31,7 +31,7 @@ router.get("/api/bins", async function(req,res){
 router.get("/api/bins/:binNumber", async function(req,res){
 
     try{
-        const bin = await Bin.find({
+        const bin = await Bin.findOne({
             binNumber: req.params.binNumber 
         });
 

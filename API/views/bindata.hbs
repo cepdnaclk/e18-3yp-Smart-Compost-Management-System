@@ -62,8 +62,8 @@
                         ADD a BIN
                       </button>
 
-                      <!-- Modal -->
-                      <div class="modal fade" id="BinCreateModal" tabindex="-1" role="dialog" aria-labelledby="BinCreateModallLabel" aria-hidden="true">
+                      <!-- Modal 1 -->
+                      <div class="modal fade" id="BinCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -89,6 +89,40 @@
                                   <label for="exampleFormControlSelect1">Compost Status</label>
                                   <input type="text" class="form-control" id="compostStatus" name="compostStatus">
                                 </div>
+                                <div class="modal-footer mt-2">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Modal 2 -->
+                      <div class="modal fade" id="BinUpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Update Bin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+
+                            <div class="modal-body">
+                              <form id="update-bin-form">
+                                <input type="hidden" id="Update-binNumber" value="">
+
+                                <div class="form-group">
+                                  <label for="exampleFormControlSelect1">Bin Location</label>
+                                  <input type="text" class="form-control" id="Update-binLocation" name="update_binLocation">
+                                </div>
+
+                                <div class="form-group">
+                                  <label for="exampleFormControlSelect1">Compost Status</label>
+                                  <input type="text" class="form-control" id="Update-compostStatus" name="update_compostStatus">
+                                </div>
 
                                 <div class="modal-footer mt-2">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -99,6 +133,7 @@
                           </div>
                         </div>
                       </div>
+
                     </div>
                     
                     <br>

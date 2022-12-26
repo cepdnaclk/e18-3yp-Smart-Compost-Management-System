@@ -112,6 +112,65 @@ const createBin = async function(){
     }
 }
 
+const initiateUpdate = async function(id){
+    const url = "/api/bins/" + id;
+
+    const locationInput =  document.querySelector("#Update-binLocation");
+    const compostInput =  document.querySelector("#Update-compostStatus");
+    updateValidation.resetForm();
+    locationInput.classList.remove("error");
+    compostInput.classList.remove("error");
+
+    try{
+        const response = await fetch(url);
+        const bin = await response.json();
+
+        if(!bin){
+            console.log("No bin found");
+        }
+
+        document.querySelector("#Update-binLocation").value = bin.binLocation;
+        document.querySelector("#Update-compostStatus").value = bin.compostStatus;
+        document.querySelector("#Update-binNumber").value = bin.binNumber;
+        $("#BinUpdateModal").modal();
+
+    } catch(e){
+        console.log(e);
+    }
+}
+
+const updateBin = async function (){
+    const binNum = document.querySelector("#Update-binNumber").value;
+    const url = "/api/bins/" + binNum;
+
+    const bin ={
+        binLocation : document.querySelector("#Update-binLocation").value,
+        compostStatus : document.querySelector("#Update-compostStatus").value
+    }
+
+    try{
+        const response = await fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(bin)
+        });
+
+        const uptBin = await response.json();
+
+        if(!uptBin){
+            return console.log("Bin not found")
+        }
+
+        console.log(uptBin);
+    } catch(e){
+        console.log(e);
+    }
+
+    
+}
+
 getBins();
 
 // -------------------------------- UTILITY FUNCTIONS -------------------------
@@ -134,6 +193,7 @@ const showError = (message, options) => {
 
 
 const createForm = $("#create-bin-form");
+const updateForm = $("#update-bin-form");
 
 createForm.validate({
     rules:{
@@ -149,6 +209,17 @@ createForm.validate({
     }
 })
 
+const updateValidation = updateForm.validate({
+    rules:{
+        update_binLocation: {
+            required: true
+        },
+        update_compostStatus:{
+            required: true
+        }
+    }
+})
+
 createForm.on("submit", function(e){
     e.preventDefault();
 
@@ -157,6 +228,15 @@ createForm.on("submit", function(e){
         createForm[0].reset();
     }
 
+})
+
+updateForm.on("submit", function(e){
+    e.preventDefault();
+
+    if(updateForm.valid()){
+        updateBin();
+        updateForm[0].reset();
+    }
 })
 
 
@@ -197,8 +277,8 @@ const generateBinCard = function(bin){
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
             <div class="crud-buttons">
-            <button class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></button>
-            <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-primary" onclick="initiateUpdate(${bin.binNumber})"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
         </div>
     </div>
