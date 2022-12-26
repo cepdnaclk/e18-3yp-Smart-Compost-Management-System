@@ -196,6 +196,10 @@ const generateBinCard = function(bin){
             <div class="card-footer border-dark">
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
+            <div class="crud-buttons">
+            <button class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></button>
+        </div>
         </div>
     </div>
     `

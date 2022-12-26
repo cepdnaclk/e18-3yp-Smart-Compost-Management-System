@@ -20,3 +20,12 @@ footer p:last-child {
 .error{
 	color: red;
 }
+
+.crud-buttons{
+	border: 1px solid darkorchid;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	align-items: center;
+	
+}
