@@ -90,11 +90,11 @@ const createBin = async function(){
 
     
         if(!newBin){
-            return console.log("Unable to add Bin.");
+            return showError("Unable to add Bin.");
         }
 
         if(!newData){
-            return console.log("Unable to add Data.");
+            return showError("Unable to add Data.");
         }
     
         const binCard = generateBinCard(newBin);
@@ -160,7 +160,7 @@ const updateBin = async function (){
         const uptBin = await response.json();
 
         if(!uptBin){
-            return console.log("Bin not found")
+            return showError("Bin not Found");
         }
 
         
@@ -172,7 +172,7 @@ const updateBin = async function (){
     
 
     } catch(e){
-        console.log(e);
+        showError("Unable to update the Bin!");
     }
 
     
@@ -216,13 +216,13 @@ const deleteBin = async function(id){
         const bin = await response.json();
 
         if (!bin){
-            return console.log("Bin not found")
+            return showError("Bin not Found!");
         }
 
         document.querySelector("#bin-" + id).remove();
         
     } catch(e){
-        console.log(e)
+        showError("Unable to Delete Bin!");
     }
 }
 
