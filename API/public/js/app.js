@@ -163,7 +163,14 @@ const updateBin = async function (){
             return console.log("Bin not found")
         }
 
-        console.log(uptBin);
+        
+        const x = document.querySelector("#bin-" + binNum +" table").rows[5].cells;
+        x[1].innerHTML = uptBin.binLocation;
+
+        hideModal("BinUpdateModal");
+        showSuccess("Bin successfully updated!");
+    
+
     } catch(e){
         console.log(e);
     }
@@ -242,7 +249,7 @@ updateForm.on("submit", function(e){
 
 const generateBinCard = function(bin){
     return `
-    <div class="col">
+    <div class="col" id="bin-${bin.binNumber}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
             <div class="card-header border-dark text-white"><h5>BIN ${bin.binNumber} COMPOST</h5></div>
             <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
@@ -267,6 +274,10 @@ const generateBinCard = function(bin){
                     <tr>
                     <td scope="row">Compost Status</td>
                     <td scope="row"> No </td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Bin Location</td>
+                    <td scope="row" class="binLoc"> ${bin.binLocation} </td>
                     </tr>
                 </tbody>
                 </table>			
