@@ -1,6 +1,6 @@
 const express = require("express");
 const Bin_Data = require("../models/binData.js");
-
+const mongodb = require("mongodb");
 const router = express.Router();
 
 router.get("/bindata", function(req, res){
@@ -122,5 +122,6 @@ router.delete("/api/bindata/:binNumber", async function(req,res){
     }
 
 });
+
 
 module.exports = router;

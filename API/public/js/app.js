@@ -27,8 +27,8 @@ const getBins = async function(){
     const url = "/api/bins";
 
     try{
-        const response = await fetch(url);
-        const bins = await response.json();
+        const response1 = await fetch(url);
+        const bins = await response1.json();
 
         if (bins.length <1){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
@@ -178,6 +178,54 @@ const updateBin = async function (){
     
 }
 
+const initiateDelete = function(id){
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this bin!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            deleteBin(id);
+          swal("Poof! Your Bin has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your Bin is safe!");
+        }
+      });
+}
+
+const deleteBin = async function(id){
+    
+
+    const url = "api/bins/" + id;
+
+    try{
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        });
+        
+    
+
+        const bin = await response.json();
+
+        if (!bin){
+            return console.log("Bin not found")
+        }
+
+        document.querySelector("#bin-" + id).remove();
+        
+    } catch(e){
+        console.log(e)
+    }
+}
+
 getBins();
 
 // -------------------------------- UTILITY FUNCTIONS -------------------------
@@ -288,7 +336,7 @@ const generateBinCard = function(bin){
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
             <div class="crud-buttons">
-            <button type="button" class="btn btn-primary"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-primary" onclick="initiateDelete(${bin.binNumber})"><i class="fa-solid fa-trash-can"></i></button>
             <button type="button" class="btn btn-primary" onclick="initiateUpdate(${bin.binNumber})"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
         </div>
