@@ -36,12 +36,23 @@ const getBins = async function(){
 
         // var binsData = [];
         var binsHTML = "";
-        bins.forEach(  (bin) => {
-            // var binNum = bin.binNumber;
-            // var url = "/api/bindata/" + binNum;
+        const binsData =[]
+        bins.forEach( async (bin) => {
+            var binNum = bin.binNumber;
+            var url = "/api/bindata/" + binNum;
+            // try{
+            //     let response =  await fetch(url);
+            //     let binData =  await response.json();
+            //     binsData.push(binData);
+            // } catch(e){
+            //     console.log(e);
+            // }
+            
 
             binsHTML += generateBinCard(bin); 
         });
+
+        
 
         
         document.querySelector("#card-wrapper").innerHTML = binsHTML;
