@@ -1,16 +1,18 @@
 
 var binsHTML = ""
 const getBinData = async function(url, binLoc){
-    console.log(binLoc)
     try{
-        var response =  await fetch(url);
-        var binData =  await response.json();
+        const response =  await fetch(url);
+        const binData =  await response.json();
 
         binsHTML += generateBinCard(binData, binLoc);
         document.querySelector("#card-wrapper").innerHTML = binsHTML;
+
     } catch(e){
         console.log(e)
     }
+
+    console.log(document.querySelector("#detailsCard"));
     
 }
 
@@ -228,8 +230,13 @@ const deleteBin = async function(id){
     }
 }
 
-getBins();
+const moreDetails =  function(id){
 
+    localStorage.setItem("bin_number", id);
+    return false;
+
+}
+getBins();
 // -------------------------------- UTILITY FUNCTIONS -------------------------
 
 const showModal = (id, data) => {
@@ -333,7 +340,7 @@ const generateBinCard = function(bin, binLoc){
                 </table>			
             </div>
             
-            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" href="bindata/bin1/">More Details</a></div>
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${bin.binNumber})" href="bindata/bin/">More Details</a></div>
             <div class="card-footer border-dark">
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>

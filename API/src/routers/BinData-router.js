@@ -7,7 +7,7 @@ router.get("/bindata", function(req, res){
     res.render("bindata");
 })
 
-router.get("/bindata/bin1", function(req, res){
+router.get("/bindata/bin", function(req, res){
     res.render("bin1");
 })
 
