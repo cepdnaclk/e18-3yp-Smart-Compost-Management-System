@@ -1,34 +1,25 @@
-const getBinData = async function(url){
-    var response =  await fetch(url);
-    var binData =  await response.json();
 
-    // var day = binData.day;
-    // var quarter = binData.quarter;
-    // var temperature = binData.temperature;
-    // var humidity = binData.humidity;
-    // var methaneOutput = binData.methaneOutput;
-    // var compostStatus = binData.compostStatus;
+var binsHTML = ""
+const getBinData = async function(url, binLoc){
+    console.log(binLoc)
+    try{
+        var response =  await fetch(url);
+        var binData =  await response.json();
 
-    // await new Promise(resolve => setTimeout(resolve, 1000));
-
-    return data = {
-        "day"  : binData.day,
-        "quarter" : binData.quarter,
-        "temperature" : binData.temperature,
-        "humidity" : binData.humidity,
-        "methaneOutput" : binData.methaneOutput,
-        "compostStatus" : binData.compostStatus
+        binsHTML += generateBinCard(binData, binLoc);
+        document.querySelector("#card-wrapper").innerHTML = binsHTML;
+    } catch(e){
+        console.log(e)
     }
+    
 }
-
-
 
 const getBins = async function(){
     const url = "/api/bins";
 
     try{
-        const response1 = await fetch(url);
-        const bins = await response1.json();
+        const response = await fetch(url);
+        const bins = await response.json();
 
         if (bins.length <1){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
@@ -36,26 +27,23 @@ const getBins = async function(){
 
         // var binsData = [];
         var binsHTML = "";
-        const binsData =[]
-        bins.forEach( async (bin) => {
+        bins.forEach( async(bin) => {
             var binNum = bin.binNumber;
             var url = "/api/bindata/" + binNum;
-            // try{
-            //     let response =  await fetch(url);
-            //     let binData =  await response.json();
-            //     binsData.push(binData);
-            // } catch(e){
-            //     console.log(e);
-            // }
-            
+            // console.log(bin.binLocation);
 
-            binsHTML += generateBinCard(bin); 
+            getBinData(url, bin.binLocation)
+
+            // binsHTML += generateBinCard(bin); 
         });
 
-        
+       
+
+        // binsData.forEach((data)=>{
+        //     console.log(data)
+        // })
 
         
-        document.querySelector("#card-wrapper").innerHTML = binsHTML;
         
 
     }  catch(error){
@@ -107,8 +95,8 @@ const createBin = async function(){
         if(!newData){
             return showError("Unable to add Data.");
         }
-    
-        const binCard = generateBinCard(newBin);
+
+        const binCard = generateBinCard(newData, newBin.binLocation);
     
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
@@ -177,6 +165,9 @@ const updateBin = async function (){
         
         const x = document.querySelector("#bin-" + binNum +" table").rows[5].cells;
         x[1].innerHTML = uptBin.binLocation;
+        const y = document.querySelector("#bin-" + binNum +" table").rows[4].cells;
+        y[1].innerHTML = uptBin.compostStatus;
+        
 
         hideModal("BinUpdateModal");
         showSuccess("Bin successfully updated!");
@@ -306,7 +297,7 @@ updateForm.on("submit", function(e){
 })
 
 
-const generateBinCard = function(bin){
+const generateBinCard = function(bin, binLoc){
     return `
     <div class="col" id="bin-${bin.binNumber}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -316,27 +307,27 @@ const generateBinCard = function(bin){
                 <table class="table table-sm table-dark">
                 <tbody>
                     <tr>
-                    <td colspan="2">Will be ready in 5 days</td>
+                    <td colspan="2">Will be ready in ${28 - bin.day} days</td>
                     </tr>				  
                     <tr>
                     <td scope="row">Temperature</td>
-                    <td scope="row"> 91 °F</td>
+                    <td scope="row"> ${bin.temperature}°F</td>
                     </tr>
                     <tr>
                     <td scope="row">Humidity</td>
-                    <td scope="row"> 50  %</td>
+                    <td scope="row"> ${bin.humidity} %</td>
                     </tr>
                     <tr>
                     <td scope="row">Methane</td>
-                    <td scope="row"> 18 ppm</td>
+                    <td scope="row"> ${bin.methaneOutput} ppm</td>
                     </tr>
                     <tr>
                     <td scope="row">Compost Status</td>
-                    <td scope="row"> No </td>
+                    <td scope="row"> ${bin.compostStatus} </td>
                     </tr>
                     <tr>
                     <td scope="row">Bin Location</td>
-                    <td scope="row" class="binLoc"> ${bin.binLocation} </td>
+                    <td scope="row" class="binLoc"> ${binLoc}</td>
                     </tr>
                 </tbody>
                 </table>			
