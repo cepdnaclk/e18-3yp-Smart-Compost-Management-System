@@ -8,7 +8,7 @@ router.get("/bindata", function(req, res){
 })
 
 router.get("/bindata/bin", function(req, res){
-    res.render("bin1");
+    res.render("bin");
 })
 
 // End point for adding data for a bin
