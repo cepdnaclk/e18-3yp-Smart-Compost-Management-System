@@ -169,31 +169,57 @@
                     const binDatas =  await response.json();
 
                     var num = 1;
-                    var BinTemps = []
+                    
                     var BinTemps_display = []
                     var BinHums_display = []
                     var BinMeths_display = []
+
+                    var BinTemps = []
                     var BinHums = []
                     var BinMeth = []
+
                     var dayTemp = []
                     var dayHum =[]
                     var dayMeth = []
+
+                    var temps= 0;
+                    var hums= 0;
+                    var meths= 0;
+                    
+                    var qs = 0;
+                    
                     binDatas.forEach( (data) =>{
-                        BinTemps_display.push(data.temperature);
-                        BinHums_display.push(data.humidity);
-                        BinMeths_display.push(data.methaneOutput);
+                        
 
                         if (data.day == num){
+                            temps += data.temperature;
+                            hums += data.humidity;
+                            meths += data.methaneOutput;
+
+                            qs+=1;
+
                             dayTemp.push(data.temperature);
                             dayHum.push(data.humidity);
                             dayMeth.push(data.methaneOutput);
+
                         } else {
+                            BinTemps_display.push(temps/qs);
+                            BinHums_display.push(hums/qs);
+                            BinMeths_display.push(meths/qs);
+
                             BinTemps.push(dayTemp);
                             BinHums.push(dayHum);
                             BinMeth.push(dayMeth);
+
+                            temps = data.temperature;
+                            hums = data.humidity;
+                            meths = data.methaneOutput;
+                            qs = 1;
+
                             dayTemp = [];
                             dayHum = [];
                             dayMeth = [];
+
                             dayTemp.push(data.temperature);
                             dayHum.push(data.humidity);
                             dayMeth.push(data.methaneOutput);
@@ -201,6 +227,10 @@
                         }
 
                     });
+                    BinTemps_display.push(temps/qs);
+                    BinHums_display.push(hums/qs);
+                    BinMeths_display.push(meths/qs);
+    
                     BinTemps.push(dayTemp);
                     BinHums.push(dayHum);
                     BinMeth.push(dayMeth);
