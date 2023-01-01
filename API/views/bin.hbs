@@ -161,51 +161,197 @@
         </div>
 
         <script>
-            var ctx = document.getElementById("myChart").getContext("2d");
-            var myChart = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                ],
-                datasets: [
-                {        
-                    label: "Temperature variation for 28 days",
-                    data: [2, 9, 3, 8, 6, 3, 7],
-                    backgroundColor: "rgba(153,205,1,0.6)",
-                    
-                },
-                ],
-            },
-            });
+            const getDataStat = async function(binNumber){
+
+                const url = "/api/bindata/all/" + binNumber;
+                try {
+                    const response =  await fetch(url);
+                    const binDatas =  await response.json();
+
+                    var num = 1;
+                    var BinTemps = []
+                    var BinTemps_display = []
+                    var BinHums_display = []
+                    var BinMeths_display = []
+                    var BinHums = []
+                    var BinMeth = []
+                    var dayTemp = []
+                    var dayHum =[]
+                    var dayMeth = []
+                    binDatas.forEach( (data) =>{
+                        BinTemps_display.push(data.temperature);
+                        BinHums_display.push(data.humidity);
+                        BinMeths_display.push(data.methaneOutput);
+
+                        if (data.day == num){
+                            dayTemp.push(data.temperature);
+                            dayHum.push(data.humidity);
+                            dayMeth.push(data.methaneOutput);
+                        } else {
+                            BinTemps.push(dayTemp);
+                            BinHums.push(dayHum);
+                            BinMeth.push(dayMeth);
+                            dayTemp = [];
+                            dayHum = [];
+                            dayMeth = [];
+                            dayTemp.push(data.temperature);
+                            dayHum.push(data.humidity);
+                            dayMeth.push(data.methaneOutput);
+                            num++;
+                        }
+
+                    });
+                    BinTemps.push(dayTemp);
+                    BinHums.push(dayHum);
+                    BinMeth.push(dayMeth);
+
+                    var ctx = document.getElementById("myChart").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: [
+                        "Day 1",
+                        "Day 2",
+                        "Day 3",
+                        "Day 4",
+                        "Day 5",
+                        "Day 6",
+                        "Day 7",
+                        "Day 8",
+                        "Day 9",
+                        "Day 10",
+                        "Day 11",
+                        "Day 12",
+                        "Day 13",
+                        "Day 14",
+                        "Day 15",
+                        "Day 16",
+                        "Day 17",
+                        "Day 18",
+                        "Day 19",
+                        "Day 20",
+                        "Day 21",
+                        "Day 22",
+                        "Day 23",
+                        "Day 24",
+                        "Day 25",
+                        "Day 26",
+                        "Day 27",
+                        "Day 28",
+                        ],
+                        datasets: [
+                        {        
+                            label: "Temperature variation for 28 days",
+                            data: BinTemps_display,
+                            backgroundColor: "rgba(153,205,1,0.6)",
+                            
+                        },
+                        ],
+                    },
+                    });
+
+                    var ctx = document.getElementById("myChart1").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: [
+                        "Day 1",
+                        "Day 2",
+                        "Day 3",
+                        "Day 4",
+                        "Day 5",
+                        "Day 6",
+                        "Day 7",
+                        "Day 8",
+                        "Day 9",
+                        "Day 10",
+                        "Day 11",
+                        "Day 12",
+                        "Day 13",
+                        "Day 14",
+                        "Day 15",
+                        "Day 16",
+                        "Day 17",
+                        "Day 18",
+                        "Day 19",
+                        "Day 20",
+                        "Day 21",
+                        "Day 22",
+                        "Day 23",
+                        "Day 24",
+                        "Day 25",
+                        "Day 26",
+                        "Day 27",
+                        "Day 28",
+                        ],
+                        datasets: [
+                        {        
+                            label: "Humidity variation for 28 days",
+                            data: BinHums_display,
+                            backgroundColor: "rgba(153,205,1,0.6)",
+                            
+                        },
+                        ],
+                    },
+                    });
+
+
+                    var ctx = document.getElementById("myChart2").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: [
+                        "Day 1",
+                        "Day 2",
+                        "Day 3",
+                        "Day 4",
+                        "Day 5",
+                        "Day 6",
+                        "Day 7",
+                        "Day 8",
+                        "Day 9",
+                        "Day 10",
+                        "Day 11",
+                        "Day 12",
+                        "Day 13",
+                        "Day 14",
+                        "Day 15",
+                        "Day 16",
+                        "Day 17",
+                        "Day 18",
+                        "Day 19",
+                        "Day 20",
+                        "Day 21",
+                        "Day 22",
+                        "Day 23",
+                        "Day 24",
+                        "Day 25",
+                        "Day 26",
+                        "Day 27",
+                        "Day 28",
+                        ],
+                        datasets: [
+                        {        
+                            label: "Methane variation for 28 days",
+                            data: BinMeths_display,
+                            backgroundColor: "rgba(153,205,1,0.6)",
+                            
+                        },
+                        ],
+                    },
+                    });
+
+
+
+                } catch (e){
+                    console.log(e);
+                }
+            }
+
+            getDataStat(localStorage.getItem("bin_number"));
         </script>
+
+        
 
         <div class="card mb-3" style="max-width: 910px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -219,52 +365,7 @@
             </div>
         </div>
 
-        <script>
-            var ctx = document.getElementById("myChart1").getContext("2d");
-            var myChart = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                ],
-                datasets: [
-                {        
-                    label: "Humidity variation for 28 days",
-                    data: [5, 10, 7, 12, 9, 8, 10],
-                    backgroundColor: "rgba(153,205,1,0.6)",
-                    
-                },
-                ],
-            },
-            });
-        </script>
+        
 
         <div class="card mb-3" style="max-width: 910px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -279,52 +380,7 @@
         </div>
         </div>
 
-        <script>
-            var ctx = document.getElementById("myChart2").getContext("2d");
-            var myChart = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20",
-                "21",
-                "22",
-                "23",
-                "24",
-                "25",
-                "26",
-                "27",
-                "28",
-                ],
-                datasets: [
-                {        
-                    label: "Methane variation for 28 days",
-                    data: [3, 2, 2, 3, 3, 2, 1],
-                    backgroundColor: "rgba(153,205,1,0.6)",
-                    
-                },
-                ],
-            },
-            });
-        </script>
+        
         
         <footer class="mt-5">
             <p><a class="text-decoration-none text-white" href="#">Back to top</a></p>

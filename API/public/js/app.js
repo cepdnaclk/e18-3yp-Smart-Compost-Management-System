@@ -11,9 +11,6 @@ const getBinData = async function(url, binLoc){
     } catch(e){
         console.log(e)
     }
-
-    console.log(document.querySelector("#detailsCard"));
-    
 }
 
 const getBins = async function(){
@@ -27,26 +24,13 @@ const getBins = async function(){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
         }
 
-        // var binsData = [];
         var binsHTML = "";
         bins.forEach( async(bin) => {
             var binNum = bin.binNumber;
             var url = "/api/bindata/" + binNum;
-            // console.log(bin.binLocation);
 
-            getBinData(url, bin.binLocation)
-
-            // binsHTML += generateBinCard(bin); 
+            getBinData(url, bin.binLocation);
         });
-
-       
-
-        // binsData.forEach((data)=>{
-        //     console.log(data)
-        // })
-
-        
-        
 
     }  catch(error){
         console.log(error);
