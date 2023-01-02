@@ -2,6 +2,7 @@
 const addingLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Adding...`;
 var binsHTML = ""
+
 const getBinData = async function(url, binLoc){
     try{
         const response =  await fetch(url);
@@ -16,9 +17,9 @@ const getBinData = async function(url, binLoc){
 }
 
 const getBin = async function(number){
-    url = "/api/bins/" + number;
+    url1 = "/api/bins/" + number;
     try{
-        const response =  await fetch(url);
+        const response =  await fetch(url1);
         const bin =  await response.json();
         var url1 = "/api/bindata/" + number;
         getBinData(url1, bin.binLocation);
@@ -39,6 +40,8 @@ const getBins = async function(){
         if (bins.length <1){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
         }
+
+        localStorage.setItem("totalBins", bins.length);
 
         var binsHTML = "";
         bins.forEach( async(bin) => {
@@ -325,11 +328,15 @@ searchForm.on("submit",  (e) => {
     var searchText = document.querySelector("#search_text").value;
     var num = searchText.match(/\d/g);
     num = num.join("");
-    console.log(num);
-    binsHTML = "";
 
-    getBin(num);
+    const total = localStorage.getItem("totalBins");
     
+    if(parseInt(num) <= parseInt(total)){
+        binsHTML = "";
+        return getBin(num);
+    }
+
+    showError("Bin not Found!");
 
 })
 

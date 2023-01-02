@@ -27,7 +27,9 @@ router.post("/api/bindata", async function(req, res){
 // End point for reading all the bins data
 router.get("/api/bindata", async function(req,res){
     try{
-        const data = await Bin_Data.find({});
+        const data = await Bin_Data.find({}).sort({
+            binNumber: 1
+        });
         res.send(data);
     }catch(error){
         res.send(error); 
