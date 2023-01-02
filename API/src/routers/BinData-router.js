@@ -1,14 +1,14 @@
 const express = require("express");
 const Bin_Data = require("../models/binData.js");
-
+const mongodb = require("mongodb");
 const router = express.Router();
 
 router.get("/bindata", function(req, res){
     res.render("bindata");
 })
 
-router.get("/bindata/bin1", function(req, res){
-    res.render("bin1");
+router.get("/bindata/bin", function(req, res){
+    res.render("bin");
 })
 
 // End point for adding data for a bin
@@ -27,7 +27,9 @@ router.post("/api/bindata", async function(req, res){
 // End point for reading all the bins data
 router.get("/api/bindata", async function(req,res){
     try{
-        const data = await Bin_Data.find({});
+        const data = await Bin_Data.find({}).sort({
+            binNumber: 1
+        });
         res.send(data);
     }catch(error){
         res.send(error); 
@@ -41,7 +43,7 @@ router.get("/api/bindata/:binNumber", async function(req,res){
         const bin = await Bin_Data.findOne({
             binNumber: req.params.binNumber
         }).sort({
-            date: -1,
+            day: -1,
             quarter: -1
         }); 
         
@@ -62,6 +64,29 @@ router.get("/api/bindata/all/:binNumber", async function(req,res){
         
         const bin = await Bin_Data.find({
             binNumber: req.params.binNumber
+        }).sort({
+            day: 1,
+            quarter: 1
+        }); 
+        
+
+        if(!bin){
+            return res.status(404).send({error: "Bin not found"});
+        } 
+        res.send(bin);
+    } catch(error){
+        res.send(error);
+    }
+    
+});
+
+// End point for reading all the data of a specific bin for a given day
+router.get("/api/bindata/:binNumber/:day", async function(req,res){
+    try{
+        
+        const bin = await Bin_Data.find({
+            binNumber: req.params.binNumber,
+            day: req.params.day
         }); 
         
 
@@ -122,5 +147,6 @@ router.delete("/api/bindata/:binNumber", async function(req,res){
     }
 
 });
+
 
 module.exports = router;
