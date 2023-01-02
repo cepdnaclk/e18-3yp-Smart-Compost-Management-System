@@ -121,7 +121,7 @@
         </script>
 
         <div class="container vh-75">
-        <div class="card mb-3" style="max-width: 910px;" id="detailsCard">
+        <div class="card mb-3" style="max-width: 2000px;" id="detailsCard">
         </div>
 
         {{!-- Upto this point done --}}
@@ -148,7 +148,7 @@
             }
         </style>
 
-        <div class="card mb-3" style="max-width: 910px;">
+        <div class="card mb-3" style="max-width: 2000px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
                 <div class="row g-0">
                 <div class="container">
@@ -168,107 +168,77 @@
                     const response =  await fetch(url);
                     const binDatas =  await response.json();
 
-                    var num = 1;
+
+                    var num=0;
                     
                     var BinTemps_display = []
                     var BinHums_display = []
                     var BinMeths_display = []
 
-                    var BinTemps = []
-                    var BinHums = []
-                    var BinMeth = []
-
-                    var dayTemp = []
-                    var dayHum =[]
-                    var dayMeth = []
-
                     var temps= 0;
                     var hums= 0;
                     var meths= 0;
-                    
+
+                    var xValues = []
+
                     var qs = 0;
+                    var init =0;
+                    var prevDay =0
                     
                     binDatas.forEach( (data) =>{
-                        
+
+                        if(init==0){
+                            init=1;
+                            num = data.day;
+                        }
 
                         if (data.day == num){
                             temps += data.temperature;
                             hums += data.humidity;
                             meths += data.methaneOutput;
 
-                            qs+=1;
+                            xValues.push("Day "+data.day + " Q-" + data.quarter);
+                            BinTemps_display.push(data.temperature);
+                            BinHums_display.push(data.humidity);
+                            BinMeths_display.push(data.methaneOutput);
 
-                            dayTemp.push(data.temperature);
-                            dayHum.push(data.humidity);
-                            dayMeth.push(data.methaneOutput);
+                            qs+=1;
+                            prevDay = data.day;
 
                         } else {
                             BinTemps_display.push(temps/qs);
                             BinHums_display.push(hums/qs);
                             BinMeths_display.push(meths/qs);
 
-                            BinTemps.push(dayTemp);
-                            BinHums.push(dayHum);
-                            BinMeth.push(dayMeth);
+                            xValues.push("Day "+prevDay+ " Average");
+
 
                             temps = data.temperature;
                             hums = data.humidity;
                             meths = data.methaneOutput;
                             qs = 1;
 
-                            dayTemp = [];
-                            dayHum = [];
-                            dayMeth = [];
-
-                            dayTemp.push(data.temperature);
-                            dayHum.push(data.humidity);
-                            dayMeth.push(data.methaneOutput);
+                            xValues.push("Day "+data.day + " Q-" + data.quarter);
+                            BinTemps_display.push(data.temperature);
+                            BinHums_display.push(data.humidity);
+                            BinMeths_display.push(data.methaneOutput);
+                           
                             num++;
+                            prevDay = data.day;
                         }
 
                     });
                     BinTemps_display.push(temps/qs);
                     BinHums_display.push(hums/qs);
                     BinMeths_display.push(meths/qs);
-    
-                    BinTemps.push(dayTemp);
-                    BinHums.push(dayHum);
-                    BinMeth.push(dayMeth);
+
+                    xValues.push("Day "+prevDay+ " Average");
 
                     var ctx = document.getElementById("myChart").getContext("2d");
                     var myChart = new Chart(ctx, {
                     type: "line",
                     data: {
-                        labels: [
-                        "Day 1",
-                        "Day 2",
-                        "Day 3",
-                        "Day 4",
-                        "Day 5",
-                        "Day 6",
-                        "Day 7",
-                        "Day 8",
-                        "Day 9",
-                        "Day 10",
-                        "Day 11",
-                        "Day 12",
-                        "Day 13",
-                        "Day 14",
-                        "Day 15",
-                        "Day 16",
-                        "Day 17",
-                        "Day 18",
-                        "Day 19",
-                        "Day 20",
-                        "Day 21",
-                        "Day 22",
-                        "Day 23",
-                        "Day 24",
-                        "Day 25",
-                        "Day 26",
-                        "Day 27",
-                        "Day 28",
-                        ],
+                        labels: xValues,
                         datasets: [
                         {        
                             label: "Temperature variation for 28 days",
@@ -284,36 +254,7 @@
                     var myChart = new Chart(ctx, {
                     type: "line",
                     data: {
-                        labels: [
-                        "Day 1",
-                        "Day 2",
-                        "Day 3",
-                        "Day 4",
-                        "Day 5",
-                        "Day 6",
-                        "Day 7",
-                        "Day 8",
-                        "Day 9",
-                        "Day 10",
-                        "Day 11",
-                        "Day 12",
-                        "Day 13",
-                        "Day 14",
-                        "Day 15",
-                        "Day 16",
-                        "Day 17",
-                        "Day 18",
-                        "Day 19",
-                        "Day 20",
-                        "Day 21",
-                        "Day 22",
-                        "Day 23",
-                        "Day 24",
-                        "Day 25",
-                        "Day 26",
-                        "Day 27",
-                        "Day 28",
-                        ],
+                        labels: xValues,
                         datasets: [
                         {        
                             label: "Humidity variation for 28 days",
@@ -330,36 +271,7 @@
                     var myChart = new Chart(ctx, {
                     type: "line",
                     data: {
-                        labels: [
-                        "Day 1",
-                        "Day 2",
-                        "Day 3",
-                        "Day 4",
-                        "Day 5",
-                        "Day 6",
-                        "Day 7",
-                        "Day 8",
-                        "Day 9",
-                        "Day 10",
-                        "Day 11",
-                        "Day 12",
-                        "Day 13",
-                        "Day 14",
-                        "Day 15",
-                        "Day 16",
-                        "Day 17",
-                        "Day 18",
-                        "Day 19",
-                        "Day 20",
-                        "Day 21",
-                        "Day 22",
-                        "Day 23",
-                        "Day 24",
-                        "Day 25",
-                        "Day 26",
-                        "Day 27",
-                        "Day 28",
-                        ],
+                        labels: xValues,
                         datasets: [
                         {        
                             label: "Methane variation for 28 days",
@@ -383,7 +295,7 @@
 
         
 
-        <div class="card mb-3" style="max-width: 910px;">
+        <div class="card mb-3" style="max-width: 2000px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
                 <div class="row g-0">
                 <div class="container">
@@ -397,7 +309,7 @@
 
         
 
-        <div class="card mb-3" style="max-width: 910px;">
+        <div class="card mb-3" style="max-width: 2000px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
                 <div class="row g-0">
                 <div class="container">

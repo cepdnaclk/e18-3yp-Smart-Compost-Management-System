@@ -41,7 +41,7 @@ router.get("/api/bindata/:binNumber", async function(req,res){
         const bin = await Bin_Data.findOne({
             binNumber: req.params.binNumber
         }).sort({
-            date: -1,
+            day: -1,
             quarter: -1
         }); 
         
@@ -62,6 +62,9 @@ router.get("/api/bindata/all/:binNumber", async function(req,res){
         
         const bin = await Bin_Data.find({
             binNumber: req.params.binNumber
+        }).sort({
+            day: 1,
+            quarter: 1
         }); 
         
 

@@ -214,9 +214,9 @@ const deleteBin = async function(id){
     }
 }
 
-const moreDetails =  function(id){
+const moreDetails =  function(binNum){
 
-    localStorage.setItem("bin_number", id);
+    localStorage.setItem("bin_number", binNum);
     return false;
 
 }
