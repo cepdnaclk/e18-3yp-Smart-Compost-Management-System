@@ -1,4 +1,6 @@
-
+// Gloabl reusable variables
+const addingLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Adding...`;
 var binsHTML = ""
 const getBinData = async function(url, binLoc){
     try{
@@ -11,6 +13,20 @@ const getBinData = async function(url, binLoc){
     } catch(e){
         console.log(e)
     }
+}
+
+const getBin = async function(number){
+    url = "/api/bins/" + number;
+    try{
+        const response =  await fetch(url);
+        const bin =  await response.json();
+        var url1 = "/api/bindata/" + number;
+        getBinData(url1, bin.binLocation);
+
+    } catch(e){
+        console.log(e)
+    }
+
 }
 
 const getBins = async function(){
@@ -53,6 +69,9 @@ const createBin = async function(){
         compostStatus : document.querySelector("#compostStatus").value
     }
 
+    showLoader("#btn_add", {content: addingLoader});
+    hideModal("BinCreateModal");
+
     try{
         const response1 = await fetch(url1, {
             method: "POST",
@@ -87,13 +106,15 @@ const createBin = async function(){
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
     
-        hideModal("BinCreateModal");
+        
         showSuccess("Bin successfully added!");
         
 
     } catch(e){
         console.log(e);
         showError("Something went wrong");
+    }finally{
+        hideLoader("#btn_add", {content: "ADD a BIN"});
     }
 }
 
@@ -239,9 +260,20 @@ const showError = (message, options) => {
     toastr.error(message);
 }
 
+const showLoader = function(selecter, data){
+    document.querySelector(selecter).innerHTML = data.content;
+    document.querySelector(selecter).disabled = true;
+}
+
+const hideLoader = function(selecter, data){
+    document.querySelector(selecter).innerHTML = data.content;
+    document.querySelector(selecter).disabled = false;
+}
+
 
 const createForm = $("#create-bin-form");
 const updateForm = $("#update-bin-form");
+const searchForm = $("#search_form");
 
 createForm.validate({
     rules:{
@@ -285,6 +317,20 @@ updateForm.on("submit", function(e){
         updateBin();
         updateForm[0].reset();
     }
+})
+
+searchForm.on("submit",  (e) => {
+    e.preventDefault();
+
+    var searchText = document.querySelector("#search_text").value;
+    var num = searchText.match(/\d/g);
+    num = num.join("");
+    console.log(num);
+    binsHTML = "";
+
+    getBin(num);
+    
+
 })
 
 

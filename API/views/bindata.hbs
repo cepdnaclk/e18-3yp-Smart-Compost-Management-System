@@ -26,17 +26,10 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item px-3 pr-5"><a class="nav-link" href="bindata#">Home</a></li>
 
-                            <li class="nav-item dropdown px-3">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Select Bin
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="bindata/bin1/">Bin 1</a>
-                                    <a class="dropdown-item" href="#">Bin 2</a>
-                                    <a class="dropdown-item" href="#">Bin 3</a>
-
-                                </ul>
-                            </li>
+                            <form class="form-inline my-2 my-lg-0" id="search_form">
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search_text">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
 
                             <li class="nav-item px-3"><a class="nav-link" href="/about/">About</a></li>
                         </ul>
