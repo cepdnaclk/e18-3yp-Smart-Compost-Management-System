@@ -37,12 +37,12 @@ const getBins = async function(){
         const response = await fetch(url);
         const bins = await response.json();
 
+        localStorage.setItem("totalBins", bins.length);
+
         if (bins.length <1){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
         }
-
-        localStorage.setItem("totalBins", bins.length);
-
+        
         var binsHTML = "";
         bins.forEach( async(bin) => {
             var binNum = bin.binNumber;
