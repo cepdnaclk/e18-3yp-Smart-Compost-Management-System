@@ -150,15 +150,20 @@ const initiateUpdate = async function(id){
 
 const updateBin = async function (){
     const binNum = document.querySelector("#Update-binNumber").value;
-    const url = "/api/bins/" + binNum;
+    const url1 = "/api/bins/" + binNum;
+    const url2 = "/api/binData/" + binNum;
 
     const bin ={
         binLocation : document.querySelector("#Update-binLocation").value,
         compostStatus : document.querySelector("#Update-compostStatus").value
     }
 
+    const binData ={
+        compostStatus : document.querySelector("#Update-compostStatus").value
+    }
+
     try{
-        const response = await fetch(url, {
+        const response1 = await fetch(url1, {
             method: "PATCH",
             headers: {
                 "Content-Type" : "application/json"
@@ -166,7 +171,15 @@ const updateBin = async function (){
             body : JSON.stringify(bin)
         });
 
-        const uptBin = await response.json();
+        const response2 = await fetch(url2, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(binData)
+        });
+
+        const uptBin = await response1.json();
 
         if(!uptBin){
             return showError("Bin not Found");
@@ -342,6 +355,7 @@ searchForm.on("submit",  (e) => {
 
 
 const generateBinCard = function(bin, binLoc){
+    const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
     return `
     <div class="col" id="bin-${bin.binNumber}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -355,7 +369,7 @@ const generateBinCard = function(bin, binLoc){
                     </tr>				  
                     <tr>
                     <td scope="row">Temperature</td>
-                    <td scope="row"> ${bin.temperature}°F</td>
+                    <td scope="row"> ${temp} °F</td>
                     </tr>
                     <tr>
                     <td scope="row">Humidity</td>

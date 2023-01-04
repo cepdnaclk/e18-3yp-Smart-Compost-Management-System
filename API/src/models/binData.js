@@ -20,7 +20,13 @@ const Bin_Data = mongoose.model("Bin_Data", {
         max: 4,
         default: 0
     },
-    temperature: {
+    temperatureL1: {
+        type: Number,
+        required: true,
+        trim: true,
+        default: 0
+    },
+    temperatureL2: {
         type: Number,
         required: true,
         trim: true,

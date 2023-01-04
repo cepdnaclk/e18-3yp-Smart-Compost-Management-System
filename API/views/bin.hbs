@@ -60,11 +60,12 @@
             }
 
             const generateDetailsCard = function(binData){
+                const temp = (binData.temperatureL1 + binData.temperatureL2)/2;
                 return `
                 <div class="card h-100 bg-dark border-2 text-center border-success" >
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="img-fluid rounded-start" alt="...">
+                            <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="img-fluid rounded-start" alt="..." id="binImageMoreDetails">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -76,12 +77,20 @@
                                         <td colspan="2">Will be ready in ${28 - binData.day} days</td>
                                     </tr>				  
                                     <tr>
-                                        <td scope="row">Temperature</td>
-                                        <td scope="row">${binData.temperature}°F</td>
+                                        <td scope="row">Temperature Level 1</td>
+                                        <td scope="row">${binData.temperatureL1}°F</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Temperature Level 2</td>
+                                        <td scope="row">${binData.temperatureL2}°F</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Temperature Average</td>
+                                        <td scope="row">${temp}°F</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Humidity</td>
-                                        <td scope="row">${binData.humidity} %</td>
+                                        <td scope="row">${binData.humidity}%</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Methane</td>
@@ -141,9 +150,9 @@
             <div class="card h-100 bg-dark border-2 text-center border-success">
                 <div class="row g-0">
                 <div class="container">
-                    <h2 class="card-title text-white">Temperature Variation</h2>
+                    <h2 class="card-title text-white">Temperature Variation of the two Levels</h2>
                     <div>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart1"></canvas>
                     </div>
                 </div></div>
             </div>
@@ -160,11 +169,15 @@
 
                     var num=0;
                     
-                    var BinTemps_display = []
+                    var BinTempsL1_display = []
+                    var BinTempsL2_display = []
+                    var BinTempsAvg_display = []
                     var BinHums_display = []
                     var BinMeths_display = []
 
-                    var temps= 0;
+                    var tempsL1= 0;
+                    var tempsL2= 0;
+                    var tempsAvg= 0;
                     var hums= 0;
                     var meths= 0;
 
@@ -175,19 +188,23 @@
                     var prevDay =0
                     
                     binDatas.forEach( (data) =>{
-
+                        var tmpAvg = (data.temperatureL1 + data.temperatureL2)/2;
                         if(init==0){
                             init=1;
                             num = data.day;
                         }
 
                         if (data.day == num){
-                            temps += data.temperature;
+                            tempsL1 += data.temperatureL1;
+                            tempsL2 += data.temperatureL2;
+                            tempsAvg += tmpAvg;
                             hums += data.humidity;
                             meths += data.methaneOutput;
 
                             xValues.push("Day "+data.day + " Q-" + data.quarter);
-                            BinTemps_display.push(data.temperature);
+                            BinTempsL1_display.push(data.temperatureL1);
+                            BinTempsL2_display.push(data.temperatureL2);
+                            BinTempsAvg_display.push(tmpAvg);
                             BinHums_display.push(data.humidity);
                             BinMeths_display.push(data.methaneOutput);
 
@@ -195,20 +212,26 @@
                             prevDay = data.day;
 
                         } else {
-                            BinTemps_display.push(temps/qs);
+                            BinTempsL1_display.push(tempsL1/qs);
+                            BinTempsL2_display.push(tempsL2/qs);
+                            BinTempsAvg_display.push(tempsAvg/qs);
                             BinHums_display.push(hums/qs);
                             BinMeths_display.push(meths/qs);
 
                             xValues.push("Day "+prevDay+ " Average");
 
 
-                            temps = data.temperature;
+                            tempsL1 = data.temperatureL1;
+                            tempsL2 = data.temperatureL2;
+                            tempsAvg = tmpAvg;
                             hums = data.humidity;
                             meths = data.methaneOutput;
                             qs = 1;
 
                             xValues.push("Day "+data.day + " Q-" + data.quarter);
-                            BinTemps_display.push(data.temperature);
+                            BinTempsL1_display.push(data.temperatureL1);
+                            BinTempsL2_display.push(data.temperatureL2);
+                            BinTempsAvg_display.push(tmpAvg);
                             BinHums_display.push(data.humidity);
                             BinMeths_display.push(data.methaneOutput);
                            
@@ -217,27 +240,13 @@
                         }
 
                     });
-                    BinTemps_display.push(temps/qs);
+                    BinTempsL1_display.push(tempsL1/qs);
+                    BinTempsL2_display.push(tempsL2/qs);
+                    BinTempsAvg_display.push(tempsAvg/qs);
                     BinHums_display.push(hums/qs);
                     BinMeths_display.push(meths/qs);
 
                     xValues.push("Day "+prevDay+ " Average");
-
-                    var ctx = document.getElementById("myChart").getContext("2d");
-                    var myChart = new Chart(ctx, {
-                    type: "line",
-                    data: {
-                        labels: xValues,
-                        datasets: [
-                        {        
-                            label: "Temperature variation for 28 days",
-                            data: BinTemps_display,
-                            backgroundColor: "rgba(153,205,1,0.6)",
-                            
-                        },
-                        ],
-                    },
-                    });
 
                     var ctx = document.getElementById("myChart1").getContext("2d");
                     var myChart = new Chart(ctx, {
@@ -246,15 +255,20 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Humidity variation for 28 days",
-                            data: BinHums_display,
-                            backgroundColor: "rgba(153,205,1,0.6)",
+                            label: "Temperature variation in Level 1 for 28 days",
+                            data: BinTempsL1_display,
+                            backgroundColor: "rgba(57, 231, 81, 0.47)",
                             
                         },
+                        {        
+                            label: "Temperature variation in Level 2 for 28 days",
+                            data: BinTempsL2_display,
+                            backgroundColor: "rgba(58, 102, 75, 0.81)",
+                            
+                        }
                         ],
                     },
                     });
-
 
                     var ctx = document.getElementById("myChart2").getContext("2d");
                     var myChart = new Chart(ctx, {
@@ -263,9 +277,42 @@
                         labels: xValues,
                         datasets: [
                         {        
+                            label: "Average Temperature variation for 28 days",
+                            data: BinTempsAvg_display,
+                            backgroundColor: "rgba(153,205,1,0.6)",
+                            
+                        },
+                        ],
+                    },
+                    });
+
+                    var ctx = document.getElementById("myChart3").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [
+                        {        
+                            label: "Humidity variation for 28 days",
+                            data: BinHums_display,
+                            backgroundColor: "rgba(34, 46, 196, 0.81)",
+                            
+                        },
+                        ],
+                    },
+                    });
+
+
+                    var ctx = document.getElementById("myChart4").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [
+                        {        
                             label: "Methane variation for 28 days",
                             data: BinMeths_display,
-                            backgroundColor: "rgba(153,205,1,0.6)",
+                            backgroundColor: "rgba(28, 242, 190, 0.81)",
                             
                         },
                         ],
@@ -282,7 +329,17 @@
             getDataStat(localStorage.getItem("bin_number"));
         </script>
 
-        
+        <div class="card mb-3" style="max-width: 2000px;">
+            <div class="card h-100 bg-dark border-2 text-center border-success">
+                <div class="row g-0">
+                <div class="container">
+                    <h2 class="card-title text-white">Average Temperature Variation</h2>
+                    <div>
+                        <canvas id="myChart2"></canvas>
+                    </div>
+                </div></div>
+            </div>
+        </div>
 
         <div class="card mb-3" style="max-width: 2000px;">
             <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -290,7 +347,7 @@
                 <div class="container">
                     <h2 class="card-title text-white">Humidity Variation</h2>
                     <div>
-                        <canvas id="myChart1"></canvas>
+                        <canvas id="myChart3"></canvas>
                     </div>
                 </div></div>
             </div>
@@ -304,7 +361,7 @@
                 <div class="container">
                     <h2 class="card-title text-white">Methane Variation</h2>
                     <div>
-                        <canvas id="myChart2"></canvas>
+                        <canvas id="myChart4"></canvas>
                     </div>
                 </div></div>
             </div>
