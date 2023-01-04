@@ -356,6 +356,7 @@ searchForm.on("submit",  (e) => {
 
 const generateBinCard = function(bin, binLoc){
     const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
+    const humidity = (bin.humidityL1 + bin.humidityL2)/2;
     return `
     <div class="col" id="bin-${bin.binNumber}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -373,7 +374,7 @@ const generateBinCard = function(bin, binLoc){
                     </tr>
                     <tr>
                     <td scope="row">Humidity</td>
-                    <td scope="row"> ${bin.humidity} %</td>
+                    <td scope="row"> ${humidity} %</td>
                     </tr>
                     <tr>
                     <td scope="row">Methane</td>

@@ -102,7 +102,7 @@ router.get("/api/bindata/:binNumber/:day", async function(req,res){
 
 // End point for updating a data of a bin
 router.patch("/api/bindata/:binNumber", async function(req,res){
-    const allowedFields = ["binNumber", "day", "quarter", "temperature", "humidity", "compostStatus"];
+    const allowedFields = ["binNumber", "day", "quarter", "temperatureL1","temperatureL2", "humidityL1","humidityL2", "compostStatus"];
     const updateFields = Object.keys(req.body);
 
     const isValid = updateFields.every(function(field){

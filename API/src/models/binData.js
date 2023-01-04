@@ -32,7 +32,13 @@ const Bin_Data = mongoose.model("Bin_Data", {
         trim: true,
         default: 0
     },
-    humidity: {
+    humidityL1: {
+        type: Number,
+        required: true,
+        trim: true,
+        default: 0
+    },
+    humidityL2: {
         type: Number,
         required: true,
         trim: true,

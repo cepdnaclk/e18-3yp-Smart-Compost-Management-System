@@ -61,6 +61,7 @@
 
             const generateDetailsCard = function(binData){
                 const temp = (binData.temperatureL1 + binData.temperatureL2)/2;
+                const humidity = (binData.humidityL1 + binData.humidityL2)/2;
                 return `
                 <div class="card h-100 bg-dark border-2 text-center border-success" >
                     <div class="row g-0">
@@ -89,8 +90,16 @@
                                         <td scope="row">${temp}°F</td>
                                     </tr>
                                     <tr>
-                                        <td scope="row">Humidity</td>
-                                        <td scope="row">${binData.humidity}%</td>
+                                        <td scope="row">Humidity Level 1</td>
+                                        <td scope="row">${binData.humidityL1}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Humidity Level 2</td>
+                                        <td scope="row">${binData.humidityL2}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Humidity Average</td>
+                                        <td scope="row">${humidity}%</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Methane</td>
@@ -172,13 +181,17 @@
                     var BinTempsL1_display = []
                     var BinTempsL2_display = []
                     var BinTempsAvg_display = []
-                    var BinHums_display = []
+                    var BinHumsL1_display = []
+                    var BinHumsL2_display = []
+                    var BinHumsAvg_display = []
                     var BinMeths_display = []
 
                     var tempsL1= 0;
                     var tempsL2= 0;
                     var tempsAvg= 0;
-                    var hums= 0;
+                    var humsL1= 0;
+                    var humsL2= 0;
+                    var humsAvg= 0;
                     var meths= 0;
 
                     var xValues = []
@@ -189,6 +202,7 @@
                     
                     binDatas.forEach( (data) =>{
                         var tmpAvg = (data.temperatureL1 + data.temperatureL2)/2;
+                        var hum = (data.humidityL1 + data.humidityL2)/2;
                         if(init==0){
                             init=1;
                             num = data.day;
@@ -198,14 +212,18 @@
                             tempsL1 += data.temperatureL1;
                             tempsL2 += data.temperatureL2;
                             tempsAvg += tmpAvg;
-                            hums += data.humidity;
+                            humsL1 += data.humidityL1;
+                            humsL2 += data.humidityL2;
+                            humsAvg += hum;
                             meths += data.methaneOutput;
 
                             xValues.push("Day "+data.day + " Q-" + data.quarter);
                             BinTempsL1_display.push(data.temperatureL1);
                             BinTempsL2_display.push(data.temperatureL2);
                             BinTempsAvg_display.push(tmpAvg);
-                            BinHums_display.push(data.humidity);
+                            BinHumsL1_display.push(data.humidityL1);
+                            BinHumsL2_display.push(data.humidityL2);
+                            BinHumsAvg_display.push(hum);
                             BinMeths_display.push(data.methaneOutput);
 
                             qs+=1;
@@ -215,7 +233,9 @@
                             BinTempsL1_display.push(tempsL1/qs);
                             BinTempsL2_display.push(tempsL2/qs);
                             BinTempsAvg_display.push(tempsAvg/qs);
-                            BinHums_display.push(hums/qs);
+                            BinHumsL1_display.push(humsL1/qs);
+                            BinHumsL2_display.push(humsL2/qs);
+                            BinHumsAvg_display.push(humsAvg/qs);
                             BinMeths_display.push(meths/qs);
 
                             xValues.push("Day "+prevDay+ " Average");
@@ -224,7 +244,9 @@
                             tempsL1 = data.temperatureL1;
                             tempsL2 = data.temperatureL2;
                             tempsAvg = tmpAvg;
-                            hums = data.humidity;
+                            humsL1 = data.humidityL1;
+                            humsL2 = data.humidityL2;
+                            humsAvg = hum;
                             meths = data.methaneOutput;
                             qs = 1;
 
@@ -232,7 +254,9 @@
                             BinTempsL1_display.push(data.temperatureL1);
                             BinTempsL2_display.push(data.temperatureL2);
                             BinTempsAvg_display.push(tmpAvg);
-                            BinHums_display.push(data.humidity);
+                            BinHumsL1_display.push(data.humidityL1);
+                            BinHumsL2_display.push(data.humidityL2);
+                            BinHumsAvg_display.push(hum);
                             BinMeths_display.push(data.methaneOutput);
                            
                             num++;
@@ -243,7 +267,9 @@
                     BinTempsL1_display.push(tempsL1/qs);
                     BinTempsL2_display.push(tempsL2/qs);
                     BinTempsAvg_display.push(tempsAvg/qs);
-                    BinHums_display.push(hums/qs);
+                    BinHumsL1_display.push(humsL1/qs);
+                    BinHumsL2_display.push(humsL2/qs);
+                    BinHumsAvg_display.push(humsAvg/qs);
                     BinMeths_display.push(meths/qs);
 
                     xValues.push("Day "+prevDay+ " Average");
@@ -293,8 +319,30 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Humidity variation for 28 days",
-                            data: BinHums_display,
+                            label: "Humidity variation in Level 1 for 28 days",
+                            data: BinHumsL1_display,
+                            backgroundColor: "rgba(124, 86, 233, 0.8)",
+                            
+                        },
+                        {        
+                            label: "Humidity variation in Level 2 for 28 days",
+                            data: BinHumsL2_display,
+                            backgroundColor: "rgba(59, 7, 248, 0.8)",
+                            
+                        }
+                        ],
+                    },
+                    });
+
+                    var ctx = document.getElementById("myChart4").getContext("2d");
+                    var myChart = new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [
+                        {        
+                            label: "Average Humidity variation for 28 days",
+                            data: BinHumsAvg_display,
                             backgroundColor: "rgba(34, 46, 196, 0.81)",
                             
                         },
@@ -303,7 +351,7 @@
                     });
 
 
-                    var ctx = document.getElementById("myChart4").getContext("2d");
+                    var ctx = document.getElementById("myChart5").getContext("2d");
                     var myChart = new Chart(ctx, {
                     type: "line",
                     data: {
@@ -345,9 +393,21 @@
             <div class="card h-100 bg-dark border-2 text-center border-success">
                 <div class="row g-0">
                 <div class="container">
-                    <h2 class="card-title text-white">Humidity Variation</h2>
+                    <h2 class="card-title text-white">Humidity Variation of the two Levels</h2>
                     <div>
                         <canvas id="myChart3"></canvas>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+
+        <div class="card mb-3" style="max-width: 2000px;">
+            <div class="card h-100 bg-dark border-2 text-center border-success">
+                <div class="row g-0">
+                <div class="container">
+                    <h2 class="card-title text-white">Average Humidity Variation</h2>
+                    <div>
+                        <canvas id="myChart4"></canvas>
                     </div>
                 </div></div>
             </div>
@@ -361,7 +421,7 @@
                 <div class="container">
                     <h2 class="card-title text-white">Methane Variation</h2>
                     <div>
-                        <canvas id="myChart4"></canvas>
+                        <canvas id="myChart5"></canvas>
                     </div>
                 </div></div>
             </div>
