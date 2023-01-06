@@ -22,7 +22,13 @@
                         <div class="portfolio-caption">
                             <h4>{{ post.title }}</h4>
                             <p class="text-muted">{{ post.subtitle }}</p>
+                            <div class="modal-body">
+                                <hr class="star-primary">
+                                <p>{{ post.description }}</p>
+                                <hr class="star-primary">
+                            </div>
                         </div>
+
                     </div>
                 {% endif %}
             {% endfor %}
