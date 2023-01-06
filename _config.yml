@@ -7,39 +7,39 @@ title: Smart Compost Management System
 # Team names, titles and social links
 people:
 - name: N.S. Dharmarathne
-  pic: default
-  # pic: e18077
+#  pic: default
+  pic: e18077
   position: Team Member
   social:
+    - title: email
+      url: #
     - title: github
       url: #
-    - title: facebook
-      url: #
-    - title: linkedin
-      url: #
+#    - title: linkedin
+#      url: #
 
 - name: G.D.R. Mihiranga
-  pic: default
-  # pic: e18224
+#  pic: default
+  pic: e18224
   position: Team Member
   social:
+    - title: email
+      url: #
     - title: github
       url: #
-    - title: facebook
-      url: #
-    - title: stack-overflow
-      url: #
+#    - title: facebook
+#      url: #
 
 - name: D.H. Mudalige
-  pic: default
-  # pic: e18227
+#  pic: default
+  pic: e18227
   position: Team Member
   social:
-    - title: github
+    - title: email
       url: #
     - title: linkedin
       url: #
-    - title: stack-overflow
+    - title: github
       url: #
 
 # Team names, titles and social links
