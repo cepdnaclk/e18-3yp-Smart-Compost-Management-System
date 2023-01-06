@@ -129,13 +129,10 @@ router.patch("/api/bindata/:binNumber", async function(req,res){
 })
 
 // Endpoint for deleting a data of a bin
-router.delete("/api/bindata/:binNumber", async function(req,res){
+router.delete("/api/bindata/:id", async function(req,res){
     try{
-        const data = await Bin_Data.findOneAndDelete({
-            binNumber : req.params.binNumber
-        }).sort({
-            date : 1,
-            quarter: 1
+        const data = await Bin_Data.findByIdAndDelete({
+            _id : req.params.id
         });
 
         if(!data){
