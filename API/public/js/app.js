@@ -22,7 +22,7 @@ const getBin = async function(number){
         const response =  await fetch(url1);
         const bin =  await response.json();
         var url1 = "/api/bindata/" + number;
-        getBinData(url1, bin.binLocation);
+        getBinData(url1, bin.binLocation, bin.binNumber);
 
     } catch(e){
         console.log(e)
@@ -104,7 +104,7 @@ const createBin = async function(){
             return showError("Unable to add Data.");
         }
 
-        const binCard = generateBinCard(newData, newBin.binLocation);
+        const binCard = generateBinCard(newData, newBin.binLocation, newBin.binNumber);
     
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
@@ -125,7 +125,7 @@ const initiateUpdate = async function(id){
     const url = "/api/bins/" + id;
 
     const locationInput =  document.querySelector("#Update-binLocation");
-    const compostInput =  document.querySelector("#Update-compostStatus");
+    const compostInput = document.querySelector("#Update-compostStatus");
     updateValidation.resetForm();
     locationInput.classList.remove("error");
     compostInput.classList.remove("error");
