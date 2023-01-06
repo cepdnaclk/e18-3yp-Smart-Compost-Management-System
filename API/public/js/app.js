@@ -245,6 +245,7 @@ const deleteBin = async function(id){
         }
 
         document.querySelector("#bin-" + id).remove();
+        resetBin(id);
         
     } catch(e){
         showError("Unable to Delete Bin!");

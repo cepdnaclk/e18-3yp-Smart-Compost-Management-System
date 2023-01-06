@@ -88,7 +88,7 @@ router.delete("/api/bins/:binNumber", async function(req,res){
         } 
         res.send(bin);
 
-        let result = await Bin_Data.deleteMany({binNumber: req.params.binNumber})
+        // let result = await Bin_Data.deleteMany({binNumber: req.params.binNumber})
 
 
     } catch(error){
