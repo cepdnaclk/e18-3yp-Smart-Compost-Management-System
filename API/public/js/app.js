@@ -3,12 +3,12 @@ const addingLoader = ` <span class="spinner-border spinner-border-sm" role="stat
                         Adding...`;
 var binsHTML = ""
 
-const getBinData = async function(url, binLoc){
+const getBinData = async function(url, binLoc, binNum){
     try{
         const response =  await fetch(url);
         const binData =  await response.json();
 
-        binsHTML += generateBinCard(binData, binLoc);
+        binsHTML += generateBinCard(binData, binLoc, binNum);
         document.querySelector("#card-wrapper").innerHTML = binsHTML;
 
     } catch(e){
@@ -37,18 +37,18 @@ const getBins = async function(){
         const response = await fetch(url);
         const bins = await response.json();
 
+        localStorage.setItem("totalBins", bins.length);
+
         if (bins.length <1){
             return document.querySelector("#card-wrapper").innerHTML = "<p>No Bins found!</p>";
         }
-
-        localStorage.setItem("totalBins", bins.length);
-
+        
         var binsHTML = "";
         bins.forEach( async(bin) => {
             var binNum = bin.binNumber;
             var url = "/api/bindata/" + binNum;
 
-            getBinData(url, bin.binLocation);
+            getBinData(url, bin.binLocation, binNum);
         });
 
     }  catch(error){
@@ -150,15 +150,20 @@ const initiateUpdate = async function(id){
 
 const updateBin = async function (){
     const binNum = document.querySelector("#Update-binNumber").value;
-    const url = "/api/bins/" + binNum;
+    const url1 = "/api/bins/" + binNum;
+    const url2 = "/api/binData/" + binNum;
 
     const bin ={
         binLocation : document.querySelector("#Update-binLocation").value,
         compostStatus : document.querySelector("#Update-compostStatus").value
     }
 
+    const binData ={
+        compostStatus : document.querySelector("#Update-compostStatus").value
+    }
+
     try{
-        const response = await fetch(url, {
+        const response1 = await fetch(url1, {
             method: "PATCH",
             headers: {
                 "Content-Type" : "application/json"
@@ -166,7 +171,15 @@ const updateBin = async function (){
             body : JSON.stringify(bin)
         });
 
-        const uptBin = await response.json();
+        const response2 = await fetch(url2, {
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(binData)
+        });
+
+        const uptBin = await response1.json();
 
         if(!uptBin){
             return showError("Bin not Found");
@@ -232,6 +245,7 @@ const deleteBin = async function(id){
         }
 
         document.querySelector("#bin-" + id).remove();
+        resetBin(id);
         
     } catch(e){
         showError("Unable to Delete Bin!");
@@ -243,6 +257,66 @@ const moreDetails =  function(binNum){
     localStorage.setItem("bin_number", binNum);
     return false;
 
+}
+
+const initiateReset = function(id){
+    swal({
+        title: "Are you sure?",
+        text: "Once reset, all the data of this bin will be deleted!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            resetBin(id)
+          swal("Poof! Your Bin has been reset!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your Bin is safe!");
+        }
+      });
+}
+
+const resetBin = async function(binNum){
+    const url =  "/api/bindata/all/" + binNum;
+
+    try{
+        const response = await fetch(url);
+        const binData = await response.json();
+
+        binData.forEach( async(data) => {
+            var binDataId = data._id;
+            deleteData(binDataId);
+        });
+
+    } catch(e){
+        console.log(e);
+    }
+
+}
+
+const deleteData = async function(id){
+    const url =  "/api/bindata/" + id;
+
+    try{
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        });
+    
+        const data = await response.json();
+
+        if (!data){
+            return showError("Data not Found!");
+        }    
+
+    } catch(e){
+        console.log(e);
+    }
 }
 getBins();
 // -------------------------------- UTILITY FUNCTIONS -------------------------
@@ -341,11 +415,13 @@ searchForm.on("submit",  (e) => {
 })
 
 
-const generateBinCard = function(bin, binLoc){
+const generateBinCard = function(bin, binLoc, binNum){
+    const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
+    const humidity = (bin.humidityL1 + bin.humidityL2)/2;
     return `
-    <div class="col" id="bin-${bin.binNumber}">
+    <div class="col" id="bin-${binNum}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
-            <div class="card-header border-dark text-white"><h5>BIN ${bin.binNumber} COMPOST</h5></div>
+            <div class="card-header border-dark text-white"><h5>BIN ${binNum} COMPOST</h5></div>
             <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
             <div class="card-body text-white">
                 <table class="table table-sm table-dark">
@@ -355,11 +431,11 @@ const generateBinCard = function(bin, binLoc){
                     </tr>				  
                     <tr>
                     <td scope="row">Temperature</td>
-                    <td scope="row"> ${bin.temperature}°F</td>
+                    <td scope="row"> ${temp} °F</td>
                     </tr>
                     <tr>
                     <td scope="row">Humidity</td>
-                    <td scope="row"> ${bin.humidity} %</td>
+                    <td scope="row"> ${humidity} %</td>
                     </tr>
                     <tr>
                     <td scope="row">Methane</td>
@@ -377,13 +453,15 @@ const generateBinCard = function(bin, binLoc){
                 </table>			
             </div>
             
-            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${bin.binNumber})" href="bindata/bin/">More Details</a></div>
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})" href="bindata/bin/">More Details</a></div>
+            <br>
+            <div class="text-center"><button class="btn btn-success w-75 buttonBottomMargin" onclick="initiateReset(${binNum})">Reset Bin</button></div>
             <div class="card-footer border-dark">
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
             <div class="crud-buttons">
-            <button type="button" class="btn btn-primary" onclick="initiateDelete(${bin.binNumber})"><i class="fa-solid fa-trash-can"></i></button>
-            <button type="button" class="btn btn-primary" onclick="initiateUpdate(${bin.binNumber})"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="btn btn-primary" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-primary" onclick="initiateUpdate(${binNum})"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
         </div>
     </div>
