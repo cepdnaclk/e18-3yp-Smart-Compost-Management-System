@@ -5,6 +5,7 @@ const validator = require("validator");
 const Bin = mongoose.model("Bin", {
     binNumber: {
         type: Number,
+        unique: true,
         required: true
     },
     binLocation: {
