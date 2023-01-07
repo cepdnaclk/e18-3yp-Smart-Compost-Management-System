@@ -4,12 +4,17 @@ const hbs = require("hbs");
 
 require("./db/mongoose.js");
 
+const session = require("express-session");
+
 const BinDataRouter = require("./routers/BinData-router.js");
 const BinRouter = require("./routers/Bin-router.js");
 const UserRouter = require("./routers/User-router.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Setup the session
+app.use(session({secret: "something", saveUninitialized: true, resave: true}));
 
 app.set("view engine", "hbs");
 
@@ -26,4 +31,3 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-const bcryptjs = require("bcryptjs");

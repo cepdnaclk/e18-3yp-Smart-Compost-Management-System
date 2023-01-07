@@ -39,3 +39,12 @@ footer p:last-child {
 #binImageMoreDetails{
 	margin-top: 80px;
 }
+
+.login-form, .signup-form{
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.411);
+}

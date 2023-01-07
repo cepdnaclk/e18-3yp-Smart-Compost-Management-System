@@ -1,6 +1,7 @@
 // Gloabl reusable variables
 const addingLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Adding...`;
+const generalLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
 var binsHTML = ""
 
 const getBinData = async function(url, binLoc, binNum){

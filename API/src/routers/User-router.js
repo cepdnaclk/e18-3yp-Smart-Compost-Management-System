@@ -33,12 +33,11 @@ router.post("/api/users/login", async (req, res) => {
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password);
 
-        if(user.error){
-            return res.send(user);
+        if(!user){
+            return res.send({error: "Invalid Credentials!"});
         }
 
-        req.session.user = user;
-        res.send(User.getUserPublicData(user));
+        res.send(user);
 
     }catch(e){
         res.send({error: "Something went wrong. Unable to login"});
