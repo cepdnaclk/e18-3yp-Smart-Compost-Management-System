@@ -3,8 +3,8 @@ const path = require("path");
 // const ObjectId = require("mongodb").ObjectId;
 
 const User = require("../models/user.js");
-// const auth = require("../middleware/auth.js");
-// const apiAuth = require("../middleware/api-auth.js");
+const auth = require("../middleware/auth.js");
+const apiAuth = require("../middleware/api-auth.js");
 // const email = require("../email/account.js");
 const mongodb = require("mongodb");
 const router = express.Router();
@@ -12,20 +12,20 @@ const router = express.Router();
 // ----------------------------------- API Endpoints ----------------------------------
 
 router.get("/", (req, res) => {  
-    // if(req.session.user){
-    //     req.session.user = undefined;
-    // }
+    if(req.session.user){
+        req.session.user = undefined;
+    }
 
     res.render("index", {msg: req.query.msg});
 });
 
-// router.get("/signup", (req, res) => {
-//     res.render("signup");
-// });
+router.get("/signup", (req, res) => {
+    res.render("signup");
+});
 
-// router.get("/profile", auth, (req, res) => {
-//     res.render("profile", {user: req.session.user});
-// });
+router.get("/profile", auth, (req, res) => {
+    res.render("profile", {user: req.session.user});
+});
 
 // ----------------------------------- API Endpoints ----------------------------------
 // Enpoint for login
@@ -37,7 +37,8 @@ router.post("/api/users/login", async (req, res) => {
             return res.send({error: "Invalid Credentials!"});
         }
 
-        res.send(user);
+        req.session.user = user;
+        res.send(User.getUserPublicData(user));
 
     }catch(e){
         res.send({error: "Something went wrong. Unable to login"});
@@ -51,12 +52,13 @@ router.post("/api/users", async (req, res) => {
 
     try{
         await user.save();
-        res.send(user);
+        res.send(User.getUserPublicData(user));
         // email.sendConfirmMail(user);
     }catch(e){
         res.send(e);
     }
 });
+
 // Confirm account
 // router.get("/api/users/confirm_account", async (req, res) => {
 //     const userId = req.query.userId;
@@ -86,7 +88,7 @@ router.get("/api/users", async (req, res) => {
 });
 
 // Enpoint for reading a user
-router.get("/api/users", async (req, res) => {
+router.get("/api/users", apiAuth, async (req, res) => {
     try{
         const user = await User.findById(req.session.user._id);
 
@@ -94,14 +96,14 @@ router.get("/api/users", async (req, res) => {
             return res.send({error: "User not found."});
         }
 
-        res.send(user); 
+        res.send(User.getUserPublicData(user));
     }catch(e){
         res.send(e);
     }
 });
 
 // Enpoint for updating a user
-router.patch("/api/users", async (req, res) => {
+router.patch("/api/users", apiAuth, async (req, res) => {
     // if(req.files){
     //     const result = User.uploadAvatar(req.files.profileImage);
 
@@ -140,7 +142,7 @@ router.patch("/api/users", async (req, res) => {
         // req.session.user = User.getUserPublicData(user);
         // res.send(User.getUserPublicData(user));
 
-        res.send(user);
+        res.send(User.getUserPublicData(user));
 
         // if(prevImage !== user.imagePath){
         //     await User.deleteAvatar(prevImage);
@@ -151,7 +153,7 @@ router.patch("/api/users", async (req, res) => {
 });
 
 // Enpoint for deleting a user
-router.delete("/api/users", async (req, res) => {
+router.delete("/api/users", apiAuth, async (req, res) => {
     try{
         const user = await User.findByIdAndDelete(req.session.user._id);
 
@@ -159,7 +161,7 @@ router.delete("/api/users", async (req, res) => {
             return res.send({error: "No user found!"});
         }
 
-        res.send(user);
+        res.send(User.getUserPublicData(user));
     }catch(e){
         res.send(e);
     }

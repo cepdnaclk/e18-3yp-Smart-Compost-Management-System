@@ -18,6 +18,8 @@ app.use(session({secret: "something", saveUninitialized: true, resave: true}));
 
 app.set("view engine", "hbs");
 
+
+
 const publicDirectoryPath = path.join(__dirname, "../public");
 app.use(express.static(publicDirectoryPath));
 

@@ -1,12 +1,13 @@
 const express = require("express");
 const Bin = require("../models/bins.js");
-const Bin_Data = require("../models/binData.js");
+const auth = require("../middleware/auth.js");
+const apiAuth = require("../middleware/api-auth.js");
 const mongodb = require("mongodb");
 
 const router = express.Router();
 
 // End point for creating a bin in the system
-router.post("/api/bins", async function(req, res){
+router.post("/api/bins", apiAuth, async function(req, res){
     const bin = new Bin(req.body);
 
     try{
@@ -19,7 +20,7 @@ router.post("/api/bins", async function(req, res){
 });
 
 // End point for reading all the bins
-router.get("/api/bins", async function(req,res){
+router.get("/api/bins", apiAuth, async function(req,res){
 
     try{
         const bins = await Bin.find({});
@@ -30,7 +31,7 @@ router.get("/api/bins", async function(req,res){
 })
 
 // End point for reading a specific bin
-router.get("/api/bins/:binNumber", async function(req,res){
+router.get("/api/bins/:binNumber", apiAuth, async function(req,res){
 
     try{
         const bin = await Bin.findOne({
@@ -47,7 +48,7 @@ router.get("/api/bins/:binNumber", async function(req,res){
 });
 
 // End point for updating a bin
-router.patch("/api/bins/:binNumber", async function(req,res){
+router.patch("/api/bins/:binNumber", apiAuth, async function(req,res){
     
     const allowedFields = ["binLocation","compostStatus"];
     const updateFields = Object.keys(req.body);
@@ -76,7 +77,7 @@ router.patch("/api/bins/:binNumber", async function(req,res){
 })
 
 // Endpoint for deleting a  bin
-router.delete("/api/bins/:binNumber", async function(req,res){
+router.delete("/api/bins/:binNumber", apiAuth, async function(req,res){
     try{
 
         const bin = await Bin.findOneAndDelete({
@@ -88,7 +89,7 @@ router.delete("/api/bins/:binNumber", async function(req,res){
         } 
         res.send(bin);
 
-        // let result = await Bin_Data.deleteMany({binNumber: req.params.binNumber})
+        
 
 
     } catch(error){

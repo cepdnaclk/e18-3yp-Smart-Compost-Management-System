@@ -62,6 +62,16 @@ userSchema.statics.findByCredentials = async (email, password) => {
     return user;
 }
 
+userSchema.statics.getUserPublicData = (user) => {
+    return {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        age: user.age,
+        imagePath: user.imagePath
+    }
+}
+
 const User = mongoose.model("User", userSchema);
 
 module.exports = User;

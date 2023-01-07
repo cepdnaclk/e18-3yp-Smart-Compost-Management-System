@@ -1,10 +1,12 @@
 const express = require("express");
 const Bin_Data = require("../models/binData.js");
+const auth = require("../middleware/auth.js");
+const apiAuth = require("../middleware/api-auth.js");
 const mongodb = require("mongodb");
 const router = express.Router();
 
 router.get("/bindata", function(req, res){
-    res.render("bindata");
+    res.render("bindata", {user: req.session.user});
 })
 
 router.get("/bindata/bin", function(req, res){
@@ -12,7 +14,7 @@ router.get("/bindata/bin", function(req, res){
 })
 
 // End point for adding data for a bin
-router.post("/api/bindata", async function(req, res){
+router.post("/api/bindata", apiAuth, async function(req, res){
     const binData = new Bin_Data(req.body);
 
     try{
@@ -25,7 +27,7 @@ router.post("/api/bindata", async function(req, res){
 });
 
 // End point for reading all the bins data
-router.get("/api/bindata", async function(req,res){
+router.get("/api/bindata", apiAuth, async function(req,res){
     try{
         const data = await Bin_Data.find({}).sort({
             binNumber: 1
@@ -37,7 +39,7 @@ router.get("/api/bindata", async function(req,res){
 })
 
 // End point for reading the latest data of a specific bin
-router.get("/api/bindata/:binNumber", async function(req,res){
+router.get("/api/bindata/:binNumber", apiAuth, async function(req,res){
     try{
         
         const bin = await Bin_Data.findOne({
@@ -59,7 +61,7 @@ router.get("/api/bindata/:binNumber", async function(req,res){
 });
 
 // End point for reading all the data of a specific bin
-router.get("/api/bindata/all/:binNumber", async function(req,res){
+router.get("/api/bindata/all/:binNumber", apiAuth, async function(req,res){
     try{
         
         const bin = await Bin_Data.find({
@@ -81,7 +83,7 @@ router.get("/api/bindata/all/:binNumber", async function(req,res){
 });
 
 // End point for reading all the data of a specific bin for a given day
-router.get("/api/bindata/:binNumber/:day", async function(req,res){
+router.get("/api/bindata/:binNumber/:day", apiAuth, async function(req,res){
     try{
         
         const bin = await Bin_Data.find({
@@ -101,7 +103,7 @@ router.get("/api/bindata/:binNumber/:day", async function(req,res){
 });
 
 // End point for updating a data of a bin
-router.patch("/api/bindata/:binNumber", async function(req,res){
+router.patch("/api/bindata/:binNumber", apiAuth, async function(req,res){
     const allowedFields = ["binNumber", "day", "quarter", "temperatureL1","temperatureL2", "humidityL1","humidityL2", "compostStatus"];
     const updateFields = Object.keys(req.body);
 
@@ -129,7 +131,7 @@ router.patch("/api/bindata/:binNumber", async function(req,res){
 })
 
 // Endpoint for deleting a data of a bin
-router.delete("/api/bindata/:id", async function(req,res){
+router.delete("/api/bindata/:id", apiAuth, async function(req,res){
     try{
         const data = await Bin_Data.findByIdAndDelete({
             _id : req.params.id
