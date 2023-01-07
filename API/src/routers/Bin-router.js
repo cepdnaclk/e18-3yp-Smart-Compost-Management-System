@@ -8,6 +8,7 @@ const router = express.Router();
 
 // End point for creating a bin in the system
 router.post("/api/bins", apiAuth, async function(req, res){
+    req.body.owner = req.session.user._id;
     const bin = new Bin(req.body);
 
     try{
@@ -21,9 +22,9 @@ router.post("/api/bins", apiAuth, async function(req, res){
 
 // End point for reading all the bins
 router.get("/api/bins", apiAuth, async function(req,res){
-
+    const ownerId = req.session.user._id;
     try{
-        const bins = await Bin.find({});
+        const bins = await Bin.find({owner: ownerId});
         res.send(bins);
     }catch(error){
         res.send(error);
@@ -32,10 +33,11 @@ router.get("/api/bins", apiAuth, async function(req,res){
 
 // End point for reading a specific bin
 router.get("/api/bins/:binNumber", apiAuth, async function(req,res){
-
+    const userId = req.session.user._id;
     try{
         const bin = await Bin.findOne({
-            binNumber: req.params.binNumber 
+            binNumber: req.params.binNumber,
+            owner: userId
         });
 
         if(!bin){
@@ -49,7 +51,7 @@ router.get("/api/bins/:binNumber", apiAuth, async function(req,res){
 
 // End point for updating a bin
 router.patch("/api/bins/:binNumber", apiAuth, async function(req,res){
-    
+    const userId = req.session.user._id;
     const allowedFields = ["binLocation","compostStatus"];
     const updateFields = Object.keys(req.body);
 
@@ -63,7 +65,8 @@ router.patch("/api/bins/:binNumber", apiAuth, async function(req,res){
 
     try{
         const bin = await Bin.findOneAndUpdate({
-            binNumber : req.params.binNumber},
+            binNumber : req.params.binNumber,
+            owner: userId},
             req.body, {new: true});
 
         if(!bin){
@@ -81,7 +84,8 @@ router.delete("/api/bins/:binNumber", apiAuth, async function(req,res){
     try{
 
         const bin = await Bin.findOneAndDelete({
-            binNumber : req.params.binNumber
+            binNumber : req.params.binNumber,
+            owner: req.session.user._id
         });
 
         if(!bin){

@@ -1,6 +1,10 @@
+const path = require("path");
+const fs = require("fs");
+
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcryptjs = require("bcryptjs");
+const ObjectId = require("mongodb").ObjectId;
 
 const userSchema = mongoose.Schema({
     name: {
@@ -33,12 +37,31 @@ const userSchema = mongoose.Schema({
                 throw new Error("Password should not contain the key password.");
             }
         }
+    },
+    imagePath: {
+        type: String,
+        default: "profile.png"
+    },
+    confirmed:{
+        type: Boolean,
+        default: false
+    },
+    secret: {
+        type: String
     }
+});
+
+userSchema.virtual("bins", {
+    ref: "Bin",
+    localField: "_id",
+    foreignField: "owner"
 });
 
 userSchema.pre("save", async function(next){
     const user = this;
-    user.password = await bcryptjs.hash(user.password, 8);
+    if(user.isModified("password")){
+        user.password = await bcryptjs.hash(user.password, 8);
+    }
     next();
 });
 
@@ -70,6 +93,44 @@ userSchema.statics.getUserPublicData = (user) => {
         age: user.age,
         imagePath: user.imagePath
     }
+}
+
+userSchema.statics.uploadAvatar = (file) => {
+    const fileName = file.name;
+
+    const allowedFiles = ["jpg", "jpeg", "JPEG", "png"];
+    const fileExtension = fileName.split(".").pop();
+
+    if(!allowedFiles.includes(fileExtension)){
+        return {error: "Please upload image files"}
+    }
+
+    const newFileName = new ObjectId().toHexString() + "." + fileExtension;
+    var result = {fileName: newFileName};
+
+    file.mv(path.resolve("./public/images/" + newFileName), (e) => {
+        if(e){
+            result.error = "Something went wrong. Unable to upload profile image."
+        }
+    });
+
+    return result;
+}
+
+userSchema.statics.deleteAvatar = async (fileName) => {
+    if(fileName === "profile.png"){
+        return "";
+    }
+
+    var result = "File removed successfully";
+
+    await fs.unlink("./public/images/" + fileName, (e) => {
+        if(e){
+            result = "Unable to remove file";
+        }
+    });
+
+    return result;
 }
 
 const User = mongoose.model("User", userSchema);

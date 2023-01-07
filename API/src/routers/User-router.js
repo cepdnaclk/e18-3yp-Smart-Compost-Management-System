@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-// const ObjectId = require("mongodb").ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 const User = require("../models/user.js");
 const auth = require("../middleware/auth.js");
@@ -28,12 +28,12 @@ router.get("/profile", auth, (req, res) => {
 });
 
 // ----------------------------------- API Endpoints ----------------------------------
-// Enpoint for login
+// Enpoint for login 
 router.post("/api/users/login", async (req, res) => {
     try{
         const user = await User.findByCredentials(req.body.email, req.body.password);
 
-        if(!user){
+        if(user.error){
             return res.send({error: "Invalid Credentials!"});
         }
 
@@ -104,15 +104,15 @@ router.get("/api/users", apiAuth, async (req, res) => {
 
 // Enpoint for updating a user
 router.patch("/api/users", apiAuth, async (req, res) => {
-    // if(req.files){
-    //     const result = User.uploadAvatar(req.files.profileImage);
+    if(req.files){
+        const result = User.uploadAvatar(req.files.profileImage);
 
-    //     if(result.error){
-    //         return res.send({error: result.error});
-    //     }
+        if(result.error){
+            return res.send({error: result.error});
+        }
 
-    //     req.body.imagePath = result.fileName;
-    // }
+        req.body.imagePath = result.fileName;
+    }
     
     const id = req.session.user._id;
     const allowedFields = ["name", "age", "password", "email", "imagePath"];
@@ -128,7 +128,7 @@ router.patch("/api/users", apiAuth, async (req, res) => {
 
     try{
         const user = await User.findById(id);
-        // const prevImage = user.imagePath;
+        const prevImage = user.imagePath;
 
         if(!user){
             return res.send({error: "User not found."});
@@ -139,14 +139,12 @@ router.patch("/api/users", apiAuth, async (req, res) => {
         });
 
         await user.save();
-        // req.session.user = User.getUserPublicData(user);
-        // res.send(User.getUserPublicData(user));
-
+        req.session.user = User.getUserPublicData(user);
         res.send(User.getUserPublicData(user));
 
-        // if(prevImage !== user.imagePath){
-        //     await User.deleteAvatar(prevImage);
-        // }
+        if(prevImage !== user.imagePath){
+            await User.deleteAvatar(prevImage);
+        }
     }catch(e){
         res.send({error: "Unable to update user. Something went wrong."});
     }   

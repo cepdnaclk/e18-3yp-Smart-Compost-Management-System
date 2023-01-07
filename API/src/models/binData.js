@@ -56,6 +56,10 @@ const Bin_Data = mongoose.model("Bin_Data", {
         trim: true,
         default: 0
 
+    },
+    owner: {
+        type : mongoose.Schema.Types.ObjectId,
+        required: true
     }
 });
 
