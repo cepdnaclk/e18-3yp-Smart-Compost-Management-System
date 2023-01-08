@@ -5,7 +5,7 @@ const ObjectId = require("mongodb").ObjectId;
 const User = require("../models/user.js");
 const auth = require("../middleware/auth.js");
 const apiAuth = require("../middleware/api-auth.js");
-// const email = require("../email/account.js");
+const email = require("../email/account.js");
 const mongodb = require("mongodb");
 const router = express.Router();
 
@@ -40,6 +40,7 @@ router.post("/api/users/login", async (req, res) => {
         req.session.user = user;
         res.send(User.getUserPublicData(user));
 
+
     }catch(e){
         res.send({error: "Something went wrong. Unable to login"});
     }
@@ -47,35 +48,36 @@ router.post("/api/users/login", async (req, res) => {
 
 // Enpoint for creating a user
 router.post("/api/users", async (req, res) => {
-    // req.body.secret = new ObjectId().toHexString();
+    req.body.secret = new ObjectId().toHexString();
     const user = new User(req.body); 
 
     try{
         await user.save();
         res.send(User.getUserPublicData(user));
-        // email.sendConfirmMail(user);
+        email.sendConfirmMail(user);
+        
     }catch(e){
         res.send(e);
     }
 });
 
 // Confirm account
-// router.get("/api/users/confirm_account", async (req, res) => {
-//     const userId = req.query.userId;
-//     const secret = req.query.secret;
+router.get("/api/users/confirm_account", async (req, res) => {
+    const userId = req.query.userId;
+    const secret = req.query.secret;
 
-//     try{
-//         const user = await User.findOneAndUpdate({_id: userId, secret: secret}, {confirmed: true});
+    try{
+        const user = await User.findOneAndUpdate({_id: userId, secret: secret}, {confirmed: true});
 
-//         if(!user){
-//             return res.redirect("/");
-//         }
+        if(!user){
+            return res.redirect("/");
+        }
 
-//         res.redirect("/?msg=Email confirmed. Please login.");
-//     }catch(e){
-//         res.redirect("/");
-//     }
-// });
+        res.redirect("/?msg=Email confirmed. Please login.");
+    }catch(e){
+        res.redirect("/");
+    }
+});
 
 // Enpoint for reading all users
 router.get("/api/users", async (req, res) => {

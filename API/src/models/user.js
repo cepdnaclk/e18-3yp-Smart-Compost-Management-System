@@ -78,9 +78,9 @@ userSchema.statics.findByCredentials = async (email, password) => {
         return {error: "Invalid credentials"};
     }
 
-    // if(!user.confirmed){
-    //     return {error: "Please confirm your email account."};
-    // }
+    if(!user.confirmed){
+        return {error: "Please confirm your email account."};
+    }
 
     return user;
 }
