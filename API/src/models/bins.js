@@ -5,7 +5,6 @@ const validator = require("validator");
 const Bin = mongoose.model("Bin", {
     binNumber: {
         type: Number,
-        unique: true,
         required: true
     },
     binLocation: {
@@ -17,11 +16,6 @@ const Bin = mongoose.model("Bin", {
         type: String,
         required: true,
         trim: true,
-    },
-    owner: {
-        type : mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "User"
     }
 });
 

@@ -1,7 +1,6 @@
 // Gloabl reusable variables
 const addingLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Adding...`;
-const generalLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
 var binsHTML = ""
 
 const getBinData = async function(url, binLoc, binNum){
@@ -23,7 +22,7 @@ const getBin = async function(number){
         const response =  await fetch(url1);
         const bin =  await response.json();
         var url1 = "/api/bindata/" + number;
-        getBinData(url1, bin.binLocation, bin.binNumber);
+        getBinData(url1, bin.binLocation);
 
     } catch(e){
         console.log(e)
@@ -105,7 +104,7 @@ const createBin = async function(){
             return showError("Unable to add Data.");
         }
 
-        const binCard = generateBinCard(newData, newBin.binLocation, newBin.binNumber);
+        const binCard = generateBinCard(newData, newBin.binLocation);
     
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
@@ -126,7 +125,7 @@ const initiateUpdate = async function(id){
     const url = "/api/bins/" + id;
 
     const locationInput =  document.querySelector("#Update-binLocation");
-    const compostInput = document.querySelector("#Update-compostStatus");
+    const compostInput =  document.querySelector("#Update-compostStatus");
     updateValidation.resetForm();
     locationInput.classList.remove("error");
     compostInput.classList.remove("error");
@@ -468,4 +467,3 @@ const generateBinCard = function(bin, binLoc, binNum){
     </div>
     `
 }
-

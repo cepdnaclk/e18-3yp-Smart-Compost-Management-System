@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
     <div class="bg-secondary bg-gradient bg-opacity-25"></div>
         <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
@@ -27,7 +26,27 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item px-3 pr-5"><a class="nav-link" href="/">Home</a></li>
 
+                            <form class="form-inline my-2 my-lg-0" id="search_form">
+                              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search_text">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+
                             <li class="nav-item px-3"><a class="nav-link" href="/about/">About</a></li>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                              <ul class="navbar-nav ml-auto">
+                                  <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          {{user.name}}
+                                          <img class="profile-image" src="/images/{{user.imagePath}}" alt="">
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="/profile">Profile Setting</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="/">Logout</a>
+                                      </div>
+                                  </li>
+                              </ul>
+                            </div>
                         </ul>
                         <!-- Uncomment to Enable searchbar -->
                         <!-- <form class="d-flex"> -->
@@ -38,33 +57,39 @@
                 </div>	
             </div>
         </nav>
-        {{#if msg}}
-        <div class="alert alert-success" role="alert">
-            {{msg}}
+
+        
+        <form class="signup-form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="name" class="form-control" id="name" name="name">
         </div>
-    {{/if}}
-    <h1 align="center">Welcome!</h1>
-    <p align="center">It's very easy to monitor and manage the quality of compost using Smart Compost Management System.</p>
-    
-    <form class="login-form">
+
         <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <input type="email" class="form-control" id="email" name="email">
         </div>
+
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control" id="password" name="password">
         </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+        </div>
+
         <div style="margin-bottom: 10px;">
-            <a href="/signup">Don't have an account? Click here to signup</a>
+            <a href="/">Have an account? Click here to login</a>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" id="signup-btn" class="btn btn-primary">Signup</button>
     </form>
 
-    <footer class="mt-5">
+        <footer class="mt-5">
             <p><a class="text-decoration-none text-white" href="#">Back to top</a></p>
-    </footer>
+        </footer>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -74,36 +99,43 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/js/app.js"></script>
 
-
     <script>
-        const loginForm = $(".login-form");
+        const form = $(".signup-form");
 
-        loginForm.validate({
+        form.validate({
             rules:{
                 email: {
                     required: true
                 },
+                name: {
+                    required: true
+                },
                 password: {
                     required: true
+                },
+                confirmPassword: {
+                    required: true,
+                    equalTo: "#password"
                 }
             }
         });
 
-        loginForm.on("submit", (e) => {
+        form.on("submit", (e) => {
             e.preventDefault();
 
-            if(loginForm.valid()){
-                login();
+            if(form.valid()){
+                signup();
             }
         });
 
-        const login = async () => {
-            const url = "/api/users/login";
+        const signup = async () => {
+            const url = "/api/users/";
 
-            showLoader(".btn-primary", {content: generalLoader});
+            showLoader("#signup-btn", {content: generalLoader});
 
             const data = {
                 email: $("#email").val(),
+                name: $("#name").val(),
                 password: $("#password").val()
             }
 
@@ -119,16 +151,16 @@
                 const user = await response.json();
 
                 if(user.error){
-                    hideLoader(".btn-primary", {content: "Login"});
                     return showError(user.error);
                 }
 
-                window.location.replace("/bindata");
+                window.location.replace("/?msg=Confirm you email account by click the confirm link in your email.");
             }catch(e){
-                showError("Unable to login. Something went wrong");
+                showError("Unable to signup. Something went wrong");
+            }finally{
+                hideLoader("#signup-btn", {content: "Signup"});
             }
         }
     </script>
-
 </body>
 </html>
