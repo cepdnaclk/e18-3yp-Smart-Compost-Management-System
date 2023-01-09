@@ -23,8 +23,12 @@ const getBin = async function(number){
     try{
         const response =  await fetch(url1);
         const bin =  await response.json();
-        var url1 = "/api/bindata/" + number;
-        getBinData(url1, bin.binLocation, bin.binNumber);
+        
+        if(bin.error == "Bin not found"){
+            return showError("Bin not Found!");
+        } 
+        var url2 = "/api/bindata/" + number;
+        getBinData(url2, bin.binLocation, bin.binNumber);
 
     } catch(e){
         console.log(e)
