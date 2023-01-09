@@ -1,6 +1,8 @@
 // Gloabl reusable variables
 const addingLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Adding...`;
+const generalLoader = ` <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;                       
+
 var binsHTML = ""
 
 const getBinData = async function(url, binLoc, binNum){
@@ -22,7 +24,7 @@ const getBin = async function(number){
         const response =  await fetch(url1);
         const bin =  await response.json();
         var url1 = "/api/bindata/" + number;
-        getBinData(url1, bin.binLocation);
+        getBinData(url1, bin.binLocation, bin.binNumber);
 
     } catch(e){
         console.log(e)
@@ -72,8 +74,9 @@ const createBin = async function(){
         compostStatus : document.querySelector("#compostStatus").value
     }
 
-    showLoader("#btn_add", {content: addingLoader});
     hideModal("BinCreateModal");
+    showLoader("#btn_add", {content: addingLoader});
+    
 
     try{
         const response1 = await fetch(url1, {
@@ -104,7 +107,7 @@ const createBin = async function(){
             return showError("Unable to add Data.");
         }
 
-        const binCard = generateBinCard(newData, newBin.binLocation);
+        const binCard = generateBinCard(newData, newBin.binLocation, newBin.binNumber);
     
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
@@ -153,6 +156,9 @@ const updateBin = async function (){
     const url1 = "/api/bins/" + binNum;
     const url2 = "/api/binData/" + binNum;
 
+    hideModal("BinUpdateModal");
+    showLoader("#bin-"+binNum + " .btn-primary", {content: generalLoader});
+
     const bin ={
         binLocation : document.querySelector("#Update-binLocation").value,
         compostStatus : document.querySelector("#Update-compostStatus").value
@@ -192,12 +198,14 @@ const updateBin = async function (){
         y[1].innerHTML = uptBin.compostStatus;
         
 
-        hideModal("BinUpdateModal");
+        
         showSuccess("Bin successfully updated!");
     
 
     } catch(e){
         showError("Unable to update the Bin!");
+    }finally{
+        hideLoader("#bin-"+binNum + " .btn-primary", {content: `<i class="fa-solid fa-pen-to-square"></i>`});
     }
 
     
@@ -227,6 +235,7 @@ const deleteBin = async function(id){
     
 
     const url = "api/bins/" + id;
+    showLoader("#bin-"+id + " .btn-danger", {content: generalLoader});
 
     try{
         const response = await fetch(url, {
@@ -245,10 +254,13 @@ const deleteBin = async function(id){
         }
 
         document.querySelector("#bin-" + id).remove();
+        showSuccess("Bin deleted successfully!");
         resetBin(id);
         
     } catch(e){
         showError("Unable to Delete Bin!");
+    }finally{
+        hideLoader("#bin-"+id + " .btn-danger", {content: `<i class="fa-solid fa-trash-can"></i>`});
     }
 }
 
@@ -322,6 +334,8 @@ getBins();
 // -------------------------------- UTILITY FUNCTIONS -------------------------
 
 const showModal = (id, data) => {
+    $("label.error").hide();
+    $(".error").removeClass("error");
     $('#' + id).modal();
 }
 
@@ -460,7 +474,7 @@ const generateBinCard = function(bin, binLoc, binNum){
                 <small class="text-muted">Last updated 3 mins ago</small>
             </div>
             <div class="crud-buttons">
-            <button type="button" class="btn btn-primary" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-danger" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
             <button type="button" class="btn btn-primary" onclick="initiateUpdate(${binNum})"><i class="fa-solid fa-pen-to-square"></i></button>
         </div>
         </div>
