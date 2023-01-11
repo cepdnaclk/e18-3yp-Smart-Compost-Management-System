@@ -37,11 +37,11 @@ router.get("/api/bindata", async function(req,res){
 })
 
 // End point for reading the latest data of a specific bin
-router.get("/api/bindata/:binNumber", async function(req,res){
+router.get("/api/bindata/:binID", async function(req,res){
     try{
         
         const bin = await Bin_Data.findOne({
-            binNumber: req.params.binNumber
+            owner: req.params.binID
         }).sort({
             day: -1,
             quarter: -1
@@ -49,7 +49,7 @@ router.get("/api/bindata/:binNumber", async function(req,res){
         
 
         if(!bin){
-            return res.status(404).send({error: "Bin not found"});
+            return res.status(404).send({error: "Bin data not found"});
         } 
         res.send(bin);
     } catch(error){
@@ -59,11 +59,11 @@ router.get("/api/bindata/:binNumber", async function(req,res){
 });
 
 // End point for reading all the data of a specific bin
-router.get("/api/bindata/all/:binNumber", async function(req,res){
+router.get("/api/bindata/all/:binID", async function(req,res){
     try{
         
         const bin = await Bin_Data.find({
-            binNumber: req.params.binNumber
+            owner: req.params.binID
         }).sort({
             day: 1,
             quarter: 1

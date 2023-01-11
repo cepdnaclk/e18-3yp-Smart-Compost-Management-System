@@ -41,8 +41,51 @@
             </div>
         </nav>
 
+        
+
+        <div class="container vh-75">
+        <div class="card mb-3" style="max-width: 2000px;" id="detailsCard">
+        </div>
+
+        {{!-- Upto this point done --}}
+
+
+        <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
+
+        <style>
+            .container {
+                width: 85%;
+            }
+            body {
+                text-align: center;
+                color: green;
+            }
+            h2 {
+                text-align: center;
+                font-family: "Verdana", sans-serif;
+                font-size: 30px;
+            }
+        </style>
+
+        <div class="card mb-3" style="max-width: 2000px;">
+            <div class="card h-100 bg-dark border-2 text-center border-success">
+                <div class="row g-0">
+                <div class="container">
+                    <h2 class="card-title text-white">Temperature Variation of the two Levels</h2>
+                    <div>
+                        <canvas id="myChart1"></canvas>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+
         <script>
-            document.querySelector("#Bintitle").innerHTML = "Compost Bin " + localStorage.getItem("bin_number");
+            var binId = ""
+            document.querySelector("#Bintitle").innerHTML = "Compost Bin " + localStorage.getItem("binNumber");
 
             const getBinData = async function(url){
                 var dataHTML = ""
@@ -70,7 +113,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h2 class="card-title text-white">BIN ${localStorage.getItem("bin_number")} COMPOST</h2>
+                                <h2 class="card-title text-white">BIN ${localStorage.getItem("binNumber")} COMPOST</h2>
 
                                 <table class="table table-sm table-dark">
                                     <tbody>
@@ -121,56 +164,10 @@
                 </div>
                 `
             }
-
-            const url = "/api/bindata/" + localStorage.getItem("bin_number");
-            getBinData(url);
-
-        </script>
-
-        <div class="container vh-75">
-        <div class="card mb-3" style="max-width: 2000px;" id="detailsCard">
-        </div>
-
-        {{!-- Upto this point done --}}
-
-
-        <link rel="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
-
-        <style>
-            .container {
-                width: 85%;
-            }
-            body {
-                text-align: center;
-                color: green;
-            }
-            h2 {
-                text-align: center;
-                font-family: "Verdana", sans-serif;
-                font-size: 30px;
-            }
-        </style>
-
-        <div class="card mb-3" style="max-width: 2000px;">
-            <div class="card h-100 bg-dark border-2 text-center border-success">
-                <div class="row g-0">
-                <div class="container">
-                    <h2 class="card-title text-white">Temperature Variation of the two Levels</h2>
-                    <div>
-                        <canvas id="myChart1"></canvas>
-                    </div>
-                </div></div>
-            </div>
-        </div>
-
-        <script>
             const getDataStat = async function(binNumber){
 
                 const url = "/api/bindata/all/" + binNumber;
+                console.log(url)
                 try {
                     const response =  await fetch(url);
                     const binDatas =  await response.json();
@@ -374,7 +371,25 @@
                 }
             }
 
-            getDataStat(localStorage.getItem("bin_number"));
+            const getBin = async function(number){
+                url1 = "/api/bins/" + number;
+                try{
+                    const response =  await fetch(url1);
+                    const bin =  await response.json();
+                
+                    const url = "/api/bindata/" + bin._id;
+                    binId = bin._id;
+                    getBinData(url)
+                    getDataStat(binId)
+                } catch(e){
+                    console.log(e)
+                }
+
+            }
+
+            getBin(localStorage.getItem("binNumber"));
+
+        
         </script>
 
         <div class="card mb-3" style="max-width: 2000px;">

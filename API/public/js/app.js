@@ -5,12 +5,16 @@ const generalLoader = ` <span class="spinner-border spinner-border-sm" role="sta
 
 var binsHTML = ""
 
-const getBinData = async function(url, binLoc, binNum){
+const getBinData = async function(url, binLoc, binNum, binID){
     try{
         const response =  await fetch(url);
         const binData =  await response.json();
 
-        binsHTML += generateBinCard(binData, binLoc, binNum);
+        if(binData.error == "Bin data not found"){
+            return showError("No bin data found in Bin " + binNum)
+        }
+
+        binsHTML += generateBinCard(binData, binLoc, binNum, binID);
         document.querySelector("#card-wrapper").innerHTML = binsHTML;
 
     } catch(e){
@@ -27,8 +31,8 @@ const getBin = async function(number){
         if(bin.error == "Bin not found"){
             return showError("Bin not Found!");
         } 
-        var url2 = "/api/bindata/" + number;
-        getBinData(url2, bin.binLocation, bin.binNumber);
+        var url2 = "/api/bindata/" + bin._id;
+        getBinData(url2, bin.binLocation, bin.binNumber, bin._id);
 
     } catch(e){
         console.log(e)
@@ -37,6 +41,7 @@ const getBin = async function(number){
 }
 
 const getBins = async function(){
+    
     const url = "/api/bins";
 
     try{
@@ -52,9 +57,11 @@ const getBins = async function(){
         var binsHTML = "";
         bins.forEach( async(bin) => {
             var binNum = bin.binNumber;
-            var url = "/api/bindata/" + binNum;
+            var binID = bin._id
 
-            getBinData(url, bin.binLocation, binNum);
+            var url = "/api/bindata/" + binID;
+
+            getBinData(url, bin.binLocation, binNum, binID);
         });
 
     }  catch(error){
@@ -65,7 +72,7 @@ const getBins = async function(){
 
 const createBin = async function(){
     const url1 = "/api/bins";
-    const url2 = "/api/bindata";
+    // const url2 = "/api/bindata";
 
     const bin ={
         binNumber : document.querySelector("#binNumber").value,
@@ -73,10 +80,10 @@ const createBin = async function(){
         compostStatus : document.querySelector("#compostStatus").value
     }
     
-    const data ={
-        binNumber :  document.querySelector("#binNumber").value,
-        compostStatus : document.querySelector("#compostStatus").value
-    }
+    // const data ={
+    //     binNumber :  document.querySelector("#binNumber").value,
+    //     compostStatus : document.querySelector("#compostStatus").value
+    // }
 
     hideModal("BinCreateModal");
     showLoader("#btn_add", {content: addingLoader});
@@ -91,27 +98,27 @@ const createBin = async function(){
             body : JSON.stringify(bin)
         })
 
-        const response2 = await fetch(url2, {
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(data)
-        })
+        // const response2 = await fetch(url2, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type" : "application/json"
+        //     },
+        //     body : JSON.stringify(data)
+        // })
 
         const newBin = await response1.json();
-        const newData = await response2.json();
+        // const newData = await response2.json();
 
     
         if(!newBin){
             return showError("Unable to add Bin.");
         }
 
-        if(!newData){
-            return showError("Unable to add Data.");
-        }
+        // if(!newData){
+        //     return showError("Unable to add Data.");
+        // }
 
-        const binCard = generateBinCard(newData, newBin.binLocation, newBin.binNumber);
+        const binCard = generateBinCard(newBin, newBin.binLocation, newBin.binNumber, newBin._id);
     
         const binList = document.querySelector("#card-wrapper");
         binList.innerHTML += binCard ;
@@ -270,10 +277,11 @@ const deleteBin = async function(id){
 
 const moreDetails =  function(binNum){
 
-    localStorage.setItem("bin_number", binNum);
-    return false;
+    localStorage.setItem("binNumber", binNum);   
+    return;
 
 }
+
 
 const initiateReset = function(id){
     swal({
@@ -433,7 +441,7 @@ searchForm.on("submit",  (e) => {
 })
 
 
-const generateBinCard = function(bin, binLoc, binNum){
+const generateBinCard = function(bin, binLoc, binNum, binID){
     const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
     const humidity = (bin.humidityL1 + bin.humidityL2)/2;
     return `
@@ -471,7 +479,7 @@ const generateBinCard = function(bin, binLoc, binNum){
                 </table>			
             </div>
             
-            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})" href="bindata/bin/">More Details</a></div>
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})"  href="bindata/bin/">More Details</a></div>
             <br>
             <div class="text-center"><button class="btn btn-success w-75 buttonBottomMargin" onclick="initiateReset(${binNum})">Reset Bin</button></div>
             <div class="card-footer border-dark">
