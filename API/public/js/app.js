@@ -137,7 +137,7 @@ const createBin = async function(){
 
 const initiateUpdate = async function(id){
     const url = "/api/bins/" + id;
-
+    
     const locationInput =  document.querySelector("#Update-binLocation");
     const compostInput =  document.querySelector("#Update-compostStatus");
     updateValidation.resetForm();
@@ -155,6 +155,7 @@ const initiateUpdate = async function(id){
         document.querySelector("#Update-binLocation").value = bin.binLocation;
         document.querySelector("#Update-compostStatus").value = bin.compostStatus;
         document.querySelector("#Update-binNumber").value = bin.binNumber;
+        localStorage.setItem("updBinID", bin._id);
         $("#BinUpdateModal").modal();
 
     } catch(e){
@@ -164,8 +165,9 @@ const initiateUpdate = async function(id){
 
 const updateBin = async function (){
     const binNum = document.querySelector("#Update-binNumber").value;
+    const binID = localStorage.getItem("updBinID");
     const url1 = "/api/bins/" + binNum;
-    const url2 = "/api/binData/" + binNum;
+    const url2 = "/api/binData/" + binID;
 
     hideModal("BinUpdateModal");
     showLoader("#bin-"+binNum + " .btn-primary", {content: generalLoader});
@@ -240,6 +242,7 @@ const initiateDelete = function(id){
           swal("Your Bin is safe!");
         }
       });
+      localStorage.setItem("dltBinID", )
 }
 
 const deleteBin = async function(id){
