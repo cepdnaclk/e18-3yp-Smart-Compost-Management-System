@@ -5,6 +5,15 @@ const mongodb = require("mongodb");
 
 const router = express.Router();
 
+router.get("/bindata", function(req, res){
+    res.render("bindata");
+})
+
+router.get("/bindata/bin", function(req, res){
+    res.render("bin");
+})
+
+
 // End point for creating a bin in the system
 router.post("/api/bins", async function(req, res){
     const bin = new Bin(req.body);

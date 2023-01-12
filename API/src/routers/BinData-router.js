@@ -3,13 +3,6 @@ const Bin_Data = require("../models/binData.js");
 const mongodb = require("mongodb");
 const router = express.Router();
 
-router.get("/bindata", function(req, res){
-    res.render("bindata");
-})
-
-router.get("/bindata/bin", function(req, res){
-    res.render("bin");
-})
 
 // End point for adding data for a bin
 router.post("/api/bindata", async function(req, res){
