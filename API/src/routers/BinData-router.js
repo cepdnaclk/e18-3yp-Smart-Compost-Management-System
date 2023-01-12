@@ -134,9 +134,7 @@ router.patch("/api/bindata/:binID", async function(req,res){
 // Endpoint for deleting a data of a bin
 router.delete("/api/bindata/:id", async function(req,res){
     try{
-        const data = await Bin_Data.findByIdAndDelete({
-            _id : req.params.id
-        });
+        const data = await Bin_Data.findByIdAndDelete(req.params.id);
 
         if(!data){
             return res.status(404).send({error: "Data not found"});

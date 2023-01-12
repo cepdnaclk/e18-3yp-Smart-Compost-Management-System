@@ -286,7 +286,7 @@ const moreDetails =  function(binNum){
 }
 
 
-const initiateReset = function(id){
+const initiateReset = function(binNum){
     swal({
         title: "Are you sure?",
         text: "Once reset, all the data of this bin will be deleted!",
@@ -296,7 +296,7 @@ const initiateReset = function(id){
       })
       .then((willDelete) => {
         if (willDelete) {
-            resetBin(id)
+            resetBin(binNum)
           swal("Poof! Your Bin has been reset!", {
             icon: "success",
           });
@@ -306,8 +306,29 @@ const initiateReset = function(id){
       });
 }
 
+const getBinID = async function(binNum){
+    const url =  "/api/bins/" + binNum;
+
+    try{
+        const response = await fetch(url);
+        const bin = await response.json();
+
+        if(!bin){
+            return showError("Bin not Found")
+        }
+
+        return bin._id;
+
+    } catch(e){
+        console.log(e);
+    }
+
+}
+
 const resetBin = async function(binNum){
-    const url =  "/api/bindata/all/" + binNum;
+    const binID = await getBinID(binNum)
+    
+    const url =  "/api/bindata/all/" + binID;
 
     try{
         const response = await fetch(url);
@@ -447,6 +468,7 @@ searchForm.on("submit",  (e) => {
 const generateBinCard = function(bin, binLoc, binNum, binID){
     const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
     const humidity = (bin.humidityL1 + bin.humidityL2)/2;
+    document
     return `
     <div class="col" id="bin-${binNum}">
         <div class="card h-100 bg-dark border-2 text-center border-success">
@@ -491,7 +513,7 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
             <div class="crud-buttons">
             <button type="button" class="btn btn-danger" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
             <button type="button" class="btn btn-primary" onclick="initiateUpdate(${binNum})"><i class="fa-solid fa-pen-to-square"></i></button>
-        </div>
+            </div>
         </div>
     </div>
     `

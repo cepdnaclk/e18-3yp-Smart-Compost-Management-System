@@ -76,10 +76,12 @@ router.patch("/api/bins/:binNumber", async function(req,res){
 })
 
 // Endpoint for deleting a  bin
-router.delete("/api/bins/:id", async function(req,res){
+router.delete("/api/bins/:binNumber", async function(req,res){
     try{
 
-        const bin = await Bin.findByIdAndDelete(req.params.id);
+        const bin = await Bin.findOneAndDelete({
+            binNumber : req.params.binNumber
+        });
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});
