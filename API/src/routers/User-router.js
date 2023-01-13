@@ -10,7 +10,6 @@ const apiAuth = require("../middleware/api-auth.js");
 const router = express.Router();
 
 // ----------------------------------- API Endpoints ----------------------------------
-
 router.get("/", (req, res) => {  
     if(req.session.user){
         req.session.user = undefined;
@@ -87,7 +86,7 @@ router.get("/api/users", async (req, res) => {
 });
 
 // Enpoint for reading a user
-router.get("/api/users", async (req, res) => {
+router.get("/api/users", apiAuth, async (req, res) => {
     try{
         const user = await User.findById(req.session.user._id);
 
@@ -102,7 +101,7 @@ router.get("/api/users", async (req, res) => {
 });
 
 // Enpoint for updating a user
-router.patch("/api/users", async (req, res) => {
+router.patch("/api/users", apiAuth, async (req, res) => {
     if(req.files){
         const result = User.uploadAvatar(req.files.profileImage);
 
@@ -150,7 +149,7 @@ router.patch("/api/users", async (req, res) => {
 });
 
 // Enpoint for deleting a user
-router.delete("/api/users",  async (req, res) => {
+router.delete("/api/users", apiAuth, async (req, res) => {
     try{
         const user = await User.findByIdAndDelete(req.session.user._id);
 
