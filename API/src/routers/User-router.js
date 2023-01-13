@@ -10,10 +10,18 @@ const User = require("../models/user.js");
 const router = express.Router();
 
 // ----------------------------------- API Endpoints ----------------------------------
+router.get("/bindata", function(req, res){
+    res.render("bindata", {user: req.session.user});
+})
+
+router.get("/bindata/bin", function(req, res){
+    res.render("bin");
+})
+
 router.get("/", (req, res) => {  
-    // if(req.session.user){
-    //     req.session.user = undefined;
-    // }
+    if(req.session.user){
+        req.session.user = undefined;
+    }
 
     res.render("index", {msg: req.query.msg});
 });
