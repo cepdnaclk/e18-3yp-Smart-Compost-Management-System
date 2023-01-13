@@ -3,20 +3,13 @@ const path = require("path");
 const ObjectId = require("mongodb").ObjectId;
 
 const User = require("../models/user.js");
-// const auth = require("../middleware/auth.js");
-// const apiAuth = require("../middleware/api-auth.js");
+const auth = require("../middleware/auth.js");
+const apiAuth = require("../middleware/api-auth.js");
 // const email = require("../email/account.js");
 
 const router = express.Router();
 
 // ----------------------------------- API Endpoints ----------------------------------
-router.get("/bindata", function(req, res){
-    res.render("bindata", {user: req.session.user});
-})
-
-router.get("/bindata/bin", function(req, res){
-    res.render("bin");
-})
 
 router.get("/", (req, res) => {  
     if(req.session.user){
@@ -30,7 +23,7 @@ router.get("/signup", (req, res) => {
     res.render("signup");
 });
 
-router.get("/profile",  (req, res) => {
+router.get("/profile", auth, (req, res) => {
     res.render("profile", {user: req.session.user});
 });
 
