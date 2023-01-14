@@ -3,8 +3,8 @@
 
 const mongoose = require("mongoose");
 const validator = require("validator");
-// const bcryptjs = require("bcryptjs");
-// const ObjectId = require("mongodb").ObjectId;
+const bcryptjs = require("bcryptjs");
+const ObjectId = require("mongodb").ObjectId;
 
 const userSchema = mongoose.Schema({
     name: {
