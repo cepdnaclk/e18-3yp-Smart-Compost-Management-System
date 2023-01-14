@@ -7,14 +7,15 @@ const bcryptjs = require("bcryptjs");
 const ObjectId = require("mongodb").ObjectId;
 
 const userSchema = mongoose.Schema({
-    name: {
+    companyName: {
         type: String,
         required: true,
         trim: true
     },
-    age: {
-        type: Number,
-        default: 0
+    location: {
+        type: String,
+        required: true,
+        trim: true
     },
     email: {
         type: String,
@@ -92,9 +93,9 @@ userSchema.statics.findByCredentials = async (email, password) => {
 userSchema.statics.getUserPublicData = (user) => {
     return {
         _id: user._id,
-        name: user.name,
+        companyName: user.companyName,
         email: user.email,
-        age: user.age,
+        location: user.location,
         imagePath: user.imagePath
     }
 }
