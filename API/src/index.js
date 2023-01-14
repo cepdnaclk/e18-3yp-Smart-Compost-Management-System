@@ -3,6 +3,7 @@ const express = require("express"); //  to manage servers and routes
 const hbs = require("hbs");
 require("./db/mongoose.js");
 const session = require("express-session");
+const fileUpload = require("express-fileupload");
 
 const BinDataRouter = require("./routers/BinData-router.js");
 const BinRouter = require("./routers/Bin-router.js");
@@ -19,6 +20,8 @@ app.set("view engine", "hbs");
 const publicDirectoryPath = path.join(__dirname, "../public");
 app.use(express.static(publicDirectoryPath));
 
+app.use(fileUpload());
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use(BinDataRouter);
