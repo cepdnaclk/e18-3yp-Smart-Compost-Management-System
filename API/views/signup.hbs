@@ -46,6 +46,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="location" class="form-control" id="location" name="location">
+                </div>
+
+                <div class="form-group">
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" id="email" name="email">
                 </div>
@@ -81,6 +86,7 @@
     <script src="/js/app.js"></script>
 
     <script>
+                             
         const form = $(".signup-form");
 
         form.validate({
@@ -89,6 +95,9 @@
                     required: true
                 },
                 companyName: {
+                    required: true
+                },
+                location: {
                     required: true
                 },
                 password: {
@@ -116,6 +125,7 @@
 
             const data = {
                 email: $("#email").val(),
+                location: $("#location").val(),
                 companyName: $("#companyName").val(),
                 password: $("#password").val()
             }
@@ -130,6 +140,7 @@
                 });
 
                 const user = await response.json();
+                console.log(user);
 
                 if(user.error){
                     return showError(user.error);

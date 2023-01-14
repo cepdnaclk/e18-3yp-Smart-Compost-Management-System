@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey("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");
+sgMail.setApiKey("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");
 
 const sendConfirmMail = async (user) => {
     const msg = {
@@ -22,3 +22,4 @@ const sendConfirmMail = async (user) => {
 module.exports = {
     sendConfirmMail: sendConfirmMail
 }
+
