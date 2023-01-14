@@ -24,7 +24,7 @@
                 <div class="d-flex justify-content-end">	
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item px-3 pr-5"><a class="nav-link" href="bindata#">Home</a></li>
+                            <li class="nav-item px-3 pr-5"><a class="nav-link" href="/index">Home</a></li>
 
                             <form class="form-inline my-2 my-lg-0" id="search_form">
                               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search_text">
@@ -35,7 +35,7 @@
                               <ul class="navbar-nav ml-auto">
                                   <li class="nav-item dropdown">
                                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          {{user.name}}
+                                          <span id="username">{{user.companyName}}</span>
                                           <img class="profile-image" src="/images/{{user.imagePath}}" alt="">
                                       </a>
                                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">

@@ -26,7 +26,7 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item px-3 pr-5"><a class="nav-link" href="/index">Home</a></li>
 
-                            <li class="nav-item px-3"><a class="nav-link" href="/about">About</a></li>
+                            <li class="nav-item px-3"><a class="nav-link" href="/about/">About</a></li>
                         </ul>
                         <!-- Uncomment to Enable searchbar -->
                         <!-- <form class="d-flex"> -->
@@ -39,27 +39,32 @@
         </nav>
 
         <div class="container vh-75">
-            {{#if msg}}
-                <div class="alert alert-success" role="alert">
-                    {{msg}}
+            <form class="signup-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="name" class="form-control" id="name" name="name">
                 </div>
-            {{/if}}
 
-            <form class="login-form">
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
-        </div>
-        <div style="margin-bottom: 10px;">
-            <a href="/signup">Don't have an account? Click here to signup</a>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <a href="/">Have an account? Click here to login</a>
+                </div>
+                <button type="submit" id="signup-btn" class="btn btn-primary">Signup</button>
+            </form>
         </div>
 
         <footer class="mt-5">
