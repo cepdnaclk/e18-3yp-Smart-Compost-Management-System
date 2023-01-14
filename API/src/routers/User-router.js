@@ -113,7 +113,7 @@ router.patch("/api/users", apiAuth, async (req, res) => {
     }
     
     const id = req.session.user._id;
-    const allowedFields = ["name", "age", "password", "email", "imagePath"];
+    const allowedFields = ["companyName", "location", "password", "email", "imagePath"];
     const updateFields = Object.keys(req.body);
 
     const isValid = updateFields.every((field) => {
