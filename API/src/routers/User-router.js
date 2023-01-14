@@ -5,7 +5,7 @@ const ObjectId = require("mongodb").ObjectId;
 const User = require("../models/user.js");
 const auth = require("../middleware/auth.js");
 const apiAuth = require("../middleware/api-auth.js");
-// const email = require("../email/account.js");
+const email = require("../email/account.js");
 
 const router = express.Router();
 
