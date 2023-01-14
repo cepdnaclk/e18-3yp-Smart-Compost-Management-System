@@ -109,7 +109,7 @@
                email: {
                    required: true
                },
-               age: {
+               location: {
                    required: true
                }
            }
@@ -133,7 +133,7 @@
             const formData = new FormData();
             formData.append("name", $("#name").val());
             formData.append("email", $("#email").val());
-            formData.append("age", $("#age").val());
+            formData.append("location", $("#location").val());
 
             if(imageFile.files.length > 0){
                 formData.append("profileImage", imageFile.files[0]);
