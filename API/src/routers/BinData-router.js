@@ -3,13 +3,6 @@ const Bin_Data = require("../models/binData.js");
 const mongodb = require("mongodb");
 const router = express.Router();
 
-router.get("/bindata", function(req, res){
-    res.render("bindata");
-})
-
-router.get("/bindata/bin", function(req, res){
-    res.render("bin");
-})
 
 // End point for adding data for a bin
 router.post("/api/bindata", async function(req, res){
@@ -37,11 +30,11 @@ router.get("/api/bindata", async function(req,res){
 })
 
 // End point for reading the latest data of a specific bin
-router.get("/api/bindata/:binNumber", async function(req,res){
+router.get("/api/bindata/:binID", async function(req,res){
     try{
         
         const bin = await Bin_Data.findOne({
-            binNumber: req.params.binNumber
+            owner: req.params.binID
         }).sort({
             day: -1,
             quarter: -1
@@ -49,7 +42,7 @@ router.get("/api/bindata/:binNumber", async function(req,res){
         
 
         if(!bin){
-            return res.status(404).send({error: "Bin not found"});
+            return res.status(404).send({error: "Bin data not found"});
         } 
         res.send(bin);
     } catch(error){
@@ -59,11 +52,11 @@ router.get("/api/bindata/:binNumber", async function(req,res){
 });
 
 // End point for reading all the data of a specific bin
-router.get("/api/bindata/all/:binNumber", async function(req,res){
+router.get("/api/bindata/all/:binID", async function(req,res){
     try{
         
         const bin = await Bin_Data.find({
-            binNumber: req.params.binNumber
+            owner: req.params.binID
         }).sort({
             day: 1,
             quarter: 1
@@ -101,7 +94,7 @@ router.get("/api/bindata/:binNumber/:day", async function(req,res){
 });
 
 // End point for updating a data of a bin
-router.patch("/api/bindata/:binNumber", async function(req,res){
+router.patch("/api/bindata/:binID", async function(req,res){
     const allowedFields = ["binNumber", "day", "quarter", "temperatureL1","temperatureL2", "humidityL1","humidityL2", "compostStatus"];
     const updateFields = Object.keys(req.body);
 
@@ -115,8 +108,11 @@ router.patch("/api/bindata/:binNumber", async function(req,res){
 
     try{
         const bin = await Bin_Data.findOneAndUpdate({
-            binNumber : req.params.binNumber},
-            req.body, {new: true});
+            owner : req.params.binID},
+            req.body, {new: true}).sort({
+                day: -1,
+                quarter: -1
+            });
 
         if(!bin){
             return res.status(404).send({error: "Bin not found"});
@@ -131,9 +127,7 @@ router.patch("/api/bindata/:binNumber", async function(req,res){
 // Endpoint for deleting a data of a bin
 router.delete("/api/bindata/:id", async function(req,res){
     try{
-        const data = await Bin_Data.findByIdAndDelete({
-            _id : req.params.id
-        });
+        const data = await Bin_Data.findByIdAndDelete(req.params.id);
 
         if(!data){
             return res.status(404).send({error: "Data not found"});

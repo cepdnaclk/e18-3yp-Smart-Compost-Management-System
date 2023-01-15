@@ -24,14 +24,29 @@
                 <div class="d-flex justify-content-end">	
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item px-3 pr-5"><a class="nav-link" href="bindata#">Home</a></li>
+                            <li class="nav-item px-3 pr-5"><a class="nav-link" href="/index">Home</a></li>
 
                             <form class="form-inline my-2 my-lg-0" id="search_form">
                               <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search_text">
                               <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                             </form>
 
-                            <li class="nav-item px-3"><a class="nav-link" href="/about/">About</a></li>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                              <ul class="navbar-nav ml-auto">
+                                  <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <span id="username">{{user.companyName}}</span>
+                                          <img class="profile-image" src="/images/{{user.imagePath}}" alt="">
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="/about">About</a>
+                                      <a class="dropdown-item" href="/profile">Profile Settings</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="/">Logout</a>
+                                      </div>
+                                  </li>
+                              </ul>
+                            </div> 
                         </ul>
                         <!-- Uncomment to Enable searchbar -->
                         <!-- <form class="d-flex"> -->
@@ -149,5 +164,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/js/app.js"></script>
+    <script src="/js/models/bins.js"></script>
 </body>
 </html>
