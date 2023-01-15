@@ -5,7 +5,6 @@ const validator = require("validator");
 const binSchema = mongoose.Schema({
     binNumber: {
         type: Number,
-        unique: true,
         required: true
     },
     binLocation: {
