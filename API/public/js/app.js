@@ -234,6 +234,7 @@ const initiateDelete = function(id){
       })
       .then((willDelete) => {
         if (willDelete) {
+            resetBin(id);
             deleteBin(id);
           swal("Poof! Your Bin has been deleted!", {
             icon: "success",
@@ -504,7 +505,7 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
                 </table>			
             </div>
             
-            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})"  href="bindata/bin/">More Details</a></div>
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})"  href="/bindata/bin">More Details</a></div>
             <br>
             <div class="text-center"><button class="btn btn-success w-75 buttonBottomMargin" onclick="initiateReset(${binNum})">Reset Bin</button></div>
             <div class="card-footer border-dark">

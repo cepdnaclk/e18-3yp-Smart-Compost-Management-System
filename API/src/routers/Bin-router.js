@@ -12,7 +12,7 @@ router.get("/bindata", auth, function(req, res){
 })
 
 router.get("/bindata/bin", auth, function(req, res){
-    res.render("bin");
+    res.render("bin", {user: req.session.user});
 })
 
 // End point for creating a bin in the system

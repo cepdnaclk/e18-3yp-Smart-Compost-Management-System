@@ -181,7 +181,6 @@
             const getDataStat = async function(binNumber){
 
                 const url = "/api/bindata/all/" + binNumber;
-                console.log(url)
                 try {
                     const response =  await fetch(url);
                     const binDatas =  await response.json();
