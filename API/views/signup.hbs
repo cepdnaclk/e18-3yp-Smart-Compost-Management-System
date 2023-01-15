@@ -92,7 +92,7 @@
         form.validate({
             rules:{
                 email: {
-                    required: true
+                    required: true,
                 },
                 companyName: {
                     required: true
@@ -101,11 +101,26 @@
                     required: true
                 },
                 password: {
-                    required: true
+                    required: true,
+                    minlength: 8
                 },
                 confirmPassword: {
                     required: true,
                     equalTo: "#password"
+                }
+            },
+            messages: {
+                email: {
+                    required: "Please enter your e-mail address",
+                    email: "Please provide a valid e-mail address"
+                },
+                password: {
+                    required: "Please enter a password",
+                    minlength: "The password must be at least 8 characters long"
+                },
+                password_confirm: {
+                    required: "Please enter the password again",
+                    equalTo: "The passwords do not match"
                 }
             }
         });
