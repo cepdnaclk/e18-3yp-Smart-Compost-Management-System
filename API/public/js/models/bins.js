@@ -422,12 +422,11 @@ searchForm.on("submit",  (e) => {
 
     const total = localStorage.getItem("totalBins");
     
-    if(parseInt(num) <= parseInt(total)){
-        binsHTML = "";
-        return getBin(num);
-    }
+    
+    binsHTML = "";
+    return getBin(num);
+    
 
-    showError("Bin not Found!");
 
 })
 
