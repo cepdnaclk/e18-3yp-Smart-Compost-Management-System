@@ -40,7 +40,7 @@ router.get("/api/bins", apiAuth, async function(req,res){
     }
 })
 
-// End point for reading a specific bin
+// End point for reading a specific bin ugug
 router.get("/api/bins/:binNumber", apiAuth, async function(req,res){
     const userId = req.session.user._id;
 
