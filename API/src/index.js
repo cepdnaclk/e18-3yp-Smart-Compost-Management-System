@@ -10,7 +10,7 @@ const BinRouter = require("./routers/Bin-router.js");
 const UserRouter = require("./routers/User-router.js");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 // Setup the session
 app.use(session({secret: "something", saveUninitialized: true, resave: true}));
