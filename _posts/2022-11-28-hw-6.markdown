@@ -1,0 +1,15 @@
+---
+title: LCD Display
+subtitle: To display sensor readings
+layout: default
+type: hw
+modal-id: 6
+date: 2022-11-28
+
+thumbnail: lcd_display.png
+# img: lcd_display.png
+# thumbnail: roundicons-thumbnail.png
+
+alt: image-alt
+description: "Display of 2 line x 16 characters\nUsed to display Temperature and Moisture content"
+---

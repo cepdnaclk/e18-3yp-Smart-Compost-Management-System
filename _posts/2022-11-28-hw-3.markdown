@@ -5,8 +5,11 @@ layout: default
 type: hw
 modal-id: 3
 date: 2022-11-28
-img: roundicons.png
-thumbnail: roundicons-thumbnail.png
+
+thumbnail: moisture_sensor.png
+# img: moisture_sensor.png
+# thumbnail: roundicons-thumbnail.png
+
 alt: image-alt
 description: "Model Type: SKU-9527 \nUsed to measure the moisture content in compost"
 

@@ -1,0 +1,15 @@
+---
+title: Temperature Sensor
+subtitle: To measure the temperature of compost
+layout: default
+type: hw
+modal-id: 2
+date: 2022-11-28
+
+thumbnail: temp_sensor.png
+# img: temp_sensor.png
+# thumbnail: roundicons-thumbnail.png
+
+alt: image-alt
+description: "Model Type: DS18B20\nWaterproof"
+---
