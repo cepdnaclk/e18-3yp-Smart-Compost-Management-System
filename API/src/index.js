@@ -11,8 +11,12 @@ const BinRouter = require("./routers/Bin-router.js");
 const UserRouter = require("./routers/User-router.js");
 
 const app = express();
+<<<<<<< HEAD
 const port = process.env.PORT;
 console.log(port);
+=======
+const port = process.env.PORT || 3000;
+>>>>>>> parent of 8036921 (env part added)
 
 // Setup the session
 app.use(session({secret: "something", saveUninitialized: true, resave: true}));
