@@ -11,5 +11,5 @@ thumbnail: water_pump.png
 # thumbnail: roundicons-thumbnail.png
 
 alt: image-alt
-description: "DC Water Pump with specifications of 12V and 8W \nUsed to add water (increase the moisture content when required)"
+description: "DC Water Pump with specifications of 12V and 8W <br>Used to add water (increase the moisture content when required)"
 ---

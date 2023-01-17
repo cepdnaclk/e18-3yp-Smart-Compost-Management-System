@@ -1,0 +1,15 @@
+---
+title: Solar Panel
+subtitle: As an additional power supplier
+layout: default
+type: hw
+modal-id: 8
+date: 2022-11-28
+
+thumbnail: solar_panel.png
+# img: solar_panel.png
+# thumbnail: roundicons-thumbnail.png
+
+alt: image-alt
+description: "5V Silicon Type"
+---

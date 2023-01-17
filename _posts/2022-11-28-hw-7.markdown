@@ -1,0 +1,15 @@
+---
+title: Lithium Ion Batteries
+subtitle: To power the components
+layout: default
+type: hw
+modal-id: 7
+date: 2022-11-28
+
+thumbnail: li_batteries.png
+# img: li_batteries.png
+# thumbnail: roundicons-thumbnail.png
+
+alt: image-alt
+description: "2 x 3.7 V (3200mAh) Batteries<br>Rechargeble"
+---

@@ -11,5 +11,5 @@ thumbnail: lcd_display.png
 # thumbnail: roundicons-thumbnail.png
 
 alt: image-alt
-description: "Display of 2 line x 16 characters\nUsed to display Temperature and Moisture content"
+description: "Display of 2 line x 16 characters<br>Used to display Temperature and Moisture content"
 ---

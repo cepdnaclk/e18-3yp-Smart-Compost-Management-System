@@ -11,5 +11,5 @@ thumbnail: nodemcu.png
 # thumbnail: roundicons-thumbnail.png
 
 alt: image-alt
-description: "Built-in Wi-Fi & Bluetooth module \nOperating Voltage - 3.3 \nPower Supply Interface - USB or 3.7V Lipo \n18 measurement channels \nFlash Memory - 16MB \nSRAM - 520kB"
+description: "Built-in Wi-Fi & Bluetooth module <br>Operating Voltage - 3.3 <br>Power Supply Interface - USB or 3.7V Lipo <br>18 measurement channels <br>Flash Memory - 16MB <br>SRAM - 520kB"
 ---

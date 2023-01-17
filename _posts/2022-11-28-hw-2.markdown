@@ -11,5 +11,5 @@ thumbnail: temp_sensor.png
 # thumbnail: roundicons-thumbnail.png
 
 alt: image-alt
-description: "Model Type: DS18B20\nWaterproof"
+description: "Model Type: DS18B20<br>Waterproof"
 ---

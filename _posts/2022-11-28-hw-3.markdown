@@ -11,6 +11,6 @@ thumbnail: moisture_sensor.png
 # thumbnail: roundicons-thumbnail.png
 
 alt: image-alt
-description: "Model Type: SKU-9527 \nUsed to measure the moisture content in compost"
+description: "Model Type: SKU-9527 <br>Used to measure the moisture content in compost"
 
 ---
