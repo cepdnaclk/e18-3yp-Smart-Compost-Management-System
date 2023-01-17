@@ -559,11 +559,11 @@ const getAllBinData = async function(url){
             } 
             if(methaneOutput >50){
                 if(repeat == 0){
-                    dataHTML += generateNotifi1(binNum, day, quarter, "Methane Output", "High");
+                    dataHTML += generateNotifi1(binNum, day, quarter, "CH4 Output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                     repeat =1
                 } else {
-                    dataHTML += generateNotifi2("Methane Output", "High");
+                    dataHTML += generateNotifi2("CH4 Output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
             }
@@ -607,5 +607,5 @@ getBins();
 notifications();
 
 if(notifiCount>0){
-    document.getElementById("#totalNotifications").value = notifiCount;
+    document.getElementById("#totalNotifications").innerHTML = notifiCount;
 }
