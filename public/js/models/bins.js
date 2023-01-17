@@ -365,6 +365,7 @@ const deleteData = async function(id){
     }
 }
 getBins();
+notifications();
 
 
 const createForm = $("#create-bin-form");
