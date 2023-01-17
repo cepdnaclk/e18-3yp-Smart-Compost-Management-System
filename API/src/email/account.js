@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail');
-
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendConfirmMail = async (user) => {
     const msg = {
@@ -8,7 +8,7 @@ const sendConfirmMail = async (user) => {
         subject: 'Confirm your account',
         html: `
             <p style="color:green">Welcome! ${user.companyName}, Please confirm your account by clicking the below link</p>
-            <a href="http://localhost:3000/api/users/confirm_account?userId=${user._id}&secret=${user.secret}">Confirm</a>
+            <a href="${process.env.DOMAIN_URL}/api/users/confirm_account?userId=${user._id}&secret=${user.secret}">Confirm</a>
         `,
     };
     
