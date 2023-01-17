@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express"); //  to manage servers and routes
 const hbs = require("hbs");
 require("./db/mongoose.js");
-require('dotenv').config();
+// require('dotenv').config();
 const session = require("express-session");
 const fileUpload = require("express-fileupload");
 
@@ -11,12 +11,8 @@ const BinRouter = require("./routers/Bin-router.js");
 const UserRouter = require("./routers/User-router.js");
 
 const app = express();
-<<<<<<< HEAD
-const port = process.env.PORT;
-console.log(port);
-=======
 const port = process.env.PORT || 3000;
->>>>>>> parent of 8036921 (env part added)
+
 
 // Setup the session
 app.use(session({secret: "something", saveUninitialized: true, resave: true}));
