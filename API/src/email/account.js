@@ -10,7 +10,7 @@ const sendConfirmMail = async (user) => {
         subject: 'Confirm your account',
         html: `
             <p style="color:green">Welcome! ${user.companyName}, Please confirm your account by clicking the below link</p>
-            <a href="${process.env.DOMAIN_URL}/api/users/confirm_account?userId=${user._id}&secret=${user.secret}">Confirm</a>
+            <a href="/${process.env.DOMAIN_URL}/api/users/confirm_account?userId=${user._id}&secret=${user.secret}">Confirm</a>
         `,
     };
     
