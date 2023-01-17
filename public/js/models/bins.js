@@ -57,7 +57,7 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
 }
 
 const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
-    notifiCount++;
+    notifiCount= notifiCount + 1;
     return `
     <a class="dropdown-item" >
         Bin ${binNum} Day ${day} Quarter ${quarter} <br> ${measurement} is ${quantity}
@@ -66,7 +66,7 @@ const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
 }
 
 const generateNotifi2 = function( measurement, quantity){
-    notifiCount++;
+    notifiCount= notifiCount + 1;
     return `
     <a class="dropdown-item" >
          ${measurement} is ${quantity}
