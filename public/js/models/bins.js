@@ -602,7 +602,5 @@ const notifications = async function(){
         console.log(error);
     }
 }
-
-
-notifications();
 getBins();
+notifications();
