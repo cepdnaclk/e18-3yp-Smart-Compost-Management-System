@@ -58,7 +58,7 @@ router.post("/api/users", async (req, res) => {
     }
 });
 // Confirm account
-router.get("/api/users/confirm_account", async (req, res) => {
+router.get("api/users/confirm_account", async (req, res) => {
     const userId = req.query.userId;
     const secret = req.query.secret;
 
