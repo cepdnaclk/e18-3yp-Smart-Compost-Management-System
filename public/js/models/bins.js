@@ -607,5 +607,5 @@ getBins();
 notifications();
 
 if(notifiCount>0){
-    document.getElementById("#totalNotifications").innerHTML = notifiCount;
+    document.querySelector("#dropdownMenu2 span").innerHTML = notifiCount;
 }
