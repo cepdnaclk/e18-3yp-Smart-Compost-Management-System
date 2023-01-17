@@ -2,6 +2,78 @@ var binsHTML = ""
 var dataHTML = ""
 var notifiCount = 0
 
+const generateBinCard = function(bin, binLoc, binNum, binID){
+    const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
+    const humidity = (bin.humidityL1 + bin.humidityL2)/2;
+    document
+    return `
+    <div class="col" id="bin-${binNum}">
+        <div class="card h-100 bg-dark border-2 text-center border-success">
+            <div class="card-header border-dark text-white"><h5>BIN ${binNum} COMPOST</h5></div>
+            <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
+            <div class="card-body text-white">
+                <table class="table table-sm table-dark">
+                <tbody>
+                    <tr>
+                    <td colspan="2">Will be ready in ${28 - bin.day} days</td>
+                    </tr>				  
+                    <tr>
+                    <td scope="row">Temperature</td>
+                    <td scope="row"> ${temp} °F</td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Humidity</td>
+                    <td scope="row"> ${humidity} %</td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Methane</td>
+                    <td scope="row"> ${bin.methaneOutput} ppm</td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Compost Status</td>
+                    <td scope="row"> ${bin.compostStatus} </td>
+                    </tr>
+                    <tr>
+                    <td scope="row">Bin Location</td>
+                    <td scope="row" class="binLoc"> ${binLoc}</td>
+                    </tr>
+                </tbody>
+                </table>			
+            </div>
+            
+            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})"  href="/bindata/bin">More Details</a></div>
+            <br>
+            <div class="text-center"><button class="btn btn-success w-75 buttonBottomMargin" onclick="initiateReset(${binNum})">Reset Bin</button></div>
+            <div class="card-footer border-dark">
+                <small class="text-muted">Last updated 3 mins ago</small>
+            </div>
+            <div class="crud-buttons">
+            <button type="button" class="btn btn-danger" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="btn btn-primary" onclick="initiateUpdate(${binNum})"><i class="fa-solid fa-pen-to-square"></i></button>
+            </div>
+        </div>
+    </div>
+    `
+}
+
+const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
+    notifiCount++;
+    return `
+    <a class="dropdown-item" >
+        Bin ${binNum} Day ${day} Quarter ${quarter} <br> ${measurement} is ${quantity}
+    </a>
+    `
+}
+
+const generateNotifi2 = function( measurement, quantity){
+    notifiCount++;
+    return `
+    <a class="dropdown-item" >
+         ${measurement} is ${quantity}
+    </a>
+    `
+}
+
 const getBinData = async function(url, binLoc, binNum, binID){
     try{
         const response =  await fetch(url);
@@ -364,9 +436,6 @@ const deleteData = async function(id){
         console.log(e);
     }
 }
-getBins();
-notifications();
-
 
 const createForm = $("#create-bin-form");
 const updateForm = $("#update-bin-form");
@@ -530,77 +599,8 @@ const notifications = async function(){
     }
 }
 
-const generateBinCard = function(bin, binLoc, binNum, binID){
-    const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
-    const humidity = (bin.humidityL1 + bin.humidityL2)/2;
-    document
-    return `
-    <div class="col" id="bin-${binNum}">
-        <div class="card h-100 bg-dark border-2 text-center border-success">
-            <div class="card-header border-dark text-white"><h5>BIN ${binNum} COMPOST</h5></div>
-            <img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/bin.png" class="card-img-top" alt="...">		
-            <div class="card-body text-white">
-                <table class="table table-sm table-dark">
-                <tbody>
-                    <tr>
-                    <td colspan="2">Will be ready in ${28 - bin.day} days</td>
-                    </tr>				  
-                    <tr>
-                    <td scope="row">Temperature</td>
-                    <td scope="row"> ${temp} °F</td>
-                    </tr>
-                    <tr>
-                    <td scope="row">Humidity</td>
-                    <td scope="row"> ${humidity} %</td>
-                    </tr>
-                    <tr>
-                    <td scope="row">Methane</td>
-                    <td scope="row"> ${bin.methaneOutput} ppm</td>
-                    </tr>
-                    <tr>
-                    <td scope="row">Compost Status</td>
-                    <td scope="row"> ${bin.compostStatus} </td>
-                    </tr>
-                    <tr>
-                    <td scope="row">Bin Location</td>
-                    <td scope="row" class="binLoc"> ${binLoc}</td>
-                    </tr>
-                </tbody>
-                </table>			
-            </div>
-            
-            <div class="text-center"><a class="btn btn-success w-75 buttonBottomMargin" onclick="moreDetails(${binNum})"  href="/bindata/bin">More Details</a></div>
-            <br>
-            <div class="text-center"><button class="btn btn-success w-75 buttonBottomMargin" onclick="initiateReset(${binNum})">Reset Bin</button></div>
-            <div class="card-footer border-dark">
-                <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-            <div class="crud-buttons">
-            <button type="button" class="btn btn-danger" onclick="initiateDelete(${binNum})"><i class="fa-solid fa-trash-can"></i></button>
-            <button type="button" class="btn btn-primary" onclick="initiateUpdate(${binNum})"><i class="fa-solid fa-pen-to-square"></i></button>
-            </div>
-        </div>
-    </div>
-    `
-}
-
-const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
-    notifiCount++;
-    return `
-    <a class="dropdown-item" >
-        Bin ${binNum} Day ${day} Quarter ${quarter} <br> ${measurement} is ${quantity}
-    </a>
-    `
-}
-
-const generateNotifi2 = function( measurement, quantity){
-    notifiCount++;
-    return `
-    <a class="dropdown-item" >
-         ${measurement} is ${quantity}
-    </a>
-    `
-}
+getBins();
+notifications();
 
 if(notifiCount>0){
     document.querySelector("#totalNotifications").value = notifiCount;
