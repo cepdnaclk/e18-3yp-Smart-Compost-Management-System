@@ -605,7 +605,4 @@ const notifications = async function(){
 
 getBins();
 notifications();
-
-if(notifiCount>0){
-    document.querySelector("#dropdownItem button a").innerHTML = notifiCount;
-}
+localStorage.setItem("totalNotifys", notifiCount);
