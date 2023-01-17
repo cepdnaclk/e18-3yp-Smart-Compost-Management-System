@@ -526,7 +526,8 @@ const getAllBinData = async function(url){
                 dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 1", "High");
                 document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 repeat =1
-            } else if(tempLevel2 > 65){
+            }
+            if(tempLevel2 > 65){
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 2", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -535,7 +536,8 @@ const getAllBinData = async function(url){
                     dataHTML += generateNotifi2("Temp. Level 2", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
-            } else if (humidityL1 < 30){
+            } 
+            if (humidityL1 < 30){
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 1", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -544,7 +546,8 @@ const getAllBinData = async function(url){
                     dataHTML += generateNotifi2("Humidity Level 1", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
-            } else if(humidityL2 <30){
+            } 
+            if(humidityL2 <30){
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 2", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -553,7 +556,8 @@ const getAllBinData = async function(url){
                     dataHTML += generateNotifi2("Humidity Level 2", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
-            } else if(methaneOutput >50){
+            } 
+            if(methaneOutput >50){
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "methane output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -589,7 +593,7 @@ const notifications = async function(){
             var binNum = bin.binNumber;
             var binID = bin._id
 
-            var url = "/api/bindata/all" + binID;
+            var url = "/api/bindata/all/" + binID;
 
             getAllBinData(url);
         });
