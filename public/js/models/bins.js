@@ -110,7 +110,7 @@ const getBin = async function(number){
 }
 
 const getBins = async function(){
-    
+    localStorage.setItem("totalNotifys", notifiCount);
     const url = "/api/bins";
 
     try{
@@ -603,6 +603,6 @@ const notifications = async function(){
     }
 }
 
-getBins();
+
 notifications();
-localStorage.setItem("totalNotifys", notifiCount);
+getBins();
