@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express"); //  to manage servers and routes
 const hbs = require("hbs");
 require("./db/mongoose.js");
+require('dotenv').config();
 const session = require("express-session");
 const fileUpload = require("express-fileupload");
 
@@ -11,6 +12,7 @@ const UserRouter = require("./routers/User-router.js");
 
 const app = express();
 const port = process.env.PORT;
+console.log(port);
 
 // Setup the session
 app.use(session({secret: "something", saveUninitialized: true, resave: true}));
