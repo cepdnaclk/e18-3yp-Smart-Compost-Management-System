@@ -539,11 +539,11 @@ const getAllBinData = async function(url){
             } 
             if (humidityL1 < 30){
                 if(repeat == 0){
-                    dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 1", "High");
+                    dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 1", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                     repeat =1
                 } else {
-                    dataHTML += generateNotifi2("Humidity Level 1", "High");
+                    dataHTML += generateNotifi2("Humidity Level 1", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
             } 
@@ -559,11 +559,11 @@ const getAllBinData = async function(url){
             } 
             if(methaneOutput >50){
                 if(repeat == 0){
-                    dataHTML += generateNotifi1(binNum, day, quarter, "methane output", "High");
+                    dataHTML += generateNotifi1(binNum, day, quarter, "Methane Output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                     repeat =1
                 } else {
-                    dataHTML += generateNotifi2("methane outpu", "High");
+                    dataHTML += generateNotifi2("Methane Output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 }
             }
@@ -607,5 +607,5 @@ getBins();
 notifications();
 
 if(notifiCount>0){
-    document.querySelector("#totalNotifications").value = notifiCount;
+    document.getElementById("#totalNotifications").value = notifiCount;
 }
