@@ -17,8 +17,8 @@
         <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
                 <a class="navbar-brand" href="/"><img src="https://raw.githubusercontent.com/cepdnaclk/e18-3yp-Smart-Compost-Management-System/main/docs/images/frontend/header-logo.png"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
                 </button>
                 
                 <div class="d-flex justify-content-end">	
@@ -49,14 +49,12 @@
                             </div> 
 
                             <div class="btn-group" style="padding-left: 30px;">
-                              <button type="button" class="btn btn-primary" data-toggle="dropdown">
+                              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa-sharp fa-solid fa-bell"></i>
-                                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                                <span class="badge rounded-pill badge-notification bg-danger" id="totalNotifications"></span>
                               </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                              <div class="dropdown-menu" id="dropdown-notify-menu">
+                              </div>
                             </div>
                         </ul>
                         <!-- Uncomment to Enable searchbar -->

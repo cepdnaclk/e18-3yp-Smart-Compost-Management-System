@@ -1,4 +1,6 @@
 var binsHTML = ""
+var dataHTML = ""
+var notifiCount = 0
 
 const getBinData = async function(url, binLoc, binNum, binID){
     try{
@@ -430,6 +432,102 @@ searchForm.on("submit",  (e) => {
 
 })
 
+const getAllBinData = async function(url){
+
+    try{
+        const response =  await fetch(url);
+        const binDatas =  await response.json();
+
+        if (binDatas.length <1){
+            return ;
+        }
+
+        binDatas.forEach((data) => {
+            const binNum = data.binNumber;
+            const day = data.day;
+            const quarter = data.quarter;
+            const tempLevel1 = data.temperatureL1;
+            const tempLevel2 = data.temperatureL2;
+            const humidityL1 = data.humidityL1;
+            const humidityL2 = data.humidityL2;
+            const methaneOutput = data.methaneOutput;
+            var repeat =0
+            if (tempLevel1 > 65){
+                dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 1", "High");
+                document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                repeat =1
+            } else if(tempLevel2 > 65){
+                if(repeat == 0){
+                    dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 2", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                    repeat =1
+                } else {
+                    dataHTML += generateNotifi2("Temp. Level 2", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                }
+            } else if (humidityL1 < 30){
+                if(repeat == 0){
+                    dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 1", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                    repeat =1
+                } else {
+                    dataHTML += generateNotifi2("Humidity Level 1", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                }
+            } else if(humidityL2 <30){
+                if(repeat == 0){
+                    dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 2", "Low");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                    repeat =1
+                } else {
+                    dataHTML += generateNotifi2("Humidity Level 2", "Low");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                }
+            } else if(methaneOutput >50){
+                if(repeat == 0){
+                    dataHTML += generateNotifi1(binNum, day, quarter, "methane output", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                    repeat =1
+                } else {
+                    dataHTML += generateNotifi2("methane outpu", "High");
+                    document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
+                }
+            }
+        });
+        
+
+    } catch(e){
+        console.log(e)
+    }
+
+}
+
+
+const notifications = async function(){
+
+    const url = "/api/bins";
+
+    try{
+        const response = await fetch(url);
+        const bins = await response.json();
+        
+        if (bins.length <1){
+            return ;
+        }
+
+        bins.forEach( async(bin) => {
+            var binNum = bin.binNumber;
+            var binID = bin._id
+
+            var url = "/api/bindata/all" + binID;
+
+            getAllBinData(url);
+        });
+
+    }  catch(error){
+        console.log(error);
+    }
+}
 
 const generateBinCard = function(bin, binLoc, binNum, binID){
     const temp = (bin.temperatureL1 + bin.temperatureL2)/2;
@@ -483,4 +581,26 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
         </div>
     </div>
     `
+}
+
+const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
+    notifiCount++;
+    return `
+    <a class="dropdown-item" >
+        Bin ${binNum} Day ${day} Quarter ${quarter} <br> ${measurement} is ${quantity}
+    </a>
+    `
+}
+
+const generateNotifi2 = function( measurement, quantity){
+    notifiCount++;
+    return `
+    <a class="dropdown-item" >
+         ${measurement} is ${quantity}
+    </a>
+    `
+}
+
+if(notifiCount>0){
+    document.querySelector("#totalNotifications").value = notifiCount;
 }
