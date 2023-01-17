@@ -3,10 +3,10 @@ title: GitHub
 subtitle: Version control and documentation
 layout: default
 type: tec
-modal-id: 12
+modal-id: 6
 date: 2022-11-28
 img: roundicons.png
-thumbnail: roundicons-thumbnail.png
+thumbnail: github.png
 alt: image-alt
 description: Lorem ipsum dolor sit amet, usu cu alterum nominavi lobortis. 
 
