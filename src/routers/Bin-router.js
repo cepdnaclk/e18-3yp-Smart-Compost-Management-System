@@ -33,7 +33,9 @@ router.post("/api/bins", apiAuth, async function(req, res){
 router.get("/api/bins", apiAuth, async function(req,res){
     const ownerId = req.session.user._id;
     try{
-        const bins = await Bin.find({owner: ownerId});
+        const bins = await Bin.find({owner: ownerId}).sort({
+            binNumber: 1
+        }); 
         res.send(bins);
     }catch(error){
         res.send(error);
