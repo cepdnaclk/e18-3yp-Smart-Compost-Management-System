@@ -57,6 +57,13 @@
                               </div>
                             </div>
                         </ul>
+
+                        <script>
+                          var tot = localStorage.getItem("totalNotifys")
+                          if (tot>0){
+                            document.querySelector(".btn-group .btn .badge").innerHTML = tot;
+                          }
+                        </script>
                         <!-- Uncomment to Enable searchbar -->
                         <!-- <form class="d-flex"> -->
                         <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
@@ -174,12 +181,5 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="/js/models/bins.js"></script>
-
-    <script>
-      const tot = localStorage.getItem("totalNotifys")
-      if (tot>0){
-        document.querySelector(".btn-group .btn .badge").innerHTML = tot;
-      }
-    </script>
 </body>
 </html>

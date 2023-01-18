@@ -1,6 +1,5 @@
 const express = require("express");
 const Bin = require("../models/bins.js");
-const Bin_Data = require("../models/binData.js");
 const mongodb = require("mongodb");
 const auth = require("../middleware/auth.js");
 const apiAuth = require("../middleware/api-auth.js");
@@ -33,7 +32,9 @@ router.post("/api/bins", apiAuth, async function(req, res){
 router.get("/api/bins", apiAuth, async function(req,res){
     const ownerId = req.session.user._id;
     try{
-        const bins = await Bin.find({owner: ownerId}).sort({
+        const bins = await Bin.find({
+            owner: ownerId
+        }).sort({
             binNumber: 1
         }); 
         res.send(bins);
