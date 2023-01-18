@@ -136,15 +136,15 @@
                                     </tr>				  
                                     <tr>
                                         <td scope="row">Temperature Level 1</td>
-                                        <td scope="row">${binData.temperatureL1}°F</td>
+                                        <td scope="row">${binData.temperatureL1}°C</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Temperature Level 2</td>
-                                        <td scope="row">${binData.temperatureL2}°F</td>
+                                        <td scope="row">${binData.temperatureL2}°C</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Temperature Average</td>
-                                        <td scope="row">${temp}°F</td>
+                                        <td scope="row">${temp}°C</td>
                                     </tr>
                                     <tr>
                                         <td scope="row">Humidity Level 1</td>
@@ -291,13 +291,13 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Temperature variation in Level 1 for 28 days",
+                            label: "Temperature variation(°C) in Level 1 for 28 days",
                             data: BinTempsL1_display,
                             backgroundColor: "rgba(57, 231, 81, 0.47)",
                             
                         },
                         {        
-                            label: "Temperature variation in Level 2 for 28 days",
+                            label: "Temperature variation(°C) in Level 2 for 28 days",
                             data: BinTempsL2_display,
                             backgroundColor: "rgba(58, 102, 75, 0.81)",
                             
@@ -313,7 +313,7 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Average Temperature variation for 28 days",
+                            label: "Average Temperature variation(°C) for 28 days",
                             data: BinTempsAvg_display,
                             backgroundColor: "rgba(153,205,1,0.6)",
                             
@@ -329,13 +329,13 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Humidity variation in Level 1 for 28 days",
+                            label: "Humidity variation(%) in Level 1 for 28 days",
                             data: BinHumsL1_display,
                             backgroundColor: "rgba(124, 86, 233, 0.8)",
                             
                         },
                         {        
-                            label: "Humidity variation in Level 2 for 28 days",
+                            label: "Humidity variation(%) in Level 2 for 28 days",
                             data: BinHumsL2_display,
                             backgroundColor: "rgba(59, 7, 248, 0.8)",
                             
@@ -351,7 +351,7 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Average Humidity variation for 28 days",
+                            label: "Average Humidity variation(%) for 28 days",
                             data: BinHumsAvg_display,
                             backgroundColor: "rgba(34, 46, 196, 0.81)",
                             
@@ -368,7 +368,7 @@
                         labels: xValues,
                         datasets: [
                         {        
-                            label: "Methane variation for 28 days",
+                            label: "Methane variation(ppm) for 28 days",
                             data: BinMeths_display,
                             backgroundColor: "rgba(28, 242, 190, 0.81)",
                             

@@ -19,7 +19,7 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
                     </tr>				  
                     <tr>
                     <td scope="row">Temperature</td>
-                    <td scope="row"> ${temp} °F</td>
+                    <td scope="row"> ${temp} °C</td>
                     </tr>
                     <tr>
                     <td scope="row">Humidity</td>
@@ -57,7 +57,6 @@ const generateBinCard = function(bin, binLoc, binNum, binID){
 }
 
 const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
-    notifiCount= notifiCount + 1;
     return `
     <a class="dropdown-item" >
         Bin ${binNum} Day ${day} Quarter ${quarter} <br> ${measurement} is ${quantity}
@@ -66,7 +65,6 @@ const generateNotifi1 = function(binNum, day, quarter, measurement, quantity){
 }
 
 const generateNotifi2 = function( measurement, quantity){
-    notifiCount= notifiCount + 1;
     return `
     <a class="dropdown-item" >
          ${measurement} is ${quantity}
@@ -523,11 +521,13 @@ const getAllBinData = async function(url){
             const methaneOutput = data.methaneOutput;
             var repeat =0
             if (tempLevel1 > 65){
+                notifiCount= notifiCount + 1;
                 dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 1", "High");
                 document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
                 repeat =1
             }
             if(tempLevel2 > 65){
+                notifiCount= notifiCount + 1;
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Temp. Level 2", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -538,6 +538,7 @@ const getAllBinData = async function(url){
                 }
             } 
             if (humidityL1 < 30){
+                notifiCount= notifiCount + 1;
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 1", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -548,6 +549,7 @@ const getAllBinData = async function(url){
                 }
             } 
             if(humidityL2 <30){
+                notifiCount= notifiCount + 1;
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "Humidity Level 2", "Low");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -558,6 +560,7 @@ const getAllBinData = async function(url){
                 }
             } 
             if(methaneOutput >50){
+                notifiCount= notifiCount + 1;
                 if(repeat == 0){
                     dataHTML += generateNotifi1(binNum, day, quarter, "CH4 Output", "High");
                     document.querySelector("#dropdown-notify-menu").innerHTML = dataHTML;
@@ -568,6 +571,8 @@ const getAllBinData = async function(url){
                 }
             }
         });
+
+        localStorage.setItem("totalNotifys", notifiCount);
         
 
     } catch(e){
