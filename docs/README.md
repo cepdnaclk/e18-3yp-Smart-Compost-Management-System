@@ -15,9 +15,9 @@ title: Smart Compost Management System
 ---
 
 ## Team
--  E/18/077, Dharmarathna N.S., [email](mailto:e18077@eng.pdn.ac.lk)
--  E/18/224, Mihiranga G.D.R., [email](mailto:e18224@eng.pdn.ac.lk)
--  E/18/227, Mudalige D.H., [email](mailto:e18227@eng.pdn.ac.lk)
+-  E/18/077, Dharmarathna N.S., [e18077@eng.pdn.ac.lk](mailto:name@email.com)
+-  E/18/224, Mihiranga G.D.R., [e18224@eng.pdn.ac.lk](mailto:name@email.com)
+-  E/18/227, Mudalige D.H., [e18227@eng.pdn.ac.lk](mailto:name@email.com)
 
 <!-- Image (photo/drawing of the final hardware) should be here -->
 
